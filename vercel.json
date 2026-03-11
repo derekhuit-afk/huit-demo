@@ -2,5 +2,9 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "env": {
+    "ELEVENLABS_API_KEY": "sk_1f62bef68c66449b08e3c76137b7f831e054d35dd8f4d044",
+    "ELEVENLABS_VOICE_ID": "EXAVITQu4vr4xnSDxMaL"
+  }
 }
