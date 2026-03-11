@@ -1270,10 +1270,32 @@ function Screen_APEX_Dashboard({ data, color }) {
   )
 }
 
-function Screen_WrapUp({ data, color }) {
+function Screen_WrapUp({ data, color, elapsed = 0 }) {
   const { modules, before, after, cta } = data
+
+  // Spotlight schedule keyed to Bill's script timing:
+  // ~73s "The recruiter closes more hires"
+  // ~78s "The manager grows a stronger book"
+  // ~83s "The producing loan officer..."
+  // ~90s "Go to huit dot AI slash join right now"
+  const spotlight = elapsed >= 90 ? "cta"
+    : elapsed >= 83 ? "lo"
+    : elapsed >= 78 ? "manager"
+    : elapsed >= 73 ? "recruiter"
+    : null
+
+  const roles = [
+    { id: "recruiter",  role: "Recruiter",      icon: "🎯", accentColor: "#00D4FF", wins: ["APEX identifies targets before they post", "TLS score backs every conversation", "Market signals show who's unhappy now", "19.6% RCS reply on cold outreach"] },
+    { id: "manager",    role: "Branch Manager",  icon: "📊", accentColor: "#F59E0B", wins: ["Retention risk alerts prevent attrition", "Pipeline visible in real time", "Rate drops trigger automatic outreach", "Team performance in one view"] },
+    { id: "lo",         role: "Producing LO",    icon: "⚡", accentColor: "#10B981", wins: ["AI ranks who to call each morning", "Equity engine surfaces dormant leads", "Agent AI drafts emails in 2 seconds", "Campaign manager runs 24/7"] },
+  ]
+
+  const spotlightRole = roles.find(r => r.id === spotlight)
+  const showSpotlight = spotlight !== null
+
   return (
-    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden", position:"relative" }}>
+
       {/* Header */}
       <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, padding:"0 14px", height:36, display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
         <div style={{ display:"flex", alignItems:"center", gap:6 }}>
@@ -1283,10 +1305,11 @@ function Screen_WrapUp({ data, color }) {
         <div style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>9 MODULES · FULLY INTEGRATED</div>
       </div>
 
+      {/* Main 3-col layout */}
       <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 1fr 200px", gap:8, padding:"10px 12px 10px", overflow:"hidden", minHeight:0 }}>
 
         {/* Left — Module recap */}
-        <div style={{ display:"flex", flexDirection:"column", gap:0, overflow:"auto" }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:0, overflow:"auto", transition:"opacity 0.4s", opacity: showSpotlight ? 0.35 : 1 }}>
           <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8, flexShrink:0 }}>WHAT YOU JUST SAW</div>
           {modules.map((m, i) => (
             <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"6px 10px", borderBottom:"1px solid rgba(255,255,255,0.04)", borderLeft:`2px solid ${m.color}`, marginBottom:2, background:`${m.color}05`, borderRadius:"0 4px 4px 0" }}>
@@ -1301,10 +1324,9 @@ function Screen_WrapUp({ data, color }) {
         </div>
 
         {/* Middle — Day in the life */}
-        <div style={{ display:"flex", flexDirection:"column", gap:6, overflow:"hidden" }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:6, overflow:"hidden", transition:"opacity 0.4s", opacity: showSpotlight ? 0.35 : 1 }}>
           <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:2, flexShrink:0 }}>YOUR DAY — BEFORE vs AFTER</div>
           <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 1fr", gap:6, overflow:"hidden" }}>
-            {/* Before */}
             <div style={{ background:"rgba(255,59,92,0.04)", border:"1px solid rgba(255,59,92,0.15)", borderRadius:8, overflow:"hidden", display:"flex", flexDirection:"column" }}>
               <div style={{ padding:"6px 10px", borderBottom:"1px solid rgba(255,59,92,0.12)", fontSize:8, color:"#FF3B5C", letterSpacing:2, fontWeight:700 }}>BEFORE</div>
               <div style={{ flex:1, overflow:"auto", padding:"4px 0" }}>
@@ -1319,7 +1341,6 @@ function Screen_WrapUp({ data, color }) {
                 ))}
               </div>
             </div>
-            {/* After */}
             <div style={{ background:"rgba(0,212,255,0.04)", border:`1px solid ${color}22`, borderRadius:8, overflow:"hidden", display:"flex", flexDirection:"column" }}>
               <div style={{ padding:"6px 10px", borderBottom:`1px solid ${color}18`, fontSize:8, color, letterSpacing:2, fontWeight:700 }}>WITH HUIT.AI</div>
               <div style={{ flex:1, overflow:"auto", padding:"4px 0" }}>
@@ -1337,14 +1358,9 @@ function Screen_WrapUp({ data, color }) {
           </div>
         </div>
 
-        {/* Right — CTA + roles */}
-        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-          {/* Role cards */}
-          {[
-            { role: "Recruiter", icon: "🎯", wins: ["APEX identifies targets before they post", "TLS score backs every conversation", "Market signals show who's unhappy now", "19.6% RCS reply on cold outreach"] },
-            { role: "Branch Manager", icon: "📊", wins: ["Retention risk alerts prevent attrition", "Pipeline visible in real time", "Rate drops trigger automatic outreach", "Team performance in one view"] },
-            { role: "Producing LO", icon: "⚡", wins: ["AI ranks who to call each morning", "Equity engine surfaces dormant leads", "Agent AI drafts emails in 2 seconds", "Campaign manager runs 24/7"] },
-          ].map((r, i) => (
+        {/* Right — Role cards (always rendered, dimmed during spotlight) */}
+        <div style={{ display:"flex", flexDirection:"column", gap:8, transition:"opacity 0.4s", opacity: showSpotlight ? 0.2 : 1 }}>
+          {roles.map((r, i) => (
             <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:8, padding:"8px 10px" }}>
               <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:6 }}>
                 <span style={{ fontSize:12 }}>{r.icon}</span>
@@ -1358,8 +1374,6 @@ function Screen_WrapUp({ data, color }) {
               ))}
             </div>
           ))}
-
-          {/* CTA */}
           <div style={{ background:`linear-gradient(135deg, ${color}15, #7C3AED15)`, border:`1px solid ${color}44`, borderRadius:8, padding:"10px 12px", flexShrink:0, textAlign:"center" }}>
             <div style={{ fontSize:10, color:"#E2E8F0", fontWeight:700, marginBottom:4, lineHeight:1.4 }}>{cta.headline}</div>
             <div style={{ fontSize:7, color:"#6B7280", marginBottom:8 }}>{cta.sub}</div>
@@ -1367,8 +1381,73 @@ function Screen_WrapUp({ data, color }) {
             <div style={{ fontSize:7, color:"#4B5563", marginTop:4 }}>{cta.tier}</div>
           </div>
         </div>
-
       </div>
+
+      {/* ── SPOTLIGHT OVERLAY ── flies in from right, centers on screen */}
+      {showSpotlight && (
+        <div style={{
+          position:"absolute", inset:0,
+          display:"flex", alignItems:"center", justifyContent:"center",
+          pointerEvents:"none",
+          animation:"spotlightFadeIn 0.35s ease-out forwards",
+        }}>
+          {/* Dim backdrop */}
+          <div style={{ position:"absolute", inset:0, background:"rgba(6,12,20,0.72)", backdropFilter:"blur(2px)" }} />
+
+          {/* Spotlight card */}
+          <div style={{
+            position:"relative", zIndex:2,
+            width: spotlight === "cta" ? 340 : 320,
+            animation:"spotlightSlideIn 0.38s cubic-bezier(0.22,1,0.36,1) forwards",
+          }}>
+            {spotlight === "cta" ? (
+              /* CTA spotlight */
+              <div style={{ background:`linear-gradient(135deg, #060C14, #0A1220)`, border:`2px solid ${color}`, borderRadius:14, padding:"28px 32px", textAlign:"center", boxShadow:`0 0 60px ${color}30, 0 24px 60px rgba(0,0,0,0.7)` }}>
+                <div style={{ fontSize:8, color, letterSpacing:3, marginBottom:14 }}>FOUNDING MEMBER PRICING</div>
+                <div style={{ fontSize:18, color:"#E2E8F0", fontWeight:800, lineHeight:1.35, marginBottom:12 }}>{cta.headline}</div>
+                <div style={{ fontSize:10, color:"#6B7280", marginBottom:20 }}>{cta.sub}</div>
+                <div style={{ background:`linear-gradient(135deg, ${color}20, #7C3AED20)`, border:`1px solid ${color}55`, borderRadius:10, padding:"14px 20px", marginBottom:16 }}>
+                  <div style={{ fontSize:20, color, fontWeight:900, letterSpacing:2 }}>{cta.action}</div>
+                </div>
+                <div style={{ display:"flex", justifyContent:"center", gap:12 }}>
+                  {["STARTER $625", "SCOUT $1,250", "COMMAND $2,350", "DOMINATE $4,125"].map((t, i) => (
+                    <div key={i} style={{ fontSize:7, color: i === 2 || i === 3 ? color : "#6B7280", fontWeight: i === 2 || i === 3 ? 700 : 400 }}>{t}</div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* Role card spotlight */
+              <div style={{
+                background:`linear-gradient(135deg, #060C14, #0A1220)`,
+                border:`2px solid ${spotlightRole.accentColor}`,
+                borderRadius:14, padding:"28px 32px",
+                boxShadow:`0 0 60px ${spotlightRole.accentColor}30, 0 24px 60px rgba(0,0,0,0.7)`,
+              }}>
+                <div style={{ display:"flex", alignItems:"center", gap:14, marginBottom:20 }}>
+                  <span style={{ fontSize:36 }}>{spotlightRole.icon}</span>
+                  <div>
+                    <div style={{ fontSize:8, color:spotlightRole.accentColor, letterSpacing:3, marginBottom:4 }}>THIS IS FOR YOU</div>
+                    <div style={{ fontSize:18, color:"#E2E8F0", fontWeight:800, letterSpacing:1 }}>{spotlightRole.role.toUpperCase()}</div>
+                  </div>
+                </div>
+                {spotlightRole.wins.map((w, j) => (
+                  <div key={j} style={{ display:"flex", gap:10, marginBottom:12, alignItems:"flex-start" }}>
+                    <div style={{ width:20, height:20, borderRadius:"50%", background:`${spotlightRole.accentColor}18`, border:`1px solid ${spotlightRole.accentColor}44`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>
+                      <span style={{ color:spotlightRole.accentColor, fontSize:9, fontWeight:800 }}>✓</span>
+                    </div>
+                    <span style={{ fontSize:10, color:"#E2E8F0", lineHeight:1.5 }}>{w}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes spotlightFadeIn { from { opacity:0 } to { opacity:1 } }
+        @keyframes spotlightSlideIn { from { opacity:0; transform:translateX(80px) scale(0.94) } to { opacity:1; transform:translateX(0) scale(1) } }
+      `}</style>
     </div>
   )
 }
@@ -1788,7 +1867,7 @@ export default function DemoPlayer() {
         {/* Right: Browser-framed screen + callout overlays */}
         <div style={{ position: "relative", padding: "14px", overflow: "hidden", background: "#04080F" }}>
           <BrowserChrome url={scene.url} color={scene.color}>
-            <ScreenComp data={scene.screenData} color={scene.color} />
+            <ScreenComp data={scene.screenData} color={scene.color} elapsed={elapsed} />
           </BrowserChrome>
 
           {/* Callout overlays */}
