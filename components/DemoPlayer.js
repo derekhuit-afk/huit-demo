@@ -302,37 +302,6 @@ const SCENES = [
   },
   {
     id: 9, num: "09",
-    title: "HuitSign E-Signature",
-    subtitle: "Compliant Digital Execution",
-    url: "sign.huit.ai/documents",
-    platform: "HUITSIGN",
-    color: "#10B981",
-    script: `Paper kills deals. Every day a borrower waits to sign is a day you risk losing them to a competitor or a rate move. HuitSign eliminates that friction entirely. It's a full E-SIGN and UETA compliant e-signature platform built specifically for mortgage workflows. Here's what makes it different from DocuSign or HelloSign. First: SHA-256 tamper detection on every document. The moment a file is signed, a cryptographic hash is generated. If a single character changes after execution, the system flags it immediately. That's not a feature most mortgage professionals even know to ask for — but regulators do. Second: multi-signer workflows with role-based routing. A purchase transaction might require a borrower signature, a co-borrower, and a loan officer counter-signature — all sequenced automatically. Third: the audit trail. Every action is logged with a timestamp, IP address, and device fingerprint. This is the compliance layer your legal team has been asking for. Fourth: instant delivery. The signed package is emailed to all parties the moment the final signature lands — including the lender, the title company, and the real estate agent if you choose. Zero follow-up calls. Zero missing pages. Zero lost deals.`,
-    callouts: [
-      { at: 12, label: "Compliance",      value: "E-SIGN & UETA",        x: 64, y: 22 },
-      { at: 24, label: "Tamper Detection","value": "SHA-256 Hash",       x: 64, y: 36 },
-      { at: 36, label: "Multi-Signer",    value: "Role-Based Routing",   x: 64, y: 50 },
-      { at: 48, label: "Audit Trail",     value: "IP + Timestamp + Device",x:64, y: 64 },
-      { at: 60, label: "Delivery",        value: "Instant · All Parties", x: 64, y: 78 },
-    ],
-    screenData: {
-      documents: [
-        { name: "Purchase Agreement — Marcus Tran",      status: "AWAITING",  signers: ["Borrower", "Co-Borrower", "LO"], signed: 1, total: 3, time: "Sent 4m ago",   hash: "a3f9b2..." },
-        { name: "Loan Disclosure Package — Jennifer K.", status: "COMPLETE",  signers: ["Borrower", "LO"],               signed: 2, total: 2, time: "Signed 22m ago", hash: "7c4e1d..." },
-        { name: "VA Loan Application — Sandra Meyers",   status: "AWAITING",  signers: ["Veteran Borrower", "LO"],       signed: 0, total: 2, time: "Sent 1h ago",    hash: "b8a2c5..." },
-        { name: "FHA Streamline Refi — David Liu",       status: "VIEWED",    signers: ["Borrower", "LO"],               signed: 0, total: 2, time: "Viewed 2h ago",  hash: "e1f7a9..." },
-        { name: "Cash-Out Refi Pkg — Robert Alvarez",    status: "COMPLETE",  signers: ["Borrower", "Co-Borrower", "LO"],signed: 3, total: 3, time: "Signed 1d ago",  hash: "d4c8f3..." },
-      ],
-      stats: [
-        { label: "Docs Sent",    value: "847",   sub: "This month",      color: "#10B981" },
-        { label: "Signed",       value: "791",   sub: "93.4% completion", color: "#00D4FF" },
-        { label: "Avg. Time",    value: "4.2h",  sub: "Borrower to sign", color: "#F59E0B" },
-        { label: "Tamper Flags", value: "0",     sub: "All clear",        color: "#10B981" },
-      ],
-    },
-  },
-  {
-    id: 10, num: "10",
     title: "APEX Recruiting Dashboard",
     subtitle: "National TLS Leaderboard",
     url: "mapex.huit.ai/dashboard",
@@ -900,60 +869,6 @@ function Screen_CampaignManager({ data, color }) {
   )
 }
 
-function Screen_HuitSign({ data, color }) {
-  const { documents, stats } = data
-  const stColor = { COMPLETE:"#10B981", AWAITING:"#F59E0B", VIEWED:"#3B82F6" }
-  return (
-    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
-      <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, padding:"0 14px", height:36, display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
-        <span style={{ fontSize:9, color, letterSpacing:3, fontWeight:700 }}>HUITSIGN — E-SIGNATURE</span>
-        <span style={{ fontSize:8, padding:"2px 8px", background:`${color}15`, border:`1px solid ${color}44`, borderRadius:10, color }}>E-SIGN · UETA COMPLIANT</span>
-        <div style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>🔒 SHA-256 TAMPER DETECTION ACTIVE</div>
-      </div>
-      {/* Stats */}
-      <div style={{ display:"flex", gap:8, padding:"10px 12px 8px", flexShrink:0 }}>
-        {stats.map((s,i) => (
-          <div key={i} style={{ flex:1, background:"rgba(255,255,255,0.03)", border:`1px solid ${s.color}22`, borderRadius:8, padding:"10px 12px", position:"relative", overflow:"hidden" }}>
-            <div style={{ position:"absolute", top:0, left:0, right:0, height:2, background:`linear-gradient(90deg,transparent,${s.color},transparent)` }} />
-            <div style={{ fontSize:8, color:"#6B7280", letterSpacing:2, marginBottom:4 }}>{s.label.toUpperCase()}</div>
-            <div style={{ fontSize:20, fontWeight:800, color:"#E2E8F0", fontFamily:"Georgia,serif" }}>{s.value}</div>
-            <div style={{ fontSize:8, color:s.color, marginTop:2 }}>{s.sub}</div>
-          </div>
-        ))}
-      </div>
-      {/* Documents */}
-      <div style={{ flex:1, overflow:"auto", padding:"0 12px 12px" }}>
-        <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>DOCUMENT QUEUE</div>
-        {documents.map((d,i) => (
-          <div key={i} style={{ background:"rgba(255,255,255,0.025)", border:`1px solid ${i===0?color+"44":"rgba(255,255,255,0.06)"}`, borderRadius:8, padding:"12px 14px", marginBottom:8, boxShadow: i===0?`0 0 12px ${color}22`:"none" }}>
-            <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:8 }}>
-              <div>
-                <div style={{ fontSize:10, color:"#E2E8F0", fontWeight:700, marginBottom:2 }}>{d.name}</div>
-                <div style={{ fontSize:8, color:"#6B7280" }}>{d.time}</div>
-              </div>
-              <span style={{ fontSize:8, padding:"3px 10px", background:`${stColor[d.status]||"#6B7280"}18`, border:`1px solid ${stColor[d.status]||"#6B7280"}44`, borderRadius:10, color:stColor[d.status]||"#6B7280", fontWeight:700 }}>{d.status}</span>
-            </div>
-            {/* Signers */}
-            <div style={{ display:"flex", gap:6, marginBottom:8 }}>
-              {d.signers.map((s,j) => (
-                <div key={j} style={{ display:"flex", alignItems:"center", gap:4, padding:"3px 8px", background: j<d.signed?"rgba(16,185,129,0.12)":"rgba(255,255,255,0.04)", border:`1px solid ${j<d.signed?"rgba(16,185,129,0.4)":"rgba(255,255,255,0.08)"}`, borderRadius:4 }}>
-                  <span style={{ fontSize:9 }}>{j<d.signed?"✓":"○"}</span>
-                  <span style={{ fontSize:8, color: j<d.signed?"#10B981":"#6B7280" }}>{s}</span>
-                </div>
-              ))}
-            </div>
-            {/* Hash */}
-            <div style={{ display:"flex", alignItems:"center", gap:6, padding:"4px 8px", background:"rgba(255,255,255,0.03)", borderRadius:4 }}>
-              <span style={{ fontSize:8, color:"#4B5563" }}>SHA-256:</span>
-              <span style={{ fontSize:8, color: d.status==="COMPLETE"?color:"#374151", fontFamily:"monospace" }}>{d.hash}{d.status==="COMPLETE"?" ✓ VERIFIED":"..."}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function Screen_APEX_Dashboard({ data, color }) {
   const { stats, rows, marketSignals } = data
   const tierC = { IMMINENT:"#FF3B5C", MOBILE:"#F59E0B", RECEPTIVE:"#00D4FF" }
@@ -1035,7 +950,6 @@ const SCREEN_COMPONENTS = [
   Screen_AgentAI,
   Screen_CommandCenter,
   Screen_CampaignManager,
-  Screen_HuitSign,
   Screen_APEX_Dashboard,
 ]
 
