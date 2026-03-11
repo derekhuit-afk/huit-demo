@@ -339,6 +339,52 @@ const SCENES = [
       ],
     },
   },
+  {
+    id: 10, num: "10",
+    title: "The Huit.AI Difference",
+    subtitle: "Your Day. Transformed.",
+    url: "huit.ai",
+    platform: "HUIT.AI",
+    color: "#00D4FF",
+    script: `Here's what you just saw. Nine capabilities. One platform. And what it means for your day. Before Huit dot AI, your morning looked like this: open three different tools, manually pull your pipeline, sort leads in a spreadsheet, guess who to call, hope your rate watch email went out, check in with recruiters who have no data to work with. With Huit dot AI, your morning looks like this: you open Command Center and your entire business is in front of you — forty-eight million in pipeline, thirty-four hot leads, rate movement already flagged, and a live activity feed showing exactly what happened overnight. Your lead scoring engine already ranked and prioritized every contact. Your campaign manager already sent the rate alert to the right three hundred contacts. Your APEX dashboard already surfaced the fourteen loan officers most likely to move this month — before your competitors even know they're looking. That's not just efficiency. That's compounding advantage. Every day you use Huit dot AI, you get further ahead. The recruiter closes more hires. The manager grows a stronger book. The producing loan officer converts more of the right leads at the right time with the right message. This is the platform. This is what it does. Let's talk about what it can do for you.`,
+    callouts: [
+      { at: 14, label: "Before",         value: "3 Tools, No Data",        x: 65, y: 20 },
+      { at: 30, label: "Command Center", value: "$48.7M · Live",           x: 65, y: 32 },
+      { at: 42, label: "Lead Scoring",   value: "Auto-Ranked Every AM",    x: 65, y: 44 },
+      { at: 54, label: "APEX Signal",    value: "14 IMMINENT — Today",     x: 65, y: 56 },
+      { at: 68, label: "The Result",     value: "Compounding Advantage",   x: 65, y: 70 },
+    ],
+    screenData: {
+      modules: [
+        { uc: "01", name: "Predictive Transition Scoring", platform: "APEX",       color: "#00D4FF", value: "247 LOs Tracked",      impact: "Know who's moving before they do" },
+        { uc: "02", name: "HMDA Market Intelligence",      platform: "APEX",       color: "#7C3AED", value: "7 Years of Data",       impact: "Own your market narrative" },
+        { uc: "03", name: "Retention Risk Monitor",        platform: "APEX PULSE", color: "#F59E0B", value: "130+ LOs · $4B+ Book",  impact: "Stop attrition before it happens" },
+        { uc: "04", name: "Property Pulse Equity Engine",  platform: "CRMEX",      color: "#10B981", value: "$182K Avg Equity",      impact: "Turn dormant contacts into pipeline" },
+        { uc: "05", name: "AI Lead Scoring Engine",        platform: "CRMEX",      color: "#EF4444", value: "Score 94 — HOT",        impact: "Call the right person first. Every time." },
+        { uc: "06", name: "Huit Agent AI",                 platform: "HUIT AGENT", color: "#8B5CF6", value: "Draft in 2 seconds",    impact: "AI as your co-pilot on every call" },
+        { uc: "07", name: "Command Center",                platform: "CRMEX",      color: "#F59E0B", value: "$48.7M Pipeline",       impact: "One view. Every number that matters." },
+        { uc: "08", name: "Campaign Manager",              platform: "CRMEX",      color: "#EC4899", value: "19.6% RCS Reply Rate",  impact: "Outreach that actually gets read" },
+        { uc: "09", name: "APEX Recruiting Dashboard",     platform: "APEX",       color: "#7C3AED", value: "14 IMMINENT Today",     impact: "Data-backed recruiting. No cold calls." },
+      ],
+      before: [
+        { time: "7:00 AM", task: "Open 3 separate tools",          pain: true },
+        { time: "7:20 AM", task: "Manually sort leads in a spreadsheet",  pain: true },
+        { time: "7:45 AM", task: "Guess who to call today",        pain: true },
+        { time: "8:30 AM", task: "Manually send rate alert emails", pain: true },
+        { time: "9:00 AM", task: "Call 5 leads. 1 answer.",        pain: true },
+        { time: "4:30 PM", task: "No pipeline update until EOD",   pain: true },
+      ],
+      after: [
+        { time: "7:00 AM", task: "Open Command Center — full picture in 10 seconds",   win: true },
+        { time: "7:05 AM", task: "AI already ranked 34 HOT leads overnight",           win: true },
+        { time: "7:08 AM", task: "APEX flagged 14 IMMINENT targets — call list ready", win: true },
+        { time: "7:10 AM", task: "Rate alert sent to 312 contacts — automatically",    win: true },
+        { time: "8:00 AM", task: "Call Marcus Tran — Score 97. He picks up.",          win: true },
+        { time: "EOD",     task: "Pipeline updated live. Nothing missed.",              win: true },
+      ],
+      cta: { headline: "Ready to run your business like this?", sub: "No free trial. No gimmicks. Founding Member spots still open.", action: "huit.ai/join", tier: "COMMAND $2,350/mo · DOMINATE $4,125/mo" },
+    },
+  },
 ]
 
 // ─── BROWSER CHROME WRAPPER ───────────────────────────────────────────────────
@@ -941,6 +987,109 @@ function Screen_APEX_Dashboard({ data, color }) {
   )
 }
 
+function Screen_WrapUp({ data, color }) {
+  const { modules, before, after, cta } = data
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
+      {/* Header */}
+      <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, padding:"0 14px", height:36, display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+          <div style={{ width:7, height:7, borderRadius:"50%", background:color, boxShadow:`0 0 8px ${color}` }} />
+          <span style={{ fontSize:9, color, letterSpacing:3, fontWeight:700 }}>HUIT.AI — PLATFORM OVERVIEW</span>
+        </div>
+        <div style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>9 MODULES · FULLY INTEGRATED</div>
+      </div>
+
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 1fr 200px", gap:8, padding:"10px 12px 10px", overflow:"hidden", minHeight:0 }}>
+
+        {/* Left — Module recap */}
+        <div style={{ display:"flex", flexDirection:"column", gap:0, overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8, flexShrink:0 }}>WHAT YOU JUST SAW</div>
+          {modules.map((m, i) => (
+            <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"6px 10px", borderBottom:"1px solid rgba(255,255,255,0.04)", borderLeft:`2px solid ${m.color}`, marginBottom:2, background:`${m.color}05`, borderRadius:"0 4px 4px 0" }}>
+              <div style={{ fontSize:8, color:m.color, fontWeight:800, width:18, flexShrink:0 }}>{m.uc}</div>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontSize:9, color:"#E2E8F0", fontWeight:600, marginBottom:1 }}>{m.name}</div>
+                <div style={{ fontSize:7, color:"#6B7280" }}>{m.impact}</div>
+              </div>
+              <div style={{ fontSize:8, color:m.color, fontWeight:700, textAlign:"right", flexShrink:0, whiteSpace:"nowrap" }}>{m.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Middle — Day in the life */}
+        <div style={{ display:"flex", flexDirection:"column", gap:6, overflow:"hidden" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:2, flexShrink:0 }}>YOUR DAY — BEFORE vs AFTER</div>
+          <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 1fr", gap:6, overflow:"hidden" }}>
+            {/* Before */}
+            <div style={{ background:"rgba(255,59,92,0.04)", border:"1px solid rgba(255,59,92,0.15)", borderRadius:8, overflow:"hidden", display:"flex", flexDirection:"column" }}>
+              <div style={{ padding:"6px 10px", borderBottom:"1px solid rgba(255,59,92,0.12)", fontSize:8, color:"#FF3B5C", letterSpacing:2, fontWeight:700 }}>BEFORE</div>
+              <div style={{ flex:1, overflow:"auto", padding:"4px 0" }}>
+                {before.map((b, i) => (
+                  <div key={i} style={{ padding:"5px 10px", borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                    <div style={{ fontSize:7, color:"#6B7280", marginBottom:1 }}>{b.time}</div>
+                    <div style={{ display:"flex", gap:5, alignItems:"flex-start" }}>
+                      <span style={{ color:"#FF3B5C", fontSize:8, flexShrink:0 }}>✗</span>
+                      <span style={{ fontSize:8, color:"#9CA3AF", lineHeight:1.4 }}>{b.task}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* After */}
+            <div style={{ background:"rgba(0,212,255,0.04)", border:`1px solid ${color}22`, borderRadius:8, overflow:"hidden", display:"flex", flexDirection:"column" }}>
+              <div style={{ padding:"6px 10px", borderBottom:`1px solid ${color}18`, fontSize:8, color, letterSpacing:2, fontWeight:700 }}>WITH HUIT.AI</div>
+              <div style={{ flex:1, overflow:"auto", padding:"4px 0" }}>
+                {after.map((a, i) => (
+                  <div key={i} style={{ padding:"5px 10px", borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                    <div style={{ fontSize:7, color:"#6B7280", marginBottom:1 }}>{a.time}</div>
+                    <div style={{ display:"flex", gap:5, alignItems:"flex-start" }}>
+                      <span style={{ color:"#10B981", fontSize:8, flexShrink:0 }}>✓</span>
+                      <span style={{ fontSize:8, color:"#E2E8F0", lineHeight:1.4 }}>{a.task}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right — CTA + roles */}
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          {/* Role cards */}
+          {[
+            { role: "Recruiter", icon: "🎯", wins: ["APEX identifies targets before they post", "TLS score backs every conversation", "Market signals show who's unhappy now", "19.6% RCS reply on cold outreach"] },
+            { role: "Branch Manager", icon: "📊", wins: ["Retention risk alerts prevent attrition", "Pipeline visible in real time", "Rate drops trigger automatic outreach", "Team performance in one view"] },
+            { role: "Producing LO", icon: "⚡", wins: ["AI ranks who to call each morning", "Equity engine surfaces dormant leads", "Agent AI drafts emails in 2 seconds", "Campaign manager runs 24/7"] },
+          ].map((r, i) => (
+            <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:8, padding:"8px 10px" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:6 }}>
+                <span style={{ fontSize:12 }}>{r.icon}</span>
+                <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:700, letterSpacing:1 }}>{r.role.toUpperCase()}</span>
+              </div>
+              {r.wins.map((w, j) => (
+                <div key={j} style={{ display:"flex", gap:5, marginBottom:3 }}>
+                  <span style={{ color, fontSize:7, flexShrink:0, marginTop:1 }}>▸</span>
+                  <span style={{ fontSize:7, color:"#9CA3AF", lineHeight:1.4 }}>{w}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          {/* CTA */}
+          <div style={{ background:`linear-gradient(135deg, ${color}15, #7C3AED15)`, border:`1px solid ${color}44`, borderRadius:8, padding:"10px 12px", flexShrink:0, textAlign:"center" }}>
+            <div style={{ fontSize:10, color:"#E2E8F0", fontWeight:700, marginBottom:4, lineHeight:1.4 }}>{cta.headline}</div>
+            <div style={{ fontSize:7, color:"#6B7280", marginBottom:8 }}>{cta.sub}</div>
+            <div style={{ fontSize:8, color, fontWeight:800, padding:"5px 0", borderTop:`1px solid ${color}22` }}>{cta.action}</div>
+            <div style={{ fontSize:7, color:"#4B5563", marginTop:4 }}>{cta.tier}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
 const SCREEN_COMPONENTS = [
   Screen_APEX_Candidates,
   Screen_APEX_Market,
@@ -951,6 +1100,7 @@ const SCREEN_COMPONENTS = [
   Screen_CommandCenter,
   Screen_CampaignManager,
   Screen_APEX_Dashboard,
+  Screen_WrapUp,
 ]
 
 // ─── MAIN PLAYER ──────────────────────────────────────────────────────────────
