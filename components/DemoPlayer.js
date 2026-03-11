@@ -1273,15 +1273,15 @@ function Screen_APEX_Dashboard({ data, color }) {
 function Screen_WrapUp({ data, color, elapsed = 0 }) {
   const { modules, before, after, cta } = data
 
-  // Spotlight schedule keyed to Bill's script timing:
-  // ~73s "The recruiter closes more hires"
-  // ~78s "The manager grows a stronger book"
-  // ~83s "The producing loan officer..."
-  // ~90s "Go to huit dot AI slash join right now"
-  const spotlight = elapsed >= 90 ? "cta"
-    : elapsed >= 83 ? "lo"
-    : elapsed >= 78 ? "manager"
-    : elapsed >= 73 ? "recruiter"
+  // Spotlight schedule keyed to Bill's script timing (~130 wpm, 239 words total):
+  // ~80s  "The recruiter closes more hires"
+  // ~83s  "The manager grows a stronger book"
+  // ~91s  "The producing loan officer..."
+  // ~110s "Go to huit dot AI slash join right now"
+  const spotlight = elapsed >= 110 ? "cta"
+    : elapsed >= 91 ? "lo"
+    : elapsed >= 83 ? "manager"
+    : elapsed >= 80 ? "recruiter"
     : null
 
   const roles = [
@@ -1385,7 +1385,7 @@ function Screen_WrapUp({ data, color, elapsed = 0 }) {
 
       {/* ── SPOTLIGHT OVERLAY ── flies in from right, centers on screen */}
       {showSpotlight && (
-        <div style={{
+        <div key={spotlight} style={{
           position:"absolute", inset:0,
           display:"flex", alignItems:"center", justifyContent:"center",
           pointerEvents:"none",
@@ -1395,7 +1395,7 @@ function Screen_WrapUp({ data, color, elapsed = 0 }) {
           <div style={{ position:"absolute", inset:0, background:"rgba(6,12,20,0.72)", backdropFilter:"blur(2px)" }} />
 
           {/* Spotlight card */}
-          <div style={{
+          <div key={`card-${spotlight}`} style={{
             position:"relative", zIndex:2,
             width: spotlight === "cta" ? 340 : 320,
             animation:"spotlightSlideIn 0.38s cubic-bezier(0.22,1,0.36,1) forwards",
