@@ -1,2 +1,2 @@
-'use client'
-export { default } from '../components/HuitDemo'
+"use client"
+export { default } from "../components/DemoPlayer"
