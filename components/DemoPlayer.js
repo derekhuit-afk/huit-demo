@@ -1452,6 +1452,1014 @@ function Screen_WrapUp({ data, color, elapsed = 0 }) {
   )
 }
 
+// ═══════════════════════════════════════════════════════════════
+// DEEP DIVE COMPONENTS — one per scene, richer/deeper platform view
+// ═══════════════════════════════════════════════════════════════
+
+function DeepDive_Header({ title, subtitle, platform, color, onBack }) {
+  return (
+    <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}33`, padding:"0 16px", height:44, display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
+      <button onClick={onBack} style={{ background:`${color}14`, border:`1px solid ${color}44`, borderRadius:5, padding:"5px 12px", color, fontSize:9, fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5, cursor:"pointer", display:"flex", alignItems:"center", gap:6, fontWeight:700 }}>
+        ← BACK TO DEMO
+      </button>
+      <div style={{ width:1, height:20, background:`${color}22` }} />
+      <div style={{ width:7, height:7, borderRadius:"50%", background:color, boxShadow:`0 0 8px ${color}` }} />
+      <span style={{ fontSize:9, color, letterSpacing:3, fontWeight:700, fontFamily:"'JetBrains Mono',monospace" }}>{platform} — {title.toUpperCase()}</span>
+      <span style={{ fontSize:9, color:"#4B5563", fontFamily:"'JetBrains Mono',monospace" }}>{subtitle}</span>
+      <div style={{ marginLeft:"auto", background:`${color}12`, border:`1px solid ${color}30`, borderRadius:4, padding:"3px 10px" }}>
+        <span style={{ fontSize:8, color, fontFamily:"'JetBrains Mono',monospace", letterSpacing:2 }}>DEEP DIVE MODE</span>
+      </div>
+    </div>
+  )
+}
+
+// ── 01 APEX Recruiting Command Center ──────────────────────────
+function DeepDive_01({ color, onBack }) {
+  const [selected, setSelected] = useState(null)
+  const recruits = [
+    { name:"Sarah Martinez",  co:"Caliber Home Loans",   mkt:"Phoenix, AZ",    vol:"$84M",  units:192, tls:84, tier:"IMMINENT", signal:"Comp restructure",     days:12 },
+    { name:"David Chen",      co:"Guaranteed Rate",      mkt:"Scottsdale, AZ", vol:"$61M",  units:140, tls:76, tier:"MOBILE",   signal:"Branch closure rumor", days:18 },
+    { name:"Amanda Torres",   co:"United Wholesale",     mkt:"Tempe, AZ",      vol:"$49M",  units:113, tls:71, tier:"MOBILE",   signal:"Manager departure",    days:22 },
+    { name:"Marcus Webb",     co:"Rocket Mortgage",      mkt:"Denver, CO",     vol:"$72M",  units:165, tls:68, tier:"MOBILE",   signal:"Territory reduction",  days:28 },
+    { name:"Priya Shah",      co:"loanDepot",            mkt:"Austin, TX",     vol:"$58M",  units:131, tls:65, tier:"MOBILE",   signal:"Q4 production drop",   days:31 },
+    { name:"Kevin Park",      co:"Movement Mortgage",    mkt:"Dallas, TX",     vol:"$43M",  units:99,  tls:62, tier:"RECEPTIVE",signal:"Peer departure",        days:35 },
+    { name:"Denise Carter",   co:"CrossCountry",         mkt:"Las Vegas, NV",  vol:"$39M",  units:89,  tls:59, tier:"RECEPTIVE",signal:"Platform frustration",  days:40 },
+    { name:"Jason Hoffman",   co:"PrimeLending",         mkt:"Nashville, TN",  vol:"$67M",  units:153, tls:57, tier:"RECEPTIVE",signal:"Social engagement +42%", days:44 },
+    { name:"Linda Ramos",     co:"Guild Mortgage",       mkt:"Boise, ID",      vol:"$34M",  units:78,  tls:54, tier:"RECEPTIVE",signal:"Comp gap identified",   days:48 },
+    { name:"Chris Malone",    co:"Fairway Independent",  mkt:"Portland, OR",   vol:"$29M",  units:67,  tls:51, tier:"RECEPTIVE",signal:"Market shift signal",   days:52 },
+  ]
+  const tierC = { IMMINENT:"#FF3B5C", MOBILE:"#F59E0B", RECEPTIVE:"#00D4FF" }
+  const sel = selected !== null ? recruits[selected] : null
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Recruiting Command Center" subtitle="Full Priority Board — 10 Targets" platform="APEX" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns: sel ? "1fr 320px" : "1fr", gap:0, overflow:"hidden" }}>
+        {/* Main table */}
+        <div style={{ overflow:"auto", padding:"12px 16px" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:10 }}>PRIORITY RECRUIT BOARD — SORTED BY TLS SCORE</div>
+          <table style={{ width:"100%", borderCollapse:"collapse", fontSize:9 }}>
+            <thead>
+              <tr style={{ borderBottom:`1px solid ${color}22` }}>
+                {["#","LOAN OFFICER","COMPANY","MARKET","VOLUME","TLS","TIER","SIGNAL","WINDOW"].map(h => (
+                  <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:"#4B5563", fontWeight:700, letterSpacing:1.5, fontSize:7, whiteSpace:"nowrap" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {recruits.map((r, i) => (
+                <tr key={i} onClick={() => setSelected(selected === i ? null : i)}
+                  style={{ borderBottom:"1px solid rgba(255,255,255,0.03)", cursor:"pointer", background: selected === i ? `${tierC[r.tier]}08` : "transparent", transition:"background 0.15s" }}>
+                  <td style={{ padding:"8px 10px", color:"#4B5563", fontSize:8 }}>{i+1}</td>
+                  <td style={{ padding:"8px 10px", color:"#E2E8F0", fontWeight:600 }}>{r.name}</td>
+                  <td style={{ padding:"8px 10px", color:"#6B7280" }}>{r.co}</td>
+                  <td style={{ padding:"8px 10px", color:"#6B7280" }}>{r.mkt}</td>
+                  <td style={{ padding:"8px 10px", color:"#10B981", fontWeight:700 }}>{r.vol}</td>
+                  <td style={{ padding:"8px 10px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+                      <div style={{ width:28, height:28, borderRadius:"50%", border:`2px solid ${tierC[r.tier]}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, color:tierC[r.tier], fontWeight:800 }}>{r.tls}</div>
+                    </div>
+                  </td>
+                  <td style={{ padding:"8px 10px" }}><span style={{ background:`${tierC[r.tier]}15`, border:`1px solid ${tierC[r.tier]}44`, color:tierC[r.tier], fontSize:7, padding:"2px 7px", borderRadius:10, fontWeight:700 }}>{r.tier}</span></td>
+                  <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:8 }}>{r.signal}</td>
+                  <td style={{ padding:"8px 10px", color:"#F59E0B", fontSize:8 }}>{r.days}d window</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Detail panel */}
+        {sel && (
+          <div style={{ borderLeft:`1px solid ${color}18`, padding:"16px", overflow:"auto", background:"rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize:8, color:tierC[sel.tier], letterSpacing:2, marginBottom:8 }}>RECRUIT PROFILE</div>
+            <div style={{ fontSize:15, color:"#E2E8F0", fontWeight:800, marginBottom:4 }}>{sel.name}</div>
+            <div style={{ fontSize:10, color:"#6B7280", marginBottom:16 }}>{sel.co} · {sel.mkt}</div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginBottom:16 }}>
+              {[["VOLUME", sel.vol],["UNITS", sel.units],["TLS SCORE", sel.tls+"/100"],["WINDOW", sel.days+"d"]].map(([l,v]) => (
+                <div key={l} style={{ background:`${color}08`, border:`1px solid ${color}18`, borderRadius:6, padding:"8px 10px" }}>
+                  <div style={{ fontSize:7, color:"#4B5563", letterSpacing:1.5, marginBottom:3 }}>{l}</div>
+                  <div style={{ fontSize:13, color:"#E2E8F0", fontWeight:700 }}>{v}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:1.5, marginBottom:6 }}>TRIGGER SIGNAL</div>
+            <div style={{ background:"rgba(255,59,92,0.08)", border:"1px solid rgba(255,59,92,0.2)", borderRadius:6, padding:"10px 12px", marginBottom:14, fontSize:9, color:"#F87171", lineHeight:1.6 }}>{sel.signal}</div>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:1.5, marginBottom:6 }}>RECOMMENDED ACTIONS</div>
+            {["Send personalized RCS outreach within 48h","Reference compensation gap in opener","Prepare 3 company-fit comparisons","Schedule discovery call this week"].map((a,i) => (
+              <div key={i} style={{ display:"flex", gap:8, marginBottom:8, alignItems:"flex-start" }}>
+                <div style={{ width:16, height:16, borderRadius:"50%", background:`${color}14`, border:`1px solid ${color}33`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:7, color, flexShrink:0 }}>{i+1}</div>
+                <span style={{ fontSize:9, color:"#9CA3AF", lineHeight:1.5 }}>{a}</span>
+              </div>
+            ))}
+            <button style={{ width:"100%", marginTop:10, background:`${color}18`, border:`1px solid ${color}`, borderRadius:6, padding:"10px 0", color, fontSize:9, fontWeight:800, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5 }}>
+              GENERATE OUTREACH PLAN →
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── 02 Predictive Transition Scoring ───────────────────────────
+function DeepDive_02({ color, onBack }) {
+  const factors = [
+    { name:"Comp Plan Restructure",        score:18, max:18, category:"COMPENSATION" },
+    { name:"Q4 Production Decline −42%",   score:16, max:18, category:"PERFORMANCE" },
+    { name:"Comp Gap vs Market $38K",       score:15, max:15, category:"COMPENSATION" },
+    { name:"Parent Co Restructuring",       score:12, max:12, category:"MARKET SIGNAL" },
+    { name:"Manager Tenure < 6mo",          score:9,  max:10, category:"CULTURE" },
+    { name:"Peer Departures — 2 in 90d",   score:8,  max:10, category:"CULTURE" },
+    { name:"Social Engagement Spike",       score:7,  max:8,  category:"BEHAVIOR" },
+    { name:"LinkedIn Profile Updated",      score:6,  max:7,  category:"BEHAVIOR" },
+    { name:"Product Mix Narrowing",         score:5,  max:6,  category:"PERFORMANCE" },
+    { name:"Rate Sheet Dissatisfaction",    score:4,  max:5,  category:"PLATFORM" },
+    { name:"Conference Attendance Flag",    score:3,  max:4,  category:"BEHAVIOR" },
+    { name:"Team Size Reduction",           score:3,  max:3,  category:"MARKET SIGNAL" },
+    { name:"License Renewal Pattern",       score:2,  max:2,  category:"COMPLIANCE" },
+    { name:"Referral Network Shift",        score:2,  max:2,  category:"BEHAVIOR" },
+    { name:"Geo Preference Signal",         score:1,  max:1,  category:"PERSONAL" },
+    { name:"Seasonal Pattern Match",        score:1,  max:1,  category:"BEHAVIORAL" },
+  ]
+  const catColors = { COMPENSATION:"#FF3B5C", PERFORMANCE:"#F59E0B", "MARKET SIGNAL":"#00D4FF", CULTURE:"#7C3AED", BEHAVIOR:"#10B981", PLATFORM:"#EC4899", COMPLIANCE:"#6B7280", PERSONAL:"#8B5CF6", BEHAVIORAL:"#10B981" }
+  const plan = [
+    { week:"Week 1", action:"RCS intro — reference market shift, not specific company issues", type:"OUTREACH" },
+    { week:"Week 2", action:"Follow-up: send CRMEX platform overview + comp comparison PDF", type:"NURTURE" },
+    { week:"Week 3", action:"Discovery call — focus on production goals, not current frustrations", type:"CALL" },
+    { week:"Week 4", action:"Present top 3 company-fit options with earnings modeling", type:"PRESENT" },
+    { week:"Week 5", action:"Introduce to branch manager / culture fit conversation", type:"INTRO" },
+    { week:"Week 6", action:"Close — licensing paperwork, onboarding timeline, press release", type:"CLOSE" },
+  ]
+  const typeC = { OUTREACH:"#00D4FF", NURTURE:"#7C3AED", CALL:"#F59E0B", PRESENT:"#10B981", INTRO:"#EC4899", CLOSE:"#FF3B5C" }
+  const total = factors.reduce((s,f) => s+f.score, 0)
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="TLS Deep Dive — Sarah Martinez" subtitle="16-Factor Breakdown · Score 84/100" platform="APEX" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"280px 1fr 280px", gap:0, overflow:"hidden" }}>
+        {/* Profile */}
+        <div style={{ borderRight:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ textAlign:"center", marginBottom:16 }}>
+            <div style={{ width:64, height:64, borderRadius:"50%", background:`${color}14`, border:`3px solid ${color}`, margin:"0 auto 10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:24, color }}>SM</div>
+            <div style={{ fontSize:13, color:"#E2E8F0", fontWeight:800 }}>Sarah Martinez</div>
+            <div style={{ fontSize:9, color:"#6B7280", marginTop:2 }}>Caliber Home Loans · Phoenix, AZ</div>
+            <div style={{ marginTop:10, display:"flex", justifyContent:"center" }}>
+              <div style={{ background:"rgba(255,59,92,0.12)", border:"2px solid #FF3B5C", borderRadius:"50%", width:52, height:52, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <span style={{ fontSize:16, fontWeight:900, color:"#FF3B5C" }}>84</span>
+              </div>
+            </div>
+            <div style={{ fontSize:8, color:"#FF3B5C", marginTop:4, letterSpacing:2 }}>IMMINENT</div>
+          </div>
+          {[["Annual Volume","$84M"],["Units / Year","192"],["YoY Trend","−42%"],["Comp Gap","$38K/yr"],["Time at Co","4.2 years"],["NMLS #","1847293"]].map(([l,v]) => (
+            <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"6px 0", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+              <span style={{ fontSize:8, color:"#4B5563" }}>{l}</span>
+              <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:600 }}>{v}</span>
+            </div>
+          ))}
+          <div style={{ marginTop:14, fontSize:8, color:"#4B5563", letterSpacing:1.5, marginBottom:6 }}>SCF CONFIDENCE</div>
+          <div style={{ background:"rgba(16,185,129,0.08)", border:"1px solid rgba(16,185,129,0.2)", borderRadius:6, padding:"8px 10px" }}>
+            <div style={{ fontSize:11, color:"#10B981", fontWeight:800 }}>92.4%</div>
+            <div style={{ fontSize:7, color:"#6B7280", marginTop:2 }}>14 of 14 sources validated</div>
+          </div>
+        </div>
+        {/* 16-factor breakdown */}
+        <div style={{ padding:"14px 16px", overflow:"auto" }}>
+          <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12 }}>
+            <span style={{ fontSize:8, color:"#4B5563", letterSpacing:2 }}>16-FACTOR BREAKDOWN — {total}/100 POINTS</span>
+            <span style={{ fontSize:8, color:"#10B981" }}>PATENT PENDING ALGORITHM</span>
+          </div>
+          {factors.map((f, i) => (
+            <div key={i} style={{ marginBottom:7 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
+                <span style={{ fontSize:8, color:"#9CA3AF" }}>{f.name}</span>
+                <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                  <span style={{ fontSize:7, color:catColors[f.category]||color, background:`${catColors[f.category]||color}12`, padding:"1px 6px", borderRadius:8 }}>{f.category}</span>
+                  <span style={{ fontSize:8, color:"#E2E8F0", fontWeight:700 }}>{f.score}/{f.max}</span>
+                </div>
+              </div>
+              <div style={{ height:4, background:"rgba(255,255,255,0.05)", borderRadius:2, overflow:"hidden" }}>
+                <div style={{ height:"100%", width:`${(f.score/f.max)*100}%`, background:catColors[f.category]||color, borderRadius:2 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* 6-week plan */}
+        <div style={{ borderLeft:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>6-WEEK OUTREACH PLAN</div>
+          {plan.map((p, i) => (
+            <div key={i} style={{ marginBottom:10, background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:6, padding:"8px 10px" }}>
+              <div style={{ display:"flex", gap:6, alignItems:"center", marginBottom:5 }}>
+                <span style={{ fontSize:7, color:typeC[p.type], background:`${typeC[p.type]}14`, padding:"1px 7px", borderRadius:8, fontWeight:700 }}>{p.type}</span>
+                <span style={{ fontSize:8, color:"#6B7280" }}>{p.week}</span>
+              </div>
+              <span style={{ fontSize:8, color:"#9CA3AF", lineHeight:1.5 }}>{p.action}</span>
+            </div>
+          ))}
+          <div style={{ marginTop:8, fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>TOP COMPANY FITS</div>
+          {[["Your Company","98% fit","#10B981"],["AnnieMac","91% fit","#00D4FF"],["Cardinal Financial","88% fit","#7C3AED"],["Crosscountry","82% fit","#F59E0B"],["Movement Mortgage","79% fit","#EC4899"]].map(([co,fit,c]) => (
+            <div key={co} style={{ display:"flex", justifyContent:"space-between", padding:"5px 8px", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+              <span style={{ fontSize:8, color:"#9CA3AF" }}>{co}</span>
+              <span style={{ fontSize:8, color:c, fontWeight:700 }}>{fit}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 03 APEX Recruiting Dashboard ───────────────────────────────
+function DeepDive_03({ color, onBack }) {
+  const [market, setMarket] = useState("ALL")
+  const markets = ["ALL","PHOENIX","SCOTTSDALE","DENVER","AUSTIN","DALLAS","NASHVILLE"]
+  const los = [
+    { name:"Sarah Martinez",  co:"Caliber",          mkt:"Phoenix",    vol:"$84M",  tls:84, tier:"IMMINENT", scf:"92.4%" },
+    { name:"David Chen",      co:"Guaranteed Rate",  mkt:"Scottsdale", vol:"$61M",  tls:76, tier:"MOBILE",   scf:"88.1%" },
+    { name:"Amanda Torres",   co:"United Wholesale", mkt:"Phoenix",    vol:"$49M",  tls:71, tier:"MOBILE",   scf:"85.7%" },
+    { name:"Marcus Webb",     co:"Rocket",           mkt:"Denver",     vol:"$72M",  tls:68, tier:"MOBILE",   scf:"83.2%" },
+    { name:"Priya Shah",      co:"loanDepot",        mkt:"Austin",     vol:"$58M",  tls:65, tier:"MOBILE",   scf:"81.9%" },
+    { name:"Kevin Park",      co:"Movement",         mkt:"Dallas",     vol:"$43M",  tls:62, tier:"RECEPTIVE",scf:"79.4%" },
+    { name:"Denise Carter",   co:"CrossCountry",     mkt:"Dallas",     vol:"$39M",  tls:59, tier:"RECEPTIVE",scf:"77.8%" },
+    { name:"Jason Hoffman",   co:"PrimeLending",     mkt:"Nashville",  vol:"$67M",  tls:57, tier:"RECEPTIVE",scf:"76.2%" },
+    { name:"Linda Ramos",     co:"Guild Mortgage",   mkt:"Denver",     vol:"$34M",  tls:54, tier:"RECEPTIVE",scf:"74.5%" },
+    { name:"Chris Malone",    co:"Fairway",          mkt:"Austin",     vol:"$29M",  tls:51, tier:"RECEPTIVE",scf:"72.1%" },
+    { name:"Diana Ross",      co:"Caliber",          mkt:"Nashville",  vol:"$55M",  tls:48, tier:"TRACKING", scf:"68.9%" },
+    { name:"Tom Bradley",     co:"NewAmerican",      mkt:"Phoenix",    vol:"$37M",  tls:45, tier:"TRACKING", scf:"65.3%" },
+    { name:"Mei Zhang",       co:"loanDepot",        mkt:"Scottsdale", vol:"$44M",  tls:42, tier:"TRACKING", scf:"62.8%" },
+    { name:"Ryan Walsh",      co:"Cardinal Fin",     mkt:"Denver",     vol:"$31M",  tls:39, tier:"TRACKING", scf:"60.1%" },
+    { name:"Ana Gutierrez",   co:"Fairway",          mkt:"Austin",     vol:"$28M",  tls:36, tier:"TRACKING", scf:"58.4%" },
+  ]
+  const tierC = { IMMINENT:"#FF3B5C", MOBILE:"#F59E0B", RECEPTIVE:"#00D4FF", TRACKING:"#4B5563" }
+  const filtered = market === "ALL" ? los : los.filter(l => l.mkt.toUpperCase() === market)
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="APEX Recruiting Dashboard" subtitle="National TLS Leaderboard — 247 Tracked" platform="APEX" color={color} onBack={onBack} />
+      {/* Market filter */}
+      <div style={{ background:"#070D18", borderBottom:"1px solid rgba(255,255,255,0.04)", padding:"0 16px", height:38, display:"flex", alignItems:"center", gap:6 }}>
+        <span style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginRight:4 }}>MARKET</span>
+        {markets.map(m => (
+          <button key={m} onClick={() => setMarket(m)} style={{ background: market===m ? `${color}18` : "transparent", border:`1px solid ${market===m ? color : "rgba(255,255,255,0.08)"}`, borderRadius:4, padding:"3px 10px", color: market===m ? color : "#6B7280", fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>{m}</button>
+        ))}
+        <div style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>SHOWING {filtered.length} OF {los.length} (top tier)</div>
+      </div>
+      <div style={{ flex:1, overflow:"auto", padding:"12px 16px" }}>
+        <table style={{ width:"100%", borderCollapse:"collapse" }}>
+          <thead>
+            <tr style={{ borderBottom:`1px solid ${color}22` }}>
+              {["RANK","LOAN OFFICER","COMPANY","MARKET","ANNUAL VOL","TLS SCORE","TIER","SCF CONFIDENCE"].map(h => (
+                <th key={h} style={{ padding:"7px 10px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5, fontWeight:700 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((r, i) => (
+              <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)", transition:"background 0.15s" }}>
+                <td style={{ padding:"8px 10px", color:"#4B5563", fontSize:8 }}>{i+1}</td>
+                <td style={{ padding:"8px 10px", color:"#E2E8F0", fontWeight:600, fontSize:9 }}>{r.name}</td>
+                <td style={{ padding:"8px 10px", color:"#6B7280", fontSize:9 }}>{r.co}</td>
+                <td style={{ padding:"8px 10px", color:"#6B7280", fontSize:9 }}>{r.mkt}</td>
+                <td style={{ padding:"8px 10px", color:"#10B981", fontWeight:700, fontSize:9 }}>{r.vol}</td>
+                <td style={{ padding:"8px 10px" }}>
+                  <div style={{ display:"inline-flex", width:30, height:30, borderRadius:"50%", border:`2px solid ${tierC[r.tier]}`, alignItems:"center", justifyContent:"center", fontSize:9, color:tierC[r.tier], fontWeight:800 }}>{r.tls}</div>
+                </td>
+                <td style={{ padding:"8px 10px" }}><span style={{ background:`${tierC[r.tier]}15`, border:`1px solid ${tierC[r.tier]}44`, color:tierC[r.tier], fontSize:7, padding:"2px 8px", borderRadius:10, fontWeight:700 }}>{r.tier}</span></td>
+                <td style={{ padding:"8px 10px", color:"#10B981", fontSize:9, fontWeight:600 }}>{r.scf}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// ── 04 Retention Risk Monitor ───────────────────────────────────
+function DeepDive_04({ color, onBack }) {
+  const timeline = [
+    { day:"Day 0",  tls:31, event:"Baseline — normal engagement" },
+    { day:"Day 12", tls:38, event:"Manager departure announced" },
+    { day:"Day 21", tls:44, event:"LinkedIn profile updated" },
+    { day:"Day 35", tls:51, event:"Peer (M. Torres) resigned" },
+    { day:"Day 45", tls:58, event:"Social engagement spike +38%" },
+    { day:"Day 52", tls:63, event:"Attended competitor webinar" },
+    { day:"Day 58", tls:67, event:"⚠ ALERT TRIGGERED — manager action required" },
+  ]
+  const signals = [
+    { signal:"Manager Departure",       weight:"+14 pts", status:"HIGH",   icon:"🔴" },
+    { signal:"LinkedIn Activity +68%",  weight:"+9 pts",  status:"HIGH",   icon:"🔴" },
+    { signal:"Peer Departure",          weight:"+7 pts",  status:"MEDIUM", icon:"🟡" },
+    { signal:"Webinar Attendance",      weight:"+5 pts",  status:"MEDIUM", icon:"🟡" },
+    { signal:"Production Plateau",      weight:"+4 pts",  status:"LOW",    icon:"🟢" },
+    { signal:"Platform Login Decrease", weight:"+3 pts",  status:"LOW",    icon:"🟢" },
+  ]
+  const maxTls = 100
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Retention Risk — James Rodriguez" subtitle="TLS 67 · Houston, TX · +36pts in 58 days" platform="APEX PULSE" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 280px 300px", overflow:"hidden" }}>
+        {/* Timeline chart */}
+        <div style={{ padding:"14px 16px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:14 }}>60-DAY TLS ESCALATION TIMELINE</div>
+          <div style={{ position:"relative", paddingLeft:60 }}>
+            {timeline.map((t, i) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14, position:"relative" }}>
+                {i < timeline.length-1 && <div style={{ position:"absolute", left:34, top:24, width:2, height:28, background:`linear-gradient(${color}44, ${color}22)` }} />}
+                <div style={{ width:68, flexShrink:0, fontSize:8, color:"#4B5563", textAlign:"right" }}>{t.day}</div>
+                <div style={{ width:36, height:36, borderRadius:"50%", border:`2px solid ${t.tls>=65?"#FF3B5C":t.tls>=50?"#F59E0B":color}`, background:`rgba(6,12,20,0.9)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:10, fontWeight:800, color:t.tls>=65?"#FF3B5C":t.tls>=50?"#F59E0B":color, flexShrink:0 }}>{t.tls}</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ height:6, background:"rgba(255,255,255,0.04)", borderRadius:3, overflow:"hidden", marginBottom:4 }}>
+                    <div style={{ height:"100%", width:`${t.tls}%`, background:`linear-gradient(90deg, ${color}, ${t.tls>=65?"#FF3B5C":color})`, borderRadius:3, transition:"width 0.5s" }} />
+                  </div>
+                  <div style={{ fontSize:8, color: t.tls>=65?"#FF3B5C":"#9CA3AF" }}>{t.event}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop:14, background:"rgba(255,59,92,0.06)", border:"1px solid rgba(255,59,92,0.2)", borderRadius:8, padding:"12px 14px" }}>
+            <div style={{ fontSize:8, color:"#FF3B5C", letterSpacing:2, marginBottom:6 }}>BACKTESTING ACCURACY</div>
+            <div style={{ fontSize:22, fontWeight:800, color:"#FF3B5C" }}>86%</div>
+            <div style={{ fontSize:9, color:"#9CA3AF" }}>Departure predicted correctly in 112 of 130 LO cohort study</div>
+          </div>
+        </div>
+        {/* Risk signals */}
+        <div style={{ borderLeft:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>RISK SIGNAL BREAKDOWN</div>
+          {signals.map((s, i) => (
+            <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:6, padding:"9px 10px", marginBottom:8 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <span style={{ fontSize:9, color:"#E2E8F0" }}>{s.icon} {s.signal}</span>
+                <span style={{ fontSize:9, color:"#FF3B5C", fontWeight:700 }}>{s.weight}</span>
+              </div>
+              <div style={{ fontSize:7, color:"#4B5563", marginTop:3 }}>SEVERITY: {s.status}</div>
+            </div>
+          ))}
+        </div>
+        {/* Action plan */}
+        <div style={{ borderLeft:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>MANAGER ACTION PLAN</div>
+          {[
+            { step:1, action:"Schedule 1:1 meeting within 48 hours", urgency:"CRITICAL", icon:"🔴" },
+            { step:2, action:"Prepare comp review — benchmark vs market", urgency:"CRITICAL", icon:"🔴" },
+            { step:3, action:"Identify career growth path/title opportunity", urgency:"HIGH",     icon:"🟡" },
+            { step:4, action:"Assign mentor from high-performer peer group", urgency:"HIGH",     icon:"🟡" },
+            { step:5, action:"Review and enhance territory assignments", urgency:"MEDIUM",   icon:"🟢" },
+            { step:6, action:"Enroll in leadership development program", urgency:"MEDIUM",   icon:"🟢" },
+          ].map(a => (
+            <div key={a.step} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:6, padding:"9px 10px", marginBottom:8 }}>
+              <div style={{ display:"flex", gap:8, alignItems:"flex-start" }}>
+                <span style={{ fontSize:10 }}>{a.icon}</span>
+                <div>
+                  <div style={{ fontSize:7, color:a.urgency==="CRITICAL"?"#FF3B5C":a.urgency==="HIGH"?"#F59E0B":"#10B981", marginBottom:3, letterSpacing:1 }}>{a.urgency}</div>
+                  <div style={{ fontSize:9, color:"#E2E8F0", lineHeight:1.4 }}>{a.action}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div style={{ marginTop:10, background:`${color}08`, border:`1px solid ${color}22`, borderRadius:8, padding:"10px 12px" }}>
+            <div style={{ fontSize:8, color, letterSpacing:2, marginBottom:4 }}>PREDICTED OUTCOME</div>
+            <div style={{ fontSize:10, color:"#E2E8F0", lineHeight:1.5 }}>If action taken within 7 days: <span style={{ color:"#10B981", fontWeight:700 }}>73% retention probability</span></div>
+            <div style={{ fontSize:10, color:"#E2E8F0", lineHeight:1.5, marginTop:4 }}>If no action: <span style={{ color:"#FF3B5C", fontWeight:700 }}>86% departure within 45 days</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 05 HMDA Market Intelligence ─────────────────────────────────
+function DeepDive_05({ color, onBack }) {
+  const [msa, setMsa] = useState("Nashville, TN")
+  const producers = [
+    { rank:1,  name:"Robert Kim",      co:"PrimeLending",       loans:312, vol:"$98.4M",  share:"8.2%",  trend:"▲" },
+    { rank:2,  name:"Lisa Chen",       co:"Movement Mortgage",  loans:287, vol:"$91.2M",  share:"7.6%",  trend:"▲" },
+    { rank:3,  name:"Jason Hoffman",   co:"Guaranteed Rate",    loans:264, vol:"$84.1M",  share:"7.0%",  trend:"▼" },
+    { rank:4,  name:"Carla Davis",     co:"CrossCountry",       loans:231, vol:"$73.5M",  share:"6.1%",  trend:"▲" },
+    { rank:5,  name:"Mike Torres",     co:"Fairway",            loans:214, vol:"$68.1M",  share:"5.7%",  trend:"→" },
+    { rank:6,  name:"Angela Wu",       co:"loanDepot",          loans:198, vol:"$63.0M",  share:"5.2%",  trend:"▼" },
+    { rank:7,  name:"Derek Owens",     co:"Caliber Home Loans", loans:182, vol:"$57.9M",  share:"4.8%",  trend:"▼" },
+    { rank:8,  name:"Tanya Morrison",  co:"Rocket Mortgage",    loans:167, vol:"$53.1M",  share:"4.4%",  trend:"→" },
+    { rank:9,  name:"Samuel Park",     co:"UWM",                loans:153, vol:"$48.7M",  share:"4.0%",  trend:"▲" },
+    { rank:10, name:"Nina Patel",      co:"NewAmerican",        loans:142, vol:"$45.2M",  share:"3.7%",  trend:"▲" },
+  ]
+  const lenders = [
+    { co:"PrimeLending",      share:14.2, loans:412 },
+    { co:"Movement Mortgage", share:12.8, loans:371 },
+    { co:"Guaranteed Rate",   share:11.4, loans:331 },
+    { co:"Fairway",           share:9.7,  loans:281 },
+    { co:"CrossCountry",      share:8.3,  loans:241 },
+    { co:"Others",            share:43.6, loans:1264 },
+  ]
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="HMDA Market Intelligence" subtitle="2017–2024 · 7 Years · Live Query Engine" platform="APEX" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 260px", overflow:"hidden" }}>
+        <div style={{ overflow:"auto", padding:"12px 16px" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
+            <span style={{ fontSize:8, color:"#4B5563", letterSpacing:2 }}>MARKET:</span>
+            <div style={{ background:`${color}12`, border:`1px solid ${color}33`, borderRadius:5, padding:"4px 14px", fontSize:9, color }}>📍 {msa}</div>
+            <span style={{ fontSize:8, color:"#4B5563" }}>2,903 active LOs · $1.2B total market · 2024</span>
+          </div>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>TOP PRODUCERS — RANKED BY ORIGINATION VOLUME</div>
+          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+            <thead>
+              <tr style={{ borderBottom:`1px solid ${color}22` }}>
+                {["RANK","LOAN OFFICER","COMPANY","LOANS","VOLUME","MARKET SHARE","YOY TREND","TLS STATUS"].map(h => (
+                  <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5, fontWeight:700 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {producers.map((p) => (
+                <tr key={p.rank} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                  <td style={{ padding:"8px 10px", fontSize:9, color:"#4B5563" }}>{p.rank}</td>
+                  <td style={{ padding:"8px 10px", fontSize:9, color:"#E2E8F0", fontWeight:600 }}>{p.name}</td>
+                  <td style={{ padding:"8px 10px", fontSize:9, color:"#6B7280" }}>{p.co}</td>
+                  <td style={{ padding:"8px 10px", fontSize:9, color:"#9CA3AF" }}>{p.loans}</td>
+                  <td style={{ padding:"8px 10px", fontSize:9, color:"#10B981", fontWeight:700 }}>{p.vol}</td>
+                  <td style={{ padding:"8px 10px", fontSize:9, color }}>{p.share}</td>
+                  <td style={{ padding:"8px 10px", fontSize:11, color:p.trend==="▲"?"#10B981":p.trend==="▼"?"#FF3B5C":"#6B7280" }}>{p.trend}</td>
+                  <td style={{ padding:"8px 10px" }}><span style={{ fontSize:7, color:"#4B5563", background:"rgba(255,255,255,0.04)", padding:"2px 7px", borderRadius:8 }}>TRACKING</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Market share panel */}
+        <div style={{ borderLeft:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>LENDER MARKET SHARE</div>
+          {lenders.map((l, i) => (
+            <div key={i} style={{ marginBottom:10 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+                <span style={{ fontSize:8, color:"#9CA3AF" }}>{l.co}</span>
+                <span style={{ fontSize:8, color, fontWeight:700 }}>{l.share}%</span>
+              </div>
+              <div style={{ height:6, background:"rgba(255,255,255,0.05)", borderRadius:3 }}>
+                <div style={{ height:"100%", width:`${l.share}%`, background:`linear-gradient(90deg, ${color}, ${color}88)`, borderRadius:3 }} />
+              </div>
+              <div style={{ fontSize:7, color:"#4B5563", marginTop:2 }}>{l.loans} loans</div>
+            </div>
+          ))}
+          <div style={{ marginTop:16, fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>DATA COVERAGE</div>
+          {[["Years Loaded","2017–2024"],["Total Records","47.3M"],["Active Markets","42 MSAs"],["LOs Tracked","2.1M+"],["Update Cycle","Annual CFPB"]].map(([l,v]) => (
+            <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"5px 0", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+              <span style={{ fontSize:8, color:"#4B5563" }}>{l}</span>
+              <span style={{ fontSize:8, color:"#E2E8F0", fontWeight:600 }}>{v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 06 Command Center ───────────────────────────────────────────
+function DeepDive_06({ color, onBack }) {
+  const [tab, setTab] = useState("HOT LEADS")
+  const leads = [
+    { name:"Marcus Tran",      score:97, status:"HOT",  loan:"$485K Purchase",   rate:6.58, delta:"+0.12", lastTouch:"2m ago",   action:"Call now" },
+    { name:"Jennifer Kowalski",score:94, status:"HOT",  loan:"$392K Refi",       rate:6.61, delta:"+0.08", lastTouch:"18m ago",  action:"Call now" },
+    { name:"David Lin",        score:91, status:"HOT",  loan:"$612K Purchase",   rate:6.55, delta:"+0.15", lastTouch:"1h ago",   action:"Call now" },
+    { name:"Samantha Wright",  score:88, status:"HOT",  loan:"$278K Refi",       rate:6.63, delta:"+0.05", lastTouch:"2h ago",   action:"Text" },
+    { name:"Carlos Mendez",    score:85, status:"HOT",  loan:"$521K Purchase",   rate:6.58, delta:"+0.12", lastTouch:"3h ago",   action:"Email" },
+    { name:"Amy Patterson",    score:82, status:"WARM", loan:"$345K Cash-out",   rate:6.71, delta:"-0.02", lastTouch:"4h ago",   action:"Email" },
+    { name:"Robert Singh",     score:79, status:"WARM", loan:"$198K Refi",       rate:6.65, delta:"+0.08", lastTouch:"6h ago",   action:"Email" },
+    { name:"Tina Flores",      score:76, status:"WARM", loan:"$447K Purchase",   rate:6.58, delta:"+0.12", lastTouch:"8h ago",   action:"Drip" },
+    { name:"Kevin Moore",      score:73, status:"WARM", loan:"$289K VA Loan",    rate:6.42, delta:"+0.20", lastTouch:"1d ago",   action:"Drip" },
+    { name:"Lisa Nguyen",      score:70, status:"WARM", loan:"$378K Purchase",   rate:6.58, delta:"+0.12", lastTouch:"1d ago",   action:"Drip" },
+  ]
+  const stages = [
+    { stage:"NEW INQUIRY",    count:47, pct:100, color:"#6B7280" },
+    { stage:"CONTACTED",      count:38, pct:81,  color:"#00D4FF" },
+    { stage:"QUALIFIED",      count:29, pct:62,  color:"#7C3AED" },
+    { stage:"APP SUBMITTED",  count:18, pct:38,  color:"#F59E0B" },
+    { stage:"IN PROCESSING",  count:12, pct:26,  color:"#EC4899" },
+    { stage:"CLEAR TO CLOSE", count:8,  pct:17,  color:"#10B981" },
+  ]
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Command Center" subtitle="$48.7M Pipeline · 34 Hot Leads · 8 Closing" platform="CRMEX" color={color} onBack={onBack} />
+      <div style={{ background:"#070D18", borderBottom:"1px solid rgba(255,255,255,0.04)", height:36, display:"flex", alignItems:"center", padding:"0 16px", gap:4 }}>
+        {["HOT LEADS","PIPELINE STAGES","UPCOMING CLOSINGS","RATE ALERTS"].map(t => (
+          <button key={t} onClick={() => setTab(t)} style={{ background: tab===t ? `${color}14` : "transparent", border:`1px solid ${tab===t ? color : "rgba(255,255,255,0.07)"}`, borderRadius:4, padding:"3px 12px", color: tab===t ? color : "#4B5563", fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>{t}</button>
+        ))}
+      </div>
+      <div style={{ flex:1, overflow:"auto", padding:"12px 16px" }}>
+        {tab === "HOT LEADS" && (
+          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+            <thead><tr style={{ borderBottom:`1px solid ${color}22` }}>
+              {["CONTACT","AI SCORE","STATUS","LOAN TYPE","RATE","RATE DELTA","LAST TOUCH","ACTION"].map(h => (
+                <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5 }}>{h}</th>
+              ))}
+            </tr></thead>
+            <tbody>{leads.map((l,i) => (
+              <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                <td style={{ padding:"8px 10px", color:"#E2E8F0", fontWeight:600, fontSize:9 }}>{l.name}</td>
+                <td style={{ padding:"8px 10px" }}>
+                  <div style={{ display:"inline-flex", width:28, height:28, borderRadius:"50%", border:`2px solid ${l.status==="HOT"?"#FF3B5C":"#F59E0B"}`, alignItems:"center", justifyContent:"center", fontSize:8, color:l.status==="HOT"?"#FF3B5C":"#F59E0B", fontWeight:800 }}>{l.score}</div>
+                </td>
+                <td style={{ padding:"8px 10px" }}><span style={{ background:l.status==="HOT"?"rgba(255,59,92,0.12)":"rgba(245,158,11,0.12)", color:l.status==="HOT"?"#FF3B5C":"#F59E0B", border:`1px solid ${l.status==="HOT"?"rgba(255,59,92,0.3)":"rgba(245,158,11,0.3)"}`, fontSize:7, padding:"2px 7px", borderRadius:8, fontWeight:700 }}>{l.status}</span></td>
+                <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:9 }}>{l.loan}</td>
+                <td style={{ padding:"8px 10px", color:"#E2E8F0", fontSize:9, fontWeight:600 }}>{l.rate}%</td>
+                <td style={{ padding:"8px 10px", color:"#10B981", fontSize:9 }}>{l.delta}</td>
+                <td style={{ padding:"8px 10px", color:"#6B7280", fontSize:9 }}>{l.lastTouch}</td>
+                <td style={{ padding:"8px 10px" }}><span style={{ background:`${color}14`, border:`1px solid ${color}33`, color, fontSize:7, padding:"2px 8px", borderRadius:5, cursor:"pointer" }}>{l.action}</span></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        )}
+        {tab === "PIPELINE STAGES" && (
+          <div style={{ maxWidth:600, margin:"0 auto", paddingTop:8 }}>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:16 }}>LOAN PIPELINE FUNNEL — 47 ACTIVE LOANS</div>
+            {stages.map((s,i) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
+                <div style={{ width:140, fontSize:8, color:"#6B7280", textAlign:"right" }}>{s.stage}</div>
+                <div style={{ flex:1, height:32, background:"rgba(255,255,255,0.04)", borderRadius:4, overflow:"hidden", position:"relative" }}>
+                  <div style={{ height:"100%", width:`${s.pct}%`, background:`${s.color}22`, border:`1px solid ${s.color}44`, borderRadius:4, display:"flex", alignItems:"center", paddingLeft:10 }}>
+                    <span style={{ fontSize:11, fontWeight:700, color:s.color }}>{s.count}</span>
+                  </div>
+                </div>
+                <div style={{ width:40, fontSize:8, color:s.color, fontWeight:700 }}>{s.pct}%</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {tab === "UPCOMING CLOSINGS" && (
+          <div style={{ maxWidth:700, margin:"0 auto" }}>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>PROJECTED CLOSINGS — NEXT 30 DAYS</div>
+            {[
+              { borrower:"Marcus Tran",      date:"Mar 14",amount:"$485,000",type:"Purchase",   commission:"$4,850",status:"CTC" },
+              { borrower:"Jennifer Kowalski",date:"Mar 18",amount:"$392,000",type:"Refi",       commission:"$3,920",status:"CTC" },
+              { borrower:"David Lin",        date:"Mar 22",amount:"$612,000",type:"Purchase",   commission:"$6,120",status:"PROC" },
+              { borrower:"Samantha Wright",  date:"Mar 28",amount:"$278,000",type:"Cash-out",   commission:"$2,780",status:"PROC" },
+              { borrower:"Carlos Mendez",    date:"Apr 3", amount:"$521,000",type:"Purchase",   commission:"$5,210",status:"APPL" },
+              { borrower:"Amy Patterson",    date:"Apr 7", amount:"$345,000",type:"Refi",       commission:"$3,450",status:"QUAL" },
+              { borrower:"Robert Singh",     date:"Apr 11",amount:"$198,000",type:"Refi",       commission:"$1,980",status:"CONT" },
+              { borrower:"Kevin Moore",      date:"Apr 15",amount:"$289,000",type:"VA",         commission:"$2,890",status:"CONT" },
+            ].map((c,i) => (
+              <div key={i} style={{ display:"flex", gap:0, padding:"9px 12px", borderBottom:"1px solid rgba(255,255,255,0.04)", alignItems:"center" }}>
+                <div style={{ width:160, fontSize:9, color:"#E2E8F0", fontWeight:600 }}>{c.borrower}</div>
+                <div style={{ width:70, fontSize:9, color }}>📅 {c.date}</div>
+                <div style={{ width:100, fontSize:9, color:"#10B981", fontWeight:700 }}>{c.amount}</div>
+                <div style={{ width:80, fontSize:9, color:"#9CA3AF" }}>{c.type}</div>
+                <div style={{ flex:1, fontSize:9, color:"#F59E0B", fontWeight:700 }}>Est. {c.commission}</div>
+                <div><span style={{ fontSize:7, color, background:`${color}12`, padding:"2px 7px", borderRadius:6 }}>{c.status}</span></div>
+              </div>
+            ))}
+          </div>
+        )}
+        {tab === "RATE ALERTS" && (
+          <div style={{ maxWidth:700, margin:"0 auto" }}>
+            <div style={{ display:"flex", gap:12, marginBottom:14 }}>
+              {[["312 contacts","Rate alert sent 7am","#10B981"],["34 opened","10.9% open rate","#00D4FF"],["12 replied","3.8% reply rate","#F59E0B"]].map(([v,s,c]) => (
+                <div key={v} style={{ flex:1, background:`${c}08`, border:`1px solid ${c}22`, borderRadius:8, padding:"10px 12px", textAlign:"center" }}>
+                  <div style={{ fontSize:18, color:c, fontWeight:800 }}>{v}</div>
+                  <div style={{ fontSize:8, color:"#6B7280", marginTop:2 }}>{s}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>CONTACTS WHO CROSSED RATE SENSITIVITY THRESHOLD OVERNIGHT</div>
+            {[
+              { name:"Marcus Tran",      threshold:"6.50%", current:"6.58%", gap:"+0.08%", action:"Auto-alerted" },
+              { name:"Jennifer Kowalski",threshold:"6.55%", current:"6.58%", gap:"+0.03%", action:"Auto-alerted" },
+              { name:"Diana Torres",     threshold:"6.60%", current:"6.58%", gap:"−0.02%", action:"Now in range" },
+              { name:"Samuel Park",      threshold:"6.50%", current:"6.58%", gap:"+0.08%", action:"Auto-alerted" },
+            ].map((r,i) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", padding:"9px 12px", borderBottom:"1px solid rgba(255,255,255,0.04)", gap:12 }}>
+                <div style={{ flex:1, fontSize:9, color:"#E2E8F0", fontWeight:600 }}>{r.name}</div>
+                <div style={{ fontSize:9, color:"#6B7280" }}>Threshold: {r.threshold}</div>
+                <div style={{ fontSize:9, color }}>Current: {r.current}</div>
+                <div style={{ fontSize:9, color:r.gap.startsWith("+")?"#FF3B5C":"#10B981", fontWeight:700 }}>{r.gap}</div>
+                <span style={{ fontSize:7, color:"#10B981", background:"rgba(16,185,129,0.1)", padding:"2px 8px", borderRadius:5 }}>{r.action}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── 07 AI Lead Scoring Engine ───────────────────────────────────
+function DeepDive_07({ color, onBack }) {
+  const [selected, setSelected] = useState(0)
+  const leads = [
+    { name:"Marcus Tran",      score:97, factors:{ recency:98, equity:95, rateGap:99, engagement:96, ltv:94 }, phone:"(714) 555-0182", email:"m.tran@email.com",    lastLoan:"2021", property:"$580K", equityEst:"$182K" },
+    { name:"Jennifer Kowalski",score:94, factors:{ recency:93, equity:91, rateGap:97, engagement:94, ltv:91 }, phone:"(312) 555-0274", email:"jen.k@email.com",     lastLoan:"2020", property:"$465K", equityEst:"$147K" },
+    { name:"David Lin",        score:91, factors:{ recency:90, equity:88, rateGap:94, engagement:91, ltv:88 }, phone:"(408) 555-0391", email:"d.lin@email.com",      lastLoan:"2022", property:"$742K", equityEst:"$234K" },
+    { name:"Samantha Wright",  score:88, factors:{ recency:87, equity:85, rateGap:90, engagement:88, ltv:85 }, phone:"(213) 555-0148", email:"sam.w@email.com",      lastLoan:"2020", property:"$332K", equityEst:"$108K" },
+    { name:"Carlos Mendez",    score:85, factors:{ recency:84, equity:82, rateGap:87, engagement:85, ltv:82 }, phone:"(512) 555-0267", email:"c.mendez@email.com",   lastLoan:"2021", property:"$628K", equityEst:"$198K" },
+  ]
+  const sel = leads[selected]
+  const factorLabels = { recency:"Loan Recency", equity:"Equity Position", rateGap:"Rate Gap Score", engagement:"Engagement Index", ltv:"LTV Ratio" }
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="AI Lead Scoring Engine" subtitle="Score Breakdown · Top 5 HOT Leads" platform="CRMEX" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"220px 1fr 260px", overflow:"hidden" }}>
+        {/* Lead list */}
+        <div style={{ borderRight:`1px solid ${color}18`, overflow:"auto", padding:"10px" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:8, padding:"0 4px" }}>CALL QUEUE</div>
+          {leads.map((l,i) => (
+            <div key={i} onClick={() => setSelected(i)} style={{ background: selected===i ? `${color}12` : "rgba(255,255,255,0.02)", border:`1px solid ${selected===i ? color : "rgba(255,255,255,0.06)"}`, borderRadius:6, padding:"10px 12px", marginBottom:6, cursor:"pointer" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:600 }}>{l.name}</span>
+                <div style={{ width:26, height:26, borderRadius:"50%", border:`2px solid #FF3B5C`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, color:"#FF3B5C", fontWeight:800 }}>{l.score}</div>
+              </div>
+              <div style={{ fontSize:7, color:"#6B7280", marginTop:3 }}>#{i+1} in call queue</div>
+            </div>
+          ))}
+        </div>
+        {/* Score breakdown */}
+        <div style={{ padding:"14px 16px", overflow:"auto" }}>
+          <div style={{ marginBottom:16 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
+              <div style={{ width:56, height:56, borderRadius:"50%", border:`3px solid #FF3B5C`, display:"flex", alignItems:"center", justifyContent:"center", background:"rgba(255,59,92,0.08)" }}>
+                <span style={{ fontSize:18, fontWeight:900, color:"#FF3B5C" }}>{sel.score}</span>
+              </div>
+              <div>
+                <div style={{ fontSize:15, color:"#E2E8F0", fontWeight:800 }}>{sel.name}</div>
+                <div style={{ fontSize:9, color:"#FF3B5C", letterSpacing:2 }}>HOT — CALL NOW</div>
+              </div>
+            </div>
+          </div>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>5-FACTOR SCORING BREAKDOWN</div>
+          {Object.entries(sel.factors).map(([k,v]) => (
+            <div key={k} style={{ marginBottom:12 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+                <span style={{ fontSize:9, color:"#9CA3AF" }}>{factorLabels[k]}</span>
+                <span style={{ fontSize:9, color, fontWeight:700 }}>{v}/100</span>
+              </div>
+              <div style={{ height:8, background:"rgba(255,255,255,0.05)", borderRadius:4, overflow:"hidden" }}>
+                <div style={{ height:"100%", width:`${v}%`, background:`linear-gradient(90deg, ${color}, #FF3B5C)`, borderRadius:4 }} />
+              </div>
+            </div>
+          ))}
+          <div style={{ marginTop:16, background:"rgba(255,59,92,0.06)", border:"1px solid rgba(255,59,92,0.2)", borderRadius:8, padding:"12px 14px" }}>
+            <div style={{ fontSize:8, color:"#FF3B5C", letterSpacing:2, marginBottom:6 }}>AI RECOMMENDATION</div>
+            <div style={{ fontSize:9, color:"#E2E8F0", lineHeight:1.6 }}>Call within the next 2 hours. Lead rate sensitivity threshold crossed at 6am. Current rate gap of {sel.factors.rateGap > 95 ? "28bps" : "22bps"} represents $312/mo savings opportunity. Open with rate alert context.</div>
+          </div>
+        </div>
+        {/* Contact enrichment */}
+        <div style={{ borderLeft:`1px solid ${color}18`, padding:"14px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>ENRICHED CONTACT DATA</div>
+          {[["Phone",sel.phone],["Email",sel.email],["Last Loan",sel.lastLoan],["Property Value",sel.property],["Estimated Equity",sel.equityEst],["Current Rate","6.87%"],["Market Rate","6.58%"],["Rate Gap","−0.29%"],["Savings/mo","$347"],["LTV Est.","62%"]].map(([l,v]) => (
+            <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"7px 0", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+              <span style={{ fontSize:8, color:"#4B5563" }}>{l}</span>
+              <span style={{ fontSize:9, color:l.includes("Equity")||l.includes("Savings")?"#10B981":"#E2E8F0", fontWeight:600 }}>{v}</span>
+            </div>
+          ))}
+          <div style={{ marginTop:12, display:"flex", flexDirection:"column", gap:6 }}>
+            <button style={{ background:`${color}14`, border:`1px solid ${color}`, borderRadius:6, padding:"8px 0", color, fontSize:8, fontWeight:700, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5 }}>📞 CALL NOW</button>
+            <button style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:6, padding:"8px 0", color:"#6B7280", fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5 }}>✉ DRAFT EMAIL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 08 Property Pulse Equity Engine ────────────────────────────
+function DeepDive_08({ color, onBack }) {
+  const props = [
+    { owner:"Marcus Tran",      addr:"4812 Willowbrook Dr",   city:"Anaheim, CA",     origVal:"$398K",origRate:"3.25%",currVal:"$580K",equity:"$182K",urgency:"HIGH",   trigger:"Rate gap 28bps" },
+    { owner:"Jennifer Kowalski",addr:"1923 Oak Park Blvd",    city:"Chicago, IL",     origVal:"$318K",origRate:"3.50%",currVal:"$465K",equity:"$147K",urgency:"HIGH",   trigger:"Equity milestone" },
+    { owner:"David Lin",        addr:"7741 Ridgeline Way",    city:"San Jose, CA",    origVal:"$508K",origRate:"3.10%",currVal:"$742K",equity:"$234K",urgency:"HIGH",   trigger:"Cash-out eligible" },
+    { owner:"Samantha Wright",  addr:"2248 Sunset Ave",       city:"Los Angeles, CA", origVal:"$224K",origRate:"3.75%",currVal:"$332K",equity:"$108K",urgency:"MEDIUM", trigger:"Home equity loan" },
+    { owner:"Carlos Mendez",    addr:"9031 Mesa Verde Ct",    city:"Austin, TX",      origVal:"$430K",origRate:"3.40%",currVal:"$628K",equity:"$198K",urgency:"MEDIUM", trigger:"Rate gap 18bps" },
+    { owner:"Amy Patterson",    addr:"5512 Birchwood Ln",     city:"Denver, CO",      origVal:"$276K",origRate:"4.10%",currVal:"$345K",equity:"$94K", urgency:"MEDIUM", trigger:"Rate sensitivity" },
+    { owner:"Robert Singh",     addr:"3317 Palo Alto Dr",     city:"San Jose, CA",    origVal:"$142K",origRate:"4.25%",currVal:"$198K",equity:"$72K", urgency:"LOW",    trigger:"Investment refi" },
+    { owner:"Kevin Moore",      addr:"6624 Horizon Blvd",     city:"Phoenix, AZ",     origVal:"$196K",origRate:"3.90%",currVal:"$289K",equity:"$93K", urgency:"LOW",    trigger:"VA cash-out" },
+  ]
+  const urgC = { HIGH:"#FF3B5C", MEDIUM:"#F59E0B", LOW:"#10B981" }
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Property Pulse Equity Engine" subtitle="Past Borrower Re-Engagement — $182K Avg Equity" platform="CRMEX" color={color} onBack={onBack} />
+      <div style={{ flex:1, overflow:"auto", padding:"12px 16px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, marginBottom:14 }}>
+          {[["TOTAL EQUITY TRACKED","$18.4M","#10B981"],["AVG EQUITY / BORROWER","$182K","#00D4FF"],["RE-ENGAGEMENT READY","47 contacts","#FF3B5C"]].map(([l,v,c]) => (
+            <div key={l} style={{ background:`${c}08`, border:`1px solid ${c}22`, borderRadius:8, padding:"10px 14px" }}>
+              <div style={{ fontSize:7, color:"#4B5563", letterSpacing:1.5, marginBottom:4 }}>{l}</div>
+              <div style={{ fontSize:18, color:c, fontWeight:800 }}>{v}</div>
+            </div>
+          ))}
+        </div>
+        <table style={{ width:"100%", borderCollapse:"collapse" }}>
+          <thead><tr style={{ borderBottom:`1px solid ${color}22` }}>
+            {["BORROWER","ADDRESS","CITY","ORIG VALUE","ORIG RATE","CURR VALUE","EQUITY","URGENCY","TRIGGER","ACTION"].map(h => (
+              <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5 }}>{h}</th>
+            ))}
+          </tr></thead>
+          <tbody>{props.map((p,i) => (
+            <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+              <td style={{ padding:"8px 10px", color:"#E2E8F0", fontWeight:600, fontSize:9 }}>{p.owner}</td>
+              <td style={{ padding:"8px 10px", color:"#6B7280", fontSize:8 }}>{p.addr}</td>
+              <td style={{ padding:"8px 10px", color:"#6B7280", fontSize:8 }}>{p.city}</td>
+              <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:9 }}>{p.origVal}</td>
+              <td style={{ padding:"8px 10px", color:"#F59E0B", fontSize:9 }}>{p.origRate}</td>
+              <td style={{ padding:"8px 10px", color:"#10B981", fontSize:9, fontWeight:700 }}>{p.currVal}</td>
+              <td style={{ padding:"8px 10px", color:color, fontSize:9, fontWeight:700 }}>{p.equity}</td>
+              <td style={{ padding:"8px 10px" }}><span style={{ background:`${urgC[p.urgency]}12`, border:`1px solid ${urgC[p.urgency]}33`, color:urgC[p.urgency], fontSize:7, padding:"2px 7px", borderRadius:8, fontWeight:700 }}>{p.urgency}</span></td>
+              <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:8 }}>{p.trigger}</td>
+              <td style={{ padding:"8px 10px" }}><span style={{ background:`${color}12`, color, fontSize:7, padding:"2px 8px", borderRadius:5, cursor:"pointer" }}>REACH OUT</span></td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// ── 09 Huit Agent AI ────────────────────────────────────────────
+function DeepDive_09({ color, onBack }) {
+  const [input, setInput] = useState("")
+  const conv = [
+    { role:"user",    text:"Show me my top 5 leads and draft an email to the highest scorer" },
+    { role:"tool",    name:"CRM Lead Lookup",    result:"Fetching top leads..." },
+    { role:"tool",    name:"AI Lead Scoring",    result:"Scored 312 contacts. Top: Marcus Tran — 97" },
+    { role:"tool",    name:"Email Drafter",      result:"Draft generated for Marcus Tran (rate alert context)" },
+    { role:"assistant", text:"Your top 5 leads are ready. Marcus Tran leads at Score 97 — I've drafted an email below. Should I also schedule a call?" },
+    { role:"email",   subject:"Rate Update — You Could Save $347/Month", body:"Hi Marcus, I wanted to reach out personally — mortgage rates shifted this morning and based on your loan profile, you may be in a great position to reduce your payment by $347/month. I have a few minutes tomorrow if you'd like to run the numbers quickly. No commitment, just a conversation. Let me know! Best, Derek" },
+    { role:"user",    text:"Book a call with Marcus for tomorrow at 2pm" },
+    { role:"tool",    name:"Calendar Book",      result:"Checking availability..." },
+    { role:"tool",    name:"SMS Trigger",        result:"Confirmation SMS sent to (714) 555-0182" },
+    { role:"assistant", text:"Done. Call booked for tomorrow at 2:00 PM. Marcus received a confirmation text. I've added this to your CRM timeline and set a reminder 30 minutes before." },
+    { role:"user",    text:"Pull HMDA data — who are the top 3 producers in Phoenix I should be tracking?" },
+    { role:"tool",    name:"HMDA Lookup",        result:"Querying 2024 Phoenix MSA data..." },
+    { role:"assistant", text:"Top 3 Phoenix producers not yet in your pipeline: Sarah Martinez (Caliber, $84M), Marcus Webb (Rocket, $72M), and Priya Shah (loanDepot, $58M). APEX shows Sarah has a TLS of 84 — she's IMMINENT. Want me to generate an outreach plan?" },
+  ]
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Huit Agent AI" subtitle="9 Live CRM Tools · Extended Session" platform="HUIT AGENT" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"180px 1fr", overflow:"hidden" }}>
+        {/* Tools sidebar */}
+        <div style={{ borderRight:`1px solid ${color}18`, padding:"10px", overflow:"auto", background:"rgba(0,0,0,0.15)" }}>
+          <div style={{ fontSize:7, color:"#4B5563", letterSpacing:2, marginBottom:8 }}>ACTIVE TOOLS</div>
+          {[["CRM Lead Lookup","#00D4FF","LIVE"],["AI Lead Scoring","#FF3B5C","LIVE"],["Rate Feed","#10B981","LIVE"],["Property Pulse","#F59E0B","LIVE"],["Email Drafter","#7C3AED","LIVE"],["Calendar Book","#EC4899","LIVE"],["SMS Trigger","#00D4FF","LIVE"],["HMDA Lookup","#8B5CF6","LIVE"],["Pipeline View","#F59E0B","LIVE"]].map(([name,c,status]) => (
+            <div key={name} style={{ background:`${c}08`, border:`1px solid ${c}18`, borderRadius:5, padding:"6px 8px", marginBottom:5 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <span style={{ fontSize:8, color:"#E2E8F0", fontWeight:600 }}>{name}</span>
+                <span style={{ fontSize:6, color:"#10B981", background:"rgba(16,185,129,0.12)", padding:"1px 5px", borderRadius:6 }}>{status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Chat */}
+        <div style={{ display:"flex", flexDirection:"column", overflow:"hidden" }}>
+          <div style={{ flex:1, overflow:"auto", padding:"12px 14px", display:"flex", flexDirection:"column", gap:8 }}>
+            {conv.map((m,i) => (
+              <div key={i} style={{ display:"flex", flexDirection:"column", alignItems: m.role==="user"?"flex-end":"flex-start" }}>
+                {m.role === "tool" && (
+                  <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:6, padding:"6px 10px", maxWidth:"80%", display:"flex", gap:8, alignItems:"center" }}>
+                    <span style={{ fontSize:8, color:color }}>⚙</span>
+                    <span style={{ fontSize:8, color:"#6B7280" }}><span style={{ color:"#9CA3AF", fontWeight:600 }}>{m.name}:</span> {m.result}</span>
+                  </div>
+                )}
+                {m.role === "user" && (
+                  <div style={{ background:`${color}14`, border:`1px solid ${color}33`, borderRadius:8, borderBottomRightRadius:2, padding:"8px 12px", maxWidth:"70%", fontSize:9, color:"#E2E8F0", lineHeight:1.5 }}>{m.text}</div>
+                )}
+                {m.role === "assistant" && (
+                  <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:8, borderBottomLeftRadius:2, padding:"8px 12px", maxWidth:"75%", fontSize:9, color:"#E2E8F0", lineHeight:1.5 }}>{m.text}</div>
+                )}
+                {m.role === "email" && (
+                  <div style={{ background:"rgba(124,58,237,0.06)", border:"1px solid rgba(124,58,237,0.25)", borderRadius:8, padding:"10px 12px", maxWidth:"80%", fontSize:8 }}>
+                    <div style={{ color:"#7C3AED", fontWeight:700, marginBottom:4, letterSpacing:1 }}>✉ EMAIL DRAFT</div>
+                    <div style={{ color:"#9CA3AF", marginBottom:4 }}>Subject: <span style={{ color:"#E2E8F0" }}>{m.subject}</span></div>
+                    <div style={{ color:"#9CA3AF", lineHeight:1.6 }}>{m.body}</div>
+                    <button style={{ marginTop:8, background:"rgba(124,58,237,0.15)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:5, padding:"4px 12px", color:"#7C3AED", fontSize:7, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>SEND EMAIL</button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ padding:"10px 14px", borderTop:`1px solid ${color}18`, display:"flex", gap:8 }}>
+            <input value={input} onChange={e => setInput(e.target.value)} placeholder="Ask Huit Agent anything..." style={{ flex:1, background:"rgba(255,255,255,0.04)", border:`1px solid ${color}22`, borderRadius:6, padding:"8px 12px", color:"#E2E8F0", fontSize:9, fontFamily:"'JetBrains Mono',monospace", outline:"none" }} />
+            <button style={{ background:`${color}18`, border:`1px solid ${color}`, borderRadius:6, padding:"8px 16px", color, fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1, fontWeight:700 }}>SEND</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── 10 Campaign Manager ─────────────────────────────────────────
+function DeepDive_10({ color, onBack }) {
+  const [tab, setTab] = useState("CAMPAIGNS")
+  const campaigns = [
+    { name:"Rate Alert — June Refi",    status:"ACTIVE",  sent:312, opens:142, replies:61,  cpl:"$18.40",channel:"RCS",   conv:"19.6%" },
+    { name:"Equity Cash-Out Push",      status:"ACTIVE",  sent:187, opens:79,  replies:28,  cpl:"$24.80",channel:"EMAIL", conv:"14.9%" },
+    { name:"Purchase Pre-Approval",     status:"ACTIVE",  sent:94,  opens:48,  replies:17,  cpl:"$31.20",channel:"SMS",   conv:"18.1%" },
+    { name:"Past Borrower Refi Drip",   status:"PAUSED",  sent:441, opens:198, replies:52,  cpl:"$41.30",channel:"EMAIL", conv:"11.8%" },
+    { name:"VA Loan Awareness",         status:"ACTIVE",  sent:156, opens:68,  replies:24,  cpl:"$28.60",channel:"RCS",   conv:"15.4%" },
+    { name:"First-Time Buyer Nurture",  status:"DRAFT",   sent:0,   opens:0,   replies:0,   cpl:"—",     channel:"EMAIL", conv:"—" },
+    { name:"Agent Referral Partner",    status:"ACTIVE",  sent:83,  opens:44,  replies:19,  cpl:"$22.10",channel:"SMS",   conv:"22.9%" },
+  ]
+  const statC = { ACTIVE:"#10B981", PAUSED:"#F59E0B", DRAFT:"#4B5563" }
+  const replies = [
+    { contact:"Marcus Tran",      msg:"Yes, I'd love to learn more about refinancing",  time:"2m ago",  sentiment:"😊 POSITIVE" },
+    { contact:"Jennifer K.",      msg:"What rates are you seeing right now?",             time:"14m ago", sentiment:"🤔 CURIOUS" },
+    { contact:"David Lin",        msg:"Can we talk tomorrow morning?",                   time:"31m ago", sentiment:"😊 POSITIVE" },
+    { contact:"Amy Patterson",    msg:"Not interested right now",                        time:"1h ago",  sentiment:"👎 NEGATIVE" },
+    { contact:"Carlos Mendez",    msg:"How much could I save on my monthly payment?",   time:"2h ago",  sentiment:"🤔 CURIOUS" },
+  ]
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="Campaign Manager" subtitle="7 Campaigns · 19.6% RCS Reply Rate" platform="CRMEX" color={color} onBack={onBack} />
+      <div style={{ background:"#070D18", borderBottom:"1px solid rgba(255,255,255,0.04)", height:36, display:"flex", alignItems:"center", padding:"0 16px", gap:4 }}>
+        {["CAMPAIGNS","REPLY INBOX","A/B RESULTS"].map(t => (
+          <button key={t} onClick={() => setTab(t)} style={{ background: tab===t ? `${color}14` : "transparent", border:`1px solid ${tab===t ? color : "rgba(255,255,255,0.07)"}`, borderRadius:4, padding:"3px 12px", color: tab===t ? color : "#4B5563", fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>{t}</button>
+        ))}
+      </div>
+      <div style={{ flex:1, overflow:"auto", padding:"12px 16px" }}>
+        {tab === "CAMPAIGNS" && (
+          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+            <thead><tr style={{ borderBottom:`1px solid ${color}22` }}>
+              {["CAMPAIGN","STATUS","CHANNEL","SENT","OPENS","REPLIES","REPLY RATE","CPL"].map(h => (
+                <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5 }}>{h}</th>
+              ))}
+            </tr></thead>
+            <tbody>{campaigns.map((c,i) => (
+              <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                <td style={{ padding:"8px 10px", color:"#E2E8F0", fontWeight:600, fontSize:9 }}>{c.name}</td>
+                <td style={{ padding:"8px 10px" }}><span style={{ background:`${statC[c.status]}12`, color:statC[c.status], fontSize:7, padding:"2px 7px", borderRadius:8, fontWeight:700 }}>{c.status}</span></td>
+                <td style={{ padding:"8px 10px", color, fontSize:9 }}>{c.channel}</td>
+                <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:9 }}>{c.sent}</td>
+                <td style={{ padding:"8px 10px", color:"#9CA3AF", fontSize:9 }}>{c.opens}</td>
+                <td style={{ padding:"8px 10px", color:"#10B981", fontWeight:700, fontSize:9 }}>{c.replies}</td>
+                <td style={{ padding:"8px 10px", color, fontWeight:700, fontSize:9 }}>{c.conv}</td>
+                <td style={{ padding:"8px 10px", color:"#F59E0B", fontSize:9 }}>{c.cpl}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        )}
+        {tab === "REPLY INBOX" && (
+          <div style={{ maxWidth:700, margin:"0 auto" }}>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>INBOUND REPLIES — LAST 2 HOURS</div>
+            {replies.map((r,i) => (
+              <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:8, padding:"12px 14px", marginBottom:8 }}>
+                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:6 }}>
+                  <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:700 }}>{r.contact}</span>
+                  <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+                    <span style={{ fontSize:8, color:"#4B5563" }}>{r.time}</span>
+                    <span style={{ fontSize:8 }}>{r.sentiment}</span>
+                  </div>
+                </div>
+                <div style={{ fontSize:9, color:"#9CA3AF", lineHeight:1.5, marginBottom:8 }}>"{r.msg}"</div>
+                <button style={{ background:`${color}10`, border:`1px solid ${color}33`, borderRadius:5, padding:"4px 12px", color, fontSize:7, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>REPLY WITH AI DRAFT</button>
+              </div>
+            ))}
+          </div>
+        )}
+        {tab === "A/B RESULTS" && (
+          <div style={{ maxWidth:600, margin:"0 auto", paddingTop:8 }}>
+            <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:14 }}>A/B TEST — RATE ALERT SUBJECT LINES</div>
+            {[
+              { label:"A", subject:'"Rates dropped — your payment could be $347 lower"', opens:67, replies:28, winner:true },
+              { label:"B", subject:'"Important: rate update for your mortgage"',           opens:41, replies:14, winner:false },
+              { label:"C", subject:'"Quick question about your home loan"',                opens:34, replies:19, winner:false },
+            ].map((t,i) => (
+              <div key={i} style={{ background: t.winner ? `${color}08` : "rgba(255,255,255,0.02)", border:`1px solid ${t.winner ? color : "rgba(255,255,255,0.07)"}`, borderRadius:8, padding:"12px 14px", marginBottom:10 }}>
+                <div style={{ display:"flex", gap:10, alignItems:"center", marginBottom:8 }}>
+                  <div style={{ width:22, height:22, borderRadius:"50%", background:t.winner?`${color}20`:"rgba(255,255,255,0.05)", border:`1px solid ${t.winner?color:"rgba(255,255,255,0.1)"}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:9, color:t.winner?color:"#6B7280", fontWeight:800 }}>{t.label}</div>
+                  <span style={{ fontSize:9, color:"#E2E8F0" }}>{t.subject}</span>
+                  {t.winner && <span style={{ fontSize:7, color:"#10B981", background:"rgba(16,185,129,0.12)", padding:"1px 8px", borderRadius:8, marginLeft:"auto", fontWeight:700 }}>✓ WINNER</span>}
+                </div>
+                <div style={{ display:"flex", gap:20 }}>
+                  <div><span style={{ fontSize:8, color:"#4B5563" }}>Opens: </span><span style={{ fontSize:9, color, fontWeight:700 }}>{t.opens}%</span></div>
+                  <div><span style={{ fontSize:8, color:"#4B5563" }}>Replies: </span><span style={{ fontSize:9, color:"#10B981", fontWeight:700 }}>{t.replies}%</span></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── 11 The Huit.AI Difference ───────────────────────────────────
+function DeepDive_11({ color, onBack }) {
+  const [tier, setTier] = useState("COMMAND")
+  const tiers = { STARTER:625, SCOUT:1250, COMMAND:2350, DOMINATE:4125 }
+  const price = tiers[tier]
+  const roi = {
+    hires: tier==="DOMINATE"?6:tier==="COMMAND"?4:tier==="SCOUT"?2:1,
+    closings: tier==="DOMINATE"?18:tier==="COMMAND"?12:tier==="SCOUT"?8:4,
+    retained: tier==="DOMINATE"?3:tier==="COMMAND"?2:tier==="SCOUT"?1:0,
+  }
+  const revenue = roi.hires * 42000 + roi.closings * 5800 + roi.retained * 68000
+  const roiMult = Math.round(revenue / (price * 12) * 10) / 10
+
+  const competitors = [
+    { feature:"Predictive TLS Scoring",      huit:true,  loxo:false, modelMatch:false, monday:false },
+    { feature:"HMDA 7-Year Market Data",      huit:true,  loxo:false, modelMatch:false, monday:false },
+    { feature:"RCS Multi-Channel Outreach",   huit:true,  loxo:true,  modelMatch:false, monday:false },
+    { feature:"AI Lead Scoring (Borrowers)",  huit:true,  loxo:false, modelMatch:false, monday:false },
+    { feature:"Property Pulse Equity Engine", huit:true,  loxo:false, modelMatch:false, monday:false },
+    { feature:"Retention Risk Monitor",       huit:true,  loxo:false, modelMatch:false, monday:false },
+    { feature:"AI Agent (Natural Language)",  huit:true,  loxo:false, modelMatch:false, monday:true  },
+    { feature:"Mortgage-Specific CRM",        huit:true,  loxo:false, modelMatch:true,  monday:false },
+    { feature:"NMLS Compliance Built-In",     huit:true,  loxo:false, modelMatch:true,  monday:false },
+    { feature:"All-in-One Platform",          huit:true,  loxo:false, modelMatch:false, monday:false },
+  ]
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14" }}>
+      <DeepDive_Header title="The Huit.AI Difference" subtitle="ROI Calculator · Competitor Comparison" platform="HUIT.AI" color={color} onBack={onBack} />
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"360px 1fr", overflow:"hidden" }}>
+        {/* ROI Calculator */}
+        <div style={{ borderRight:`1px solid ${color}18`, padding:"16px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:14 }}>ROI CALCULATOR — SELECT YOUR TIER</div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6, marginBottom:16 }}>
+            {Object.keys(tiers).map(t => (
+              <button key={t} onClick={() => setTier(t)} style={{ background: tier===t ? `${color}18` : "rgba(255,255,255,0.02)", border:`1px solid ${tier===t ? color : "rgba(255,255,255,0.08)"}`, borderRadius:6, padding:"8px 0", color: tier===t ? color : "#4B5563", fontSize:9, fontWeight:700, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace" }}>{t}</button>
+            ))}
+          </div>
+          <div style={{ background:`${color}06`, border:`1px solid ${color}18`, borderRadius:8, padding:"14px", marginBottom:14 }}>
+            <div style={{ fontSize:8, color, letterSpacing:2, marginBottom:12 }}>{tier} — ${price.toLocaleString()}/MO</div>
+            {[
+              ["New hires from APEX", roi.hires + " LOs", roi.hires * 42000],
+              ["Additional closings", roi.closings + " per year", roi.closings * 5800],
+              ["Retained LOs at risk", roi.retained + " prevented", roi.retained * 68000],
+            ].map(([l, v, r]) => (
+              <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"7px 0", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                <div>
+                  <div style={{ fontSize:8, color:"#9CA3AF" }}>{l}</div>
+                  <div style={{ fontSize:7, color:"#4B5563" }}>{v}</div>
+                </div>
+                <div style={{ fontSize:10, color:"#10B981", fontWeight:700 }}>${r.toLocaleString()}</div>
+              </div>
+            ))}
+            <div style={{ marginTop:12, paddingTop:12, borderTop:`1px solid ${color}22` }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:700 }}>ANNUAL REVENUE IMPACT</span>
+                <span style={{ fontSize:16, color:"#10B981", fontWeight:900 }}>${revenue.toLocaleString()}</span>
+              </div>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:8 }}>
+                <span style={{ fontSize:9, color:"#E2E8F0", fontWeight:700 }}>PLATFORM COST</span>
+                <span style={{ fontSize:14, color:"#FF3B5C", fontWeight:700 }}>−${(price*12).toLocaleString()}</span>
+              </div>
+              <div style={{ marginTop:12, background:"rgba(16,185,129,0.08)", border:"1px solid rgba(16,185,129,0.25)", borderRadius:6, padding:"10px", textAlign:"center" }}>
+                <div style={{ fontSize:8, color:"#4B5563", marginBottom:4 }}>ESTIMATED ROI MULTIPLE</div>
+                <div style={{ fontSize:28, color:"#10B981", fontWeight:900 }}>{roiMult}×</div>
+                <div style={{ fontSize:8, color:"#6B7280" }}>return on platform investment</div>
+              </div>
+            </div>
+          </div>
+          <button style={{ width:"100%", background:`linear-gradient(135deg, ${color}18, #7C3AED18)`, border:`1px solid ${color}`, borderRadius:8, padding:"12px 0", color, fontSize:10, fontWeight:800, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:2 }}>
+            CLAIM {tier} SPOT → huit.ai/join
+          </button>
+        </div>
+        {/* Competitor comparison */}
+        <div style={{ padding:"16px", overflow:"auto" }}>
+          <div style={{ fontSize:8, color:"#4B5563", letterSpacing:2, marginBottom:14 }}>FEATURE COMPARISON VS COMPETITORS</div>
+          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+            <thead><tr style={{ borderBottom:`1px solid ${color}22` }}>
+              <th style={{ padding:"8px 14px", textAlign:"left", color:"#4B5563", fontSize:7, letterSpacing:1.5, width:"40%" }}>FEATURE</th>
+              <th style={{ padding:"8px 14px", textAlign:"center", color, fontSize:9, fontWeight:800 }}>HUIT.AI</th>
+              <th style={{ padding:"8px 14px", textAlign:"center", color:"#6B7280", fontSize:8 }}>Loxo</th>
+              <th style={{ padding:"8px 14px", textAlign:"center", color:"#6B7280", fontSize:8 }}>Model Match</th>
+              <th style={{ padding:"8px 14px", textAlign:"center", color:"#6B7280", fontSize:8 }}>Monday.com</th>
+            </tr></thead>
+            <tbody>{competitors.map((c,i) => (
+              <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                <td style={{ padding:"9px 14px", fontSize:9, color:"#9CA3AF" }}>{c.feature}</td>
+                <td style={{ padding:"9px 14px", textAlign:"center", fontSize:13 }}>{c.huit ? "✅" : "❌"}</td>
+                <td style={{ padding:"9px 14px", textAlign:"center", fontSize:13 }}>{c.loxo ? "✅" : "❌"}</td>
+                <td style={{ padding:"9px 14px", textAlign:"center", fontSize:13 }}>{c.modelMatch ? "✅" : "❌"}</td>
+                <td style={{ padding:"9px 14px", textAlign:"center", fontSize:13 }}>{c.monday ? "✅" : "❌"}</td>
+              </tr>
+            ))}</tbody>
+            <tfoot><tr style={{ borderTop:`1px solid ${color}22`, background:`${color}05` }}>
+              <td style={{ padding:"10px 14px", fontSize:8, color, fontWeight:700 }}>TOTAL FEATURES</td>
+              <td style={{ padding:"10px 14px", textAlign:"center", fontSize:11, color, fontWeight:900 }}>10/10</td>
+              <td style={{ padding:"10px 14px", textAlign:"center", fontSize:11, color:"#6B7280" }}>2/10</td>
+              <td style={{ padding:"10px 14px", textAlign:"center", fontSize:11, color:"#6B7280" }}>3/10</td>
+              <td style={{ padding:"10px 14px", textAlign:"center", fontSize:11, color:"#6B7280" }}>2/10</td>
+            </tr></tfoot>
+          </table>
+          <div style={{ marginTop:16, display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
+            {[["Loxo","$1,800–$3,600/mo","Recruiting only. No mortgage intelligence."],["Model Match","$800–$2,200/mo","LO tracking. No TLS, no HMDA, no CRM."],["Monday.com","$500–$1,500/mo","Generic CRM. Not built for mortgage."]].map(([name,price,note]) => (
+              <div key={name} style={{ background:"rgba(255,59,92,0.04)", border:"1px solid rgba(255,59,92,0.12)", borderRadius:8, padding:"10px 12px" }}>
+                <div style={{ fontSize:9, color:"#FF3B5C", fontWeight:700, marginBottom:4 }}>{name}</div>
+                <div style={{ fontSize:8, color:"#F59E0B", marginBottom:4 }}>{price}</div>
+                <div style={{ fontSize:8, color:"#6B7280", lineHeight:1.4 }}>{note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const DEEP_DIVE_COMPONENTS = [
+  DeepDive_01, DeepDive_02, DeepDive_03, DeepDive_04, DeepDive_05,
+  DeepDive_06, DeepDive_07, DeepDive_08, DeepDive_09, DeepDive_10,
+  DeepDive_11,
+]
+
+
+
 function JoinScreen({ onBack }) {
   const [tier, setTier] = useState(null)
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "" })
@@ -1610,6 +2618,11 @@ export default function DemoPlayer() {
   const [keySubmitted, setKeySubmitted] = useState(false)
   const [showKey, setShowKey] = useState(false)
   const [showJoin, setShowJoin] = useState(false)
+  const [deepDive, setDeepDive] = useState(false)
+  const openDeepDive = useCallback(() => {
+    if (audioRef.current) { audioRef.current.pause(); setPlaying(false) }
+    setDeepDive(true)
+  }, [])
 
   const audioRef = useRef(null)
   const audioCache = useRef({})
@@ -1743,6 +2756,18 @@ export default function DemoPlayer() {
   }
 
   // ── JOIN SCREEN ───────────────────────────────────────────
+  // Deep dive overlay
+  if (deepDive) {
+    const DiveComp = DEEP_DIVE_COMPONENTS[sceneIdx]
+    return (
+      <div style={{ height:"100vh", display:"flex", flexDirection:"column", background:"#060C14", overflow:"hidden" }}>
+        <BrowserChrome url={scene.url} color={scene.color}>
+          <DiveComp color={scene.color} onBack={() => setDeepDive(false)} />
+        </BrowserChrome>
+      </div>
+    )
+  }
+
   if (showJoin) {
     return (
       <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#060C14", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
@@ -1882,6 +2907,18 @@ export default function DemoPlayer() {
               </div>
             </div>
           ))}
+
+          {/* Deep Dive Button */}
+          <div style={{ position:"absolute", bottom:22, left:"50%", transform:"translateX(-50%)", zIndex:30 }}>
+            <button onClick={openDeepDive} style={{ background:"linear-gradient(135deg, rgba(6,12,20,0.97), rgba(10,18,32,0.97))", border:`2px solid ${scene.color}`, borderRadius:8, padding:"8px 22px", color:scene.color, fontSize:9, fontWeight:800, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:2, backdropFilter:"blur(12px)", boxShadow:`0 0 24px ${scene.color}33, 0 4px 16px rgba(0,0,0,0.6)`, display:"flex", alignItems:"center", gap:8, whiteSpace:"nowrap", transition:"all 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 0 40px ${scene.color}55, 0 8px 24px rgba(0,0,0,0.7)`; e.currentTarget.style.transform = "scale(1.04)" }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = `0 0 24px ${scene.color}33, 0 4px 16px rgba(0,0,0,0.6)`; e.currentTarget.style.transform = "scale(1)" }}
+            >
+              <span style={{ fontSize:10 }}>⬡</span>
+              <span>DEEP DIVE — {scene.title.toUpperCase()}</span>
+              <span style={{ opacity:0.7 }}>→</span>
+            </button>
+          </div>
 
           {/* URL badge */}
           <div style={{ position: "absolute", bottom: 22, right: 22, background: "rgba(4,8,15,0.92)", border: `1px solid ${scene.color}44`, borderRadius: 5, padding: "4px 10px", backdropFilter: "blur(8px)" }}>
