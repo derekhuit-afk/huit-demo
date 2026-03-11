@@ -189,11 +189,11 @@ const SCENES = [
     color: "#8B5CF6",
     script: `The mortgage industry loses deals at eleven PM every single night. A qualified buyer submits a form. Nobody responds. They move on to the next lender. Huit Agent AI responds in ninety seconds, any time of day or night. It has access to nine live CRM tools: lead lookup, rate data, property values, pipeline status, email drafting — all live. It doesn't just respond — it qualifies. Diana Lane submitted a purchase inquiry at eleven-oh-four PM. By eleven-sixteen PM, Huit Agent AI had gathered her loan type, estimated property value, timeline, and credit range — and scheduled a callback with a licensed loan officer for the following morning. Watch what happens when I type into the chat: "Who should I call today?" — it immediately surfaces Marcus Tran from the hot leads queue. "Draft a rate alert email for Marcus" — it composes a personalized outreach in seconds using his live loan data. Nine live CRM tools. Natural language. Ninety seconds. This is what an AI co-pilot actually looks like when it has real data access.`,
     callouts: [
-      { at: 10, label: "Response Time",  value: "< 90 Seconds",     x: 56, y: 20 },
-      { at: 22, label: "CRM Tools",      value: "9 Live Integrations",x:56, y: 34 },
-      { at: 32, label: "Diana Lane",     value: "11:04 PM → Pre-Qual",x:56, y: 50 },
-      { at: 46, label: "Marcus Tran",    value: "Surfaced from Queue",x: 56, y: 64 },
-      { at: 58, label: "Email Drafted",  value: "Live Loan Data Used",x: 56, y: 78 },
+      { at: 10, label: "Response Time",  value: "< 90 Seconds",       x: 56, y: 20 },
+      { at: 22, label: "CRM Tools",      value: "9 Live Integrations", x: 56, y: 34 },
+      { at: 32, label: "Diana Lane",     value: "Qualified in 12 Min", x: 56, y: 50 },
+      { at: 46, label: "Who To Call",    value: "Marcus Tran — Score 94", x: 56, y: 64 },
+      { at: 58, label: "Email Draft",    value: "Personalized in 2s",  x: 56, y: 78 },
     ],
     screenData: {
       header: { tabs: ["Chat", "Tools", "History", "Settings"], active: "Chat" },
@@ -207,6 +207,11 @@ const SCENES = [
         { role: "ai",   text: "Strong profile for conventional financing. What's your timeline — purchasing in the next 30–90 days?", time: "11:10 PM" },
         { role: "user", text: "Yes, about 60 days. Found a neighborhood we love.", time: "11:12 PM" },
         { role: "ai",   text: "I have everything I need. Flagging your file HOT and scheduling a callback for tomorrow morning. You'll get a confirmation text shortly. Welcome to Alaska homeownership, Diana. NMLS #203980", time: "11:14 PM" },
+        { role: "divider", text: "— LO Command Session · 9:02 AM —", time: "" },
+        { role: "lo",   text: "Who should I call today?", time: "9:02 AM" },
+        { role: "ai",   text: "🔥 Top Priority: Marcus Tran — Score 94 / HOT. Cash-out refi, $485K loan, $182K equity in Wasilla. Engaged 48 hrs ago via Facebook ad. No outreach yet. Call him first.", time: "9:02 AM", highlight: true },
+        { role: "lo",   text: "Draft a rate alert email for Marcus.", time: "9:03 AM" },
+        { role: "ai",   text: "Subject: Marcus — rates just moved, your equity window is open\n\nHi Marcus — Derek Huit here. Rates dropped to 6.58% this week. On your $485K loan at 7.25%, that's roughly a $247/month opportunity — and with $182K in equity built up, you may also qualify for a cash-out. I'd love to walk you through the numbers. 15 minutes: calendly.com/derekhuit\n\nDerek Huit | Huit.AI | NMLS #203980", time: "9:03 AM", isEmail: true },
       ],
     },
   },
@@ -547,15 +552,33 @@ function Screen_AgentAI({ data, color }) {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981" }} />
             <span style={{ fontSize: 11, color, fontWeight: 700 }}>Huit Agent AI</span>
           </div>
-          <span style={{ fontSize: 8, color: "#6B7280" }}>Diana Lane · Wasilla, AK · 11:04 PM</span>
+          <span style={{ fontSize: 8, color: "#6B7280" }}>Diana Lane → Marcus Tran · Live Session</span>
         </div>
         <div style={{ flex: 1, overflowY: "auto", padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8 }}>
-          {messages.map((m, i) => (
-            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start" }}>
-              <div style={{ maxWidth: "80%", background: m.role === "user" ? "rgba(255,255,255,0.05)" : `${color}14`, border: `1px solid ${m.role === "user" ? "rgba(255,255,255,0.08)" : `${color}33`}`, borderRadius: 6, padding: "7px 10px", fontSize: 10, color: "#E2E8F0", lineHeight: 1.55 }}>{m.text}</div>
-              <div style={{ fontSize: 8, color: "#374151", marginTop: 2 }}>{m.time}</div>
-            </div>
-          ))}
+          {messages.map((m, i) => {
+            if (m.role === "divider") return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, margin: "6px 0" }}>
+                <div style={{ flex: 1, height: 1, background: `${color}30` }} />
+                <span style={{ fontSize: 8, color: color, letterSpacing: 1.5, fontWeight: 700 }}>{m.text}</span>
+                <div style={{ flex: 1, height: 1, background: `${color}30` }} />
+              </div>
+            )
+            const isRight = m.role === "user" || m.role === "lo"
+            const bgColor = isRight ? "rgba(255,255,255,0.05)" : m.highlight ? `${color}22` : m.isEmail ? "rgba(16,185,129,0.08)" : `${color}14`
+            const borderColor = isRight ? "rgba(255,255,255,0.08)" : m.highlight ? color : m.isEmail ? "rgba(16,185,129,0.35)" : `${color}33`
+            return (
+              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: isRight ? "flex-end" : "flex-start" }}>
+                {m.isEmail && (
+                  <div style={{ fontSize: 8, color: "#10B981", letterSpacing: 1.5, marginBottom: 3, fontWeight: 700 }}>✉ EMAIL DRAFT — READY TO SEND</div>
+                )}
+                {m.highlight && (
+                  <div style={{ fontSize: 8, color, letterSpacing: 1.5, marginBottom: 3, fontWeight: 700 }}>🔥 TOP PRIORITY CALL</div>
+                )}
+                <div style={{ maxWidth: "85%", background: bgColor, border: `1px solid ${borderColor}`, borderRadius: 6, padding: "7px 10px", fontSize: 10, color: "#E2E8F0", lineHeight: 1.6, whiteSpace: "pre-wrap", boxShadow: m.highlight ? `0 0 12px ${color}33` : m.isEmail ? "0 0 12px rgba(16,185,129,0.2)" : "none" }}>{m.text}</div>
+                <div style={{ fontSize: 8, color: "#374151", marginTop: 2 }}>{m.time}</div>
+              </div>
+            )
+          })}
         </div>
         <div style={{ borderTop: `1px solid ${color}22`, padding: "8px 14px" }}>
           <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${color}25`, borderRadius: 5, padding: "7px 10px", fontSize: 9, color: "#374151", display: "flex", justifyContent: "space-between" }}>
