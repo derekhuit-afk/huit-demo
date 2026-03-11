@@ -14,6 +14,7 @@ const SCENES = [
     url: "mapex.huit.ai/command-center",
     platform: "APEX",
     color: "#00D4FF",
+    deepDiveScript: `This is the full priority board. Ten loan officers ranked by Transition Likelihood Score across six markets. At the top: Sarah Martinez, Caliber Home Loans, Phoenix — TLS eighty-four, IMMINENT. Click her row and the detail panel opens on the right. You see her profile, her production volume, her comp gap, and four recommended actions ranked by urgency. The top action: send personalized outreach within forty-eight hours, and reference the compensation gap in your opener. Below that, a call window — eighteen days. That's how long APEX gives you before the probability of a successful contact drops below fifty percent. Every recruit on this board has a call window. Your job is to work it in order. The platform tells you exactly who, what to say, and when.`,
     script: `This is what recruiting looks like when you have full market intelligence. The APEX Recruiting Command Center. Two hundred forty-seven loan officers tracked across forty-two markets. Right now, this morning, fourteen of them have a Transition Likelihood Score above seventy — meaning our algorithm gives each of them a greater than seventy percent probability of changing companies within sixty days. Forty-one more are in the MOBILE tier — open, watching, ready to hear the right pitch. That's fifty-five warm-to-hot recruiting conversations you could be having this week. The priority board in the center shows today's top five targets ranked by score, production volume, and engagement signal. Sarah Martinez: TLS eighty-four, eighty-four million in production, flagged IMMINENT this morning after a comp plan change at her current company. Your job is to call her before your competitor does. The market signals panel on the right tells you why scores are moving — a restructuring announcement, a branch closure, a territory change. APEX catches it. The activity feed below shows what your team did yesterday, what it's doing right now, and what needs to happen next. Every morning you open this dashboard, you are further ahead than every recruiter in your market who doesn't have it. This is the Command Center.`,
     callouts: [
       { at: 8,  label: "Tracked Nationwide", value: "247 Loan Officers",     x: 64, y: 18 },
@@ -60,6 +61,7 @@ const SCENES = [
     url: "mapex.huit.ai/dashboard",
     platform: "APEX",
     color: "#00D4FF",
+    deepDiveScript: `Sixteen factors. One score. Let me walk you through Sarah Martinez's breakdown. The top three factors account for thirty-nine of her eighty-four points. Comp plan restructure: eighteen out of eighteen. Q4 production decline of forty-two percent: sixteen out of eighteen. Compensation gap versus market: fifteen out of fifteen. Below that, six behavioral signals — her LinkedIn profile updated, her social engagement spiked, she attended a webinar flagged as competitor-adjacent. Each signal is sourced, weighted, and validated through the Source Confidence Factor Registry. Her overall data confidence is ninety-two point four percent — meaning the score is built on solid ground. The six-week outreach plan on the right tells you exactly what to do with it, week by week, from first RCS message through to close.`,
     script: `Before I show you the technology, let me give you the problem it solves. Every mortgage recruiter in the country is guessing. They're cold calling anyone with an NMLS number, hoping something lands. APEX doesn't guess. It reads fourteen public data sources, scores sixteen weighted factors, and tells you exactly who is about to move — and why — with a sixty-day precision window. Let me show you a live example. This is Sarah Martinez. She's producing eighty-four million a year at Caliber in Phoenix. Her Transition Likelihood Score is eighty-four out of one hundred — flagged IMMINENT. That score didn't come from a hunch. It came from a restructuring announcement at her parent company, a forty-two percent production drop in Q4, and a compensation alignment gap of thirty-eight thousand dollars versus market. Click into her card and you get a sixteen-factor breakdown — and a six-week outreach execution plan, auto-generated, with pitch scripts, objection handlers, and a ranked list of ten company fits. All from a single NMLS number.`,
     callouts: [
       { at: 6,  label: "Data Sources",    value: "14 Public Feeds",     x: 68, y: 22 },
@@ -102,6 +104,7 @@ const SCENES = [
     url: "mapex.huit.ai/dashboard",
     platform: "APEX",
     color: "#7C3AED",
+    deepDiveScript: `The national leaderboard gives you the full picture across every market you're tracking. Use the filter at the top to narrow by MSA. Click Phoenix and you see Sarah Martinez and Amanda Torres — both IMMINENT or MOBILE. Switch to Denver and Marcus Webb and Linda Ramos come into view. Every loan officer on this board has been scored, validated, and ranked by their likelihood to move in the next sixty days. The Source Confidence Factor score in the last column tells you how solid the data is behind each TLS number. Anything above eighty percent confidence means you can walk into a manager conversation and defend every number on the board. This is recruiting intelligence that doesn't require you to guess.`,
     script: `This is the full APEX recruiting intelligence dashboard — the national view. Two hundred forty-seven loan officers tracked across forty-two markets. Fourteen in the IMMINENT tier right now, meaning our algorithm gives them a greater than seventy percent probability of changing companies within sixty days. Forty-one in the MOBILE tier — watching and open. Let me show you the leaderboard. Sarah Martinez in Phoenix: eighty-four million in production, TLS eighty-four, IMMINENT. David Chen in Scottsdale: sixty-one million, TLS seventy-six, MOBILE. Amanda Torres in Tempe: forty-nine million, TLS seventy-one, MOBILE. These aren't cold leads. These are warm-to-hot recruiting targets backed by sixteen factors of behavioral and market data. The market intelligence panel on the right shows what's driving movement right now: a corporate restructuring announcement at Caliber is elevating scores across their entire Arizona book. That's an opportunity a traditional recruiter would never see. But APEX sees it in real time. The Source Confidence Factor Registry on the bottom validates every data point — so when you bring a TLS score to a manager, you can defend every number in it. This is recruiting intelligence that changes outcomes.`,
     callouts: [
       { at: 8,  label: "Tracked Nationwide", value: "247 Loan Officers",    x: 65, y: 20 },
@@ -141,6 +144,7 @@ const SCENES = [
     url: "mapex.huit.ai/pulse",
     platform: "APEX PULSE",
     color: "#F59E0B",
+    deepDiveScript: `Sixty days. That's how long it took James Rodriguez's score to climb thirty-six points. Day zero: baseline. Normal engagement, no signals. Day twelve: his manager departed — score moved from thirty-one to thirty-eight. Day thirty-five: a peer resigned — fifty-one. Day fifty-two: he attended a competitor webinar, flagged automatically — sixty-three. Day fifty-eight: alert triggered at sixty-seven. Our backtesting showed this exact pattern predicted departure with eighty-six percent accuracy across a one hundred thirty loan officer cohort. The action plan on the right tells you what to do in the next seven days — schedule a one-on-one, run a comp review, identify a career path. Act within the week and retention probability climbs to seventy-three percent.`,
     script: `Recruiting is half the equation. The other half is retention. The average mortgage company loses thirty to forty percent of its loan officer base annually. Most of those departures are completely predictable — if you're watching the right signals. APEX monitors fourteen data signals in real time. When someone's flight risk score crosses a threshold, you get an alert — before they've taken a call from a competitor. This is James Rodriguez. He's been with your company for three years in Houston. His Transition Likelihood Score is sixty-seven out of one hundred — and it climbed thirty-six points in sixty days. That thirty-six point swing is the exact pattern our backtesting showed predicted departure with eighty-six percent accuracy across a one hundred thirty loan officer cohort. His intent signal shows frustrated. He hasn't posted publicly. He hasn't moved yet. But the data says: this manager needs to have a conversation with James this week — not next quarter.`,
     callouts: [
       { at: 12, label: "LO Attrition",   value: "30–40% Annual",   x: 62, y: 22 },
@@ -176,6 +180,7 @@ const SCENES = [
     url: "mapex.huit.ai/market-intel",
     platform: "APEX",
     color: "#7C3AED",
+    deepDiveScript: `Every loan originated in America — by lender, by geography, by product type — seven years of it, queried in under sixty seconds. Nashville, Tennessee. Two thousand nine hundred three active loan officers. The top ten producers ranked by origination volume are right here. Robert Kim at PrimeLending leads with three hundred twelve loans and ninety-eight million in volume. Jason Hoffman at Guaranteed Rate is ranked third — but his year-over-year trend is negative. That's a signal. Combine it with a TLS score in the receptive range and you have a warm recruiting conversation waiting to happen. The lender market share panel on the right shows who owns the market — and where the opportunity gaps are. This is the data advantage no competing platform offers at any price point.`,
     script: `The HMDA database is the single most underutilized competitive intelligence asset in the mortgage industry. It contains every originated loan in America, by lender, by geography, by product type — seven years of it. We've loaded all seven years — 2017 through 2024 — into a live query engine. I can tell you, right now, who the top eighteen producers in the Nashville market are, which company they're at, and what their production trend looks like. This is the Market Intel tab. Nashville, Tennessee. Two hundred fourteen active loan officers ranked by origination volume. The top tier — the eighteen we call Market Movers — are the producers most likely to be recruitable based on their TLS profile crossing into receptive territory. You can filter by state, by metro, by production tier, by loan type. You can pull any market in the country in under sixty seconds. Seven years of HMDA data, fully indexed. Something no competing platform offers at this price point.`,
     callouts: [
       { at: 10, label: "HMDA Data",      value: "7 Years Loaded",     x: 64, y: 20 },
@@ -211,6 +216,7 @@ const SCENES = [
     platform: "CRMEX",
     color: "#F59E0B",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `Four tabs. Every number that matters. The Hot Leads tab shows your top ten contacts ranked by AI score — Marcus Tran at ninety-seven, Jennifer Kowalski at ninety-four, David Lin at ninety-one. Each one has a rate delta, a last touch timestamp, and a recommended action. Switch to Pipeline Stages and you see the full funnel — forty-seven active loans from new inquiry all the way to clear to close. Eight loans are closing this month. Switch to Upcoming Closings and you see projected commission — six thousand one hundred twenty on the Lin purchase alone. The Rate Alerts tab confirms the automated send — three hundred twelve contacts alerted, thirty-four opened, twelve replied. You didn't touch any of it manually. It ran at six in the morning while you were still asleep.`,
     script: `Every loan officer needs one view that tells them exactly what their business looks like right now. Not yesterday. Not last week. Right now. The CRMEX Command Center is that view. Forty-eight point seven million dollars in active pipeline. Thirty-four hot leads. Twelve appointments on the calendar. Eight projected closings this month. That's a three-point-two million dollar closing volume number — visible the moment you open your dashboard. Scroll down and you see your loan mix: thirty-eight percent purchase, twenty-nine percent refi, eighteen percent cash-out, fifteen percent VA and FHA. That mix matters because it tells you where your marketing dollars should be going next month. The rate watch panel below shows the week's movement — from six-point-seven-four on Monday down to six-point-five-eight today — and flags which contacts in your pipeline crossed the sensitivity threshold overnight. The activity feed on the right is live: Marcus Tran replied to a rate alert two minutes ago. Jennifer Kowalski booked an appointment for Friday at two PM. An AI scoring run just added three HOT leads and eight WARM leads to the pipeline. One screen. Every number that matters. This is the Command Center.`,
     callouts: [
       { at: 8,  label: "Pipeline Value",   value: "$48.7M Active",      x: 66, y: 22 },
@@ -263,6 +269,7 @@ const SCENES = [
     platform: "CRMEX",
     color: "#EF4444",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `Your call queue, ranked by AI score. Marcus Tran at the top — ninety-seven. Click his card and the full five-factor breakdown appears. Rate gap score: ninety-nine out of one hundred. That score means his current rate versus today's market represents three hundred forty-seven dollars in monthly savings. The AI recommendation at the bottom is direct: call within two hours. The rate sensitivity threshold crossed at six this morning. The contact enrichment panel on the right has his phone, his email, his property value at five hundred eighty thousand, estimated equity at one hundred eighty-two thousand, and his LTV. Everything you need before you dial — no research, no prep time, no CRM digging. The platform did it overnight. Your job is to make the call.`,
     script: `Speed to lead is the single biggest variable in mortgage conversion. The data is clear: first contact wins. But when you're running twenty-plus leads simultaneously, you can't call everyone immediately. You need to know who to call first. Our AI scoring engine reads behavioral signals — form fills, SMS response speed, open rates, keyword patterns — and assigns a zero to one hundred score in real time. Marcus Tran hit ninety-four out of one hundred within forty-eight hours of his first touch. He's in Wasilla, Alaska, looking at a cash-out refinance on a four hundred eighty-five thousand dollar property with one hundred eighty-two thousand dollars in equity. Score ninety-four. HOT. Call him now. Jennifer Kowalski: ninety-one, Eagle River, VA loan, HOT. Below the hot leads panel: twenty-two additional leads auto-enrolled in nurture sequences. The AI is working the pipeline twenty-four hours a day while the loan officer is focused on the top three.`,
     callouts: [
       { at: 14, label: "Marcus Tran",    value: "Score 94 / HOT",    x: 60, y: 24 },
@@ -292,6 +299,7 @@ const SCENES = [
     platform: "CRMEX",
     color: "#10B981",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `Forty-seven past borrowers. Eighteen point four million dollars in combined equity. Average equity per contact: one hundred eighty-two thousand dollars. These are people who already trust you — they closed a loan with you. Property Pulse surfaces them automatically, ranks them by urgency, and tells you exactly why each one is worth a call right now. Marcus Tran: current value five hundred eighty thousand, estimated equity one hundred eighty-two thousand, rate gap twenty-eight basis points — HIGH urgency. David Lin: estimated equity two hundred thirty-four thousand, eligible for cash-out refinance. Samantha Wright: home equity loan candidate. These aren't cold leads. These are warm relationships with a specific financial reason to have a conversation today. The equity engine finds them so you don't have to go looking.`,
     script: `The highest-value leads in any loan officer's database are the people they've already closed. Property Pulse monitors your past borrower portfolio for three triggers: equity accumulation, rate drop opportunity, and life event signals. When a trigger fires, it auto-initiates a three-touch outreach sequence — text, email, then a call prompt. This is a real borrower scenario. Home value: four hundred forty-seven thousand dollars. Current rate: seven point two-five percent. Today's market rate: six point five-eight percent. That's a sixty-seven basis point delta. Estimated equity: two hundred twenty-five thousand dollars. Two alert triggers just fired: refinance savings opportunity and cash-out eligibility. The system automatically drafts the first SMS — sent within minutes of the trigger. The loan officer gets a notification: call this borrower today. No manual tracking. No leads falling through. The AI is monitoring every property in the portfolio, every morning, while the loan officer is already on calls.`,
     callouts: [
       { at: 10, label: "Trigger Types",  value: "Equity · Rate · Life", x: 60, y: 20 },
@@ -328,6 +336,7 @@ const SCENES = [
     platform: "HUIT AGENT",
     color: "#8B5CF6",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `This is Huit Agent with all nine tools active. Watch what happens in a single conversation. The user asks for the top five leads and an email draft for the highest scorer. The agent calls CRM Lead Lookup, then AI Lead Scoring — surfaces Marcus Tran at ninety-seven. Then it calls Email Drafter and generates a personalized rate alert email in under two seconds. The user says book a call for tomorrow at two. The agent calls Calendar Book, checks availability, confirms, then calls SMS Trigger — confirmation text delivered. Then the user asks about Phoenix producers to recruit. The agent calls HMDA Lookup, queries live data, and surfaces Sarah Martinez with a TLS of eighty-four, flagged IMMINENT. Three completely different workflows. One conversation. Nine tools working in sequence. This is what your co-pilot looks like.`,
     script: `Every tool you're about to see is live. Not mocked. Not a chatbot with scripted replies. Huit Agent AI has nine connected CRM tools firing in real time. Watch how they work. Diana Lane submits a purchase inquiry at eleven PM. The agent immediately calls CRM Lead Lookup — no existing record, so it creates one and flags her as a new inbound. It calls AI Lead Scoring — Diana hits a seventy-two, WARM, based on loan type, timeline, and credit range. It calls Calendar Book and schedules a morning callback automatically. That entire intake: twelve minutes. Now watch the loan officer session. The LO types: "Who should I call today?" — the agent calls AI Lead Scoring across the full pipeline, then cross-references Rate Feed to see who crossed the rate sensitivity threshold overnight. It surfaces Marcus Tran — score ninety-four, HOT. "Draft a rate alert email for Marcus" — the agent calls Property Pulse to pull his current equity, hits Rate Feed for today's number, then Email Drafter generates a fully personalized message with his loan balance, equity position, monthly savings, and a Calendly link — all in two seconds. Pipeline View, HMDA Lookup, SMS Trigger — every tool available on demand, in plain English. This isn't AI that helps you remember things. This is AI that works while you sleep.`,
     callouts: [
       { at: 8,  label: "CRM Lead Lookup",  value: "New Lead Created",       x: 56, y: 18 },
@@ -381,6 +390,7 @@ const SCENES = [
     platform: "CRMEX",
     color: "#EC4899",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `Seven campaigns running simultaneously. The top performer: Rate Alert RCS with a nineteen point six percent reply rate on three hundred twelve contacts — sixty-one replies from a single send. Switch to the Reply Inbox and you see them coming in: Marcus Tran says he'd love to learn more, David Lin wants to talk tomorrow morning. Every reply is flagged with a sentiment indicator and a one-click AI draft reply. The A/B results tab shows what drove the performance: the winning subject line led with a specific dollar savings number — three hundred forty-seven dollars per month — and outperformed the generic version by twenty-two percent in opens and double the reply rate. Specificity wins every time. The platform tests it automatically and tells you which variant to scale.`,
     script: `Most loan officers run one campaign at a time, cross their fingers, and hope the leads come in. CRMEX Campaign Manager runs seven simultaneously — across Facebook, Google, LinkedIn, and RCS — with live performance data on every single one. Let me walk you through what's live right now. The AK Rate Drop campaign on Facebook: two thousand eight hundred forty dollars spent, forty-seven leads captured, sixty dollars and forty-three cents per lead. That's a strong number for Alaska mortgage. The Cash-Out Equity campaign: fifty-five dollars and thirty-four cents per lead, fifty-eight leads, six conversions — best performer in the portfolio this month. Now watch what happens when you add RCS to the mix. The LO Recruiting APEX blast: two hundred forty messages sent, two hundred thirty-one delivered, one hundred seventy-eight read, forty-seven replied. A nineteen-point-six percent reply rate on a cold recruiting blast. That number doesn't exist in traditional outreach. Below the campaigns panel is the CRM lead feed — every lead that came in today, their source, their AI score, their loan type, and their current nurture day. The entire operation in one screen.`,
     callouts: [
       { at: 10, label: "Active Campaigns",  value: "7 Running Now",       x: 65, y: 22 },
@@ -416,6 +426,7 @@ const SCENES = [
     platform: "HUIT.AI",
     color: "#00D4FF",
     voiceId: "pqHfZKP75CvOlQylNhV4",
+    deepDiveScript: `Use the ROI calculator on the left to model your own numbers. Select COMMAND at twenty-three fifty per month. The model assumes four new hires from APEX recruiting, twelve additional closings from better lead conversion, and two retained loan officers who would otherwise have left. That's just over three hundred thousand dollars in annual revenue impact — against twenty-eight thousand two hundred in platform cost. A ten point seven times return. These are conservative estimates based on the cohort data we've seen in production. The competitor comparison on the right shows why no other platform comes close. Huit dot AI covers ten of ten features. Loxo covers two. Model Match covers three. Monday dot com covers two. None of them were built for mortgage. This one was built for nothing else. Go to huit dot AI slash join and let's get you started.`,
     script: `Here's what you just saw. Nine capabilities. One platform. And what it means for your day. Before Huit dot AI, your morning looked like this: open three different tools, manually pull your pipeline, sort leads in a spreadsheet, guess who to call, hope your rate watch email went out, check in with recruiters who have no data to work with. With Huit dot AI, your morning looks like this: you open Command Center and your entire business is in front of you — forty-eight million in pipeline, thirty-four hot leads, rate movement already flagged, and a live activity feed showing exactly what happened overnight. Your lead scoring engine already ranked and prioritized every contact. Your campaign manager already sent the rate alert to the right three hundred contacts. Your APEX dashboard already surfaced the fourteen loan officers most likely to move this month — before your competitors even know they're looking. That's not just efficiency. That's compounding advantage. Every day you use Huit dot AI, you get further ahead. The recruiter closes more hires. The manager grows a stronger book. The producing loan officer converts more of the right leads at the right time with the right message. This is the platform. This is what it does. We're still in Founding Member pricing — and when those spots are gone, they're gone. Go to huit dot AI slash join right now, pick your tier, and let's get you started.`,
     callouts: [
       { at: 14, label: "Before",         value: "3 Tools, No Data",        x: 65, y: 20 },
@@ -2619,10 +2630,44 @@ export default function DemoPlayer() {
   const [showKey, setShowKey] = useState(false)
   const [showJoin, setShowJoin] = useState(false)
   const [deepDive, setDeepDive] = useState(false)
-  const openDeepDive = useCallback(() => {
+  const [deepDiveAudioUrl, setDeepDiveAudioUrl] = useState(null)
+  const [deepDiveLoading, setDeepDiveLoading] = useState(false)
+  const [deepDivePlaying, setDeepDivePlaying] = useState(false)
+  const [deepDiveElapsed, setDeepDiveElapsed] = useState(0)
+  const deepDiveAudioRef = useRef(null)
+  const deepDiveAudioCache = useRef({})
+
+  const openDeepDive = useCallback(async () => {
     if (audioRef.current) { audioRef.current.pause(); setPlaying(false) }
     setDeepDive(true)
-  }, [])
+    setDeepDiveAudioUrl(null)
+    setDeepDiveElapsed(0)
+    setDeepDivePlaying(false)
+    const sc = SCENES[sceneIdx]
+    if (!sc.deepDiveScript) return
+    const cacheKey = `dd_${sc.id}`
+    if (deepDiveAudioCache.current[cacheKey]) {
+      setDeepDiveAudioUrl(deepDiveAudioCache.current[cacheKey])
+      return
+    }
+    setDeepDiveLoading(true)
+    try {
+      const body = { text: sc.deepDiveScript }
+      if (apiKey) body.api_key = apiKey
+      const res = await fetch("/api/tts-male", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+      if (res.ok) {
+        const blob = await res.blob()
+        const url = URL.createObjectURL(blob)
+        deepDiveAudioCache.current[cacheKey] = url
+        setDeepDiveAudioUrl(url)
+      }
+    } catch(e) { console.error("Deep dive TTS error:", e) }
+    finally { setDeepDiveLoading(false) }
+  }, [sceneIdx, apiKey])
 
   const audioRef = useRef(null)
   const audioCache = useRef({})
@@ -2759,10 +2804,82 @@ export default function DemoPlayer() {
   // Deep dive overlay
   if (deepDive) {
     const DiveComp = DEEP_DIVE_COMPONENTS[sceneIdx]
+    const ddScene = SCENES[sceneIdx]
+    const ddEstDur = ddScene.deepDiveScript ? Math.round(ddScene.deepDiveScript.split(" ").length / 130 * 60) : 60
+    const ddPct = Math.min((deepDiveElapsed / ddEstDur) * 100, 100)
+
     return (
       <div style={{ height:"100vh", display:"flex", flexDirection:"column", background:"#060C14", overflow:"hidden" }}>
-        <BrowserChrome url={scene.url} color={scene.color}>
-          <DiveComp color={scene.color} onBack={() => setDeepDive(false)} />
+
+        {/* Deep Dive Audio Bar */}
+        <div style={{ background:"#080E1A", borderBottom:`2px solid ${ddScene.color}33`, padding:"0 20px", height:44, display:"flex", alignItems:"center", gap:14, flexShrink:0 }}>
+          {/* Back */}
+          <button onClick={() => { deepDiveAudioRef.current?.pause(); setDeepDive(false); setDeepDivePlaying(false); setDeepDiveElapsed(0) }}
+            style={{ background:`${ddScene.color}12`, border:`1px solid ${ddScene.color}44`, borderRadius:5, padding:"5px 14px", color:ddScene.color, fontSize:9, fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5, cursor:"pointer", fontWeight:700, whiteSpace:"nowrap" }}>
+            ← BACK
+          </button>
+
+          <div style={{ width:1, height:20, background:`${ddScene.color}22` }} />
+
+          {/* Voice badge */}
+          <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+            <div style={{ width:6, height:6, borderRadius:"50%", background:"#F59E0B", boxShadow:"0 0 6px #F59E0B" }} />
+            <span style={{ fontSize:8, color:"#F59E0B", fontFamily:"'JetBrains Mono',monospace", letterSpacing:2, fontWeight:700 }}>BILL · DEEP DIVE</span>
+          </div>
+
+          {/* Play/Pause */}
+          <button
+            disabled={deepDiveLoading || !deepDiveAudioUrl}
+            onClick={() => {
+              if (!deepDiveAudioRef.current && deepDiveAudioUrl) {
+                const audio = new Audio(deepDiveAudioUrl)
+                deepDiveAudioRef.current = audio
+                audio.ontimeupdate = () => setDeepDiveElapsed(Math.floor(audio.currentTime))
+                audio.onended = () => { setDeepDivePlaying(false); setDeepDiveElapsed(0) }
+                audio.play()
+                setDeepDivePlaying(true)
+              } else if (deepDiveAudioRef.current) {
+                if (deepDivePlaying) { deepDiveAudioRef.current.pause(); setDeepDivePlaying(false) }
+                else { deepDiveAudioRef.current.play(); setDeepDivePlaying(true) }
+              }
+            }}
+            style={{ background: deepDiveAudioUrl ? `${ddScene.color}18` : "rgba(255,255,255,0.04)", border:`1px solid ${deepDiveAudioUrl ? ddScene.color : "rgba(255,255,255,0.1)"}`, borderRadius:5, padding:"5px 14px", color: deepDiveAudioUrl ? ddScene.color : "#374151", fontSize:8, fontFamily:"'JetBrains Mono',monospace", letterSpacing:1.5, cursor: deepDiveAudioUrl ? "pointer" : "default", fontWeight:700 }}>
+            {deepDiveLoading ? "⟳ LOADING AUDIO..." : deepDivePlaying ? "⏸ PAUSE" : "▶ PLAY WALKTHROUGH"}
+          </button>
+
+          {/* Progress bar */}
+          <div style={{ flex:1, height:4, background:"rgba(255,255,255,0.06)", borderRadius:2, overflow:"hidden" }}>
+            <div style={{ height:"100%", width:`${ddPct}%`, background:`linear-gradient(90deg, ${ddScene.color}, ${ddScene.color}88)`, borderRadius:2, transition:"width 0.5s" }} />
+          </div>
+
+          {/* Time */}
+          <span style={{ fontSize:8, color:"#374151", fontFamily:"'JetBrains Mono',monospace", whiteSpace:"nowrap" }}>
+            {Math.floor(deepDiveElapsed/60)}:{String(deepDiveElapsed%60).padStart(2,"0")} / ~{Math.floor(ddEstDur/60)}:{String(ddEstDur%60).padStart(2,"0")}
+          </span>
+
+          {/* Wave animation when playing */}
+          {deepDivePlaying && (
+            <div style={{ display:"flex", gap:2, alignItems:"center" }}>
+              {[0,1,2,3].map(i => <div key={i} style={{ width:2, height:10, background:ddScene.color, borderRadius:1, animation:`waveBar 0.6s ease-in-out infinite`, animationDelay:`${i*0.1}s` }} />)}
+            </div>
+          )}
+
+          {/* Auto-play trigger — fires once when audioUrl arrives */}
+          {deepDiveAudioUrl && !deepDivePlaying && deepDiveElapsed === 0 && (
+            <div ref={el => {
+              if (el && !deepDiveAudioRef.current) {
+                const audio = new Audio(deepDiveAudioUrl)
+                deepDiveAudioRef.current = audio
+                audio.ontimeupdate = () => setDeepDiveElapsed(Math.floor(audio.currentTime))
+                audio.onended = () => { setDeepDivePlaying(false); setDeepDiveElapsed(0); deepDiveAudioRef.current = null }
+                audio.play().then(() => setDeepDivePlaying(true)).catch(() => {})
+              }
+            }} style={{ display:"none" }} />
+          )}
+        </div>
+
+        <BrowserChrome url={ddScene.url} color={ddScene.color}>
+          <DiveComp color={ddScene.color} onBack={() => { deepDiveAudioRef.current?.pause(); setDeepDive(false); setDeepDivePlaying(false); setDeepDiveElapsed(0); deepDiveAudioRef.current = null }} />
         </BrowserChrome>
       </div>
     )
