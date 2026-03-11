@@ -2,7 +2,8 @@
 import React, { useState, useRef, useCallback, useEffect } from "react"
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const VOICE_ID = "EXAVITQu4vr4xnSDxMaL" // Casey Kim
+const VOICE_ID      = "EXAVITQu4vr4xnSDxMaL" // Casey Kim — Track 1 Recruiting
+const VOICE_ID_MALE = "pqHfZKP75CvOlQylNhV4" // Bill — Wise, Mature, American — Track 2 LO
 
 // ─── SCENE DATA ───────────────────────────────────────────────────────────────
 const SCENES = [
@@ -209,6 +210,7 @@ const SCENES = [
     url: "crmex.huit.ai/command-center",
     platform: "CRMEX",
     color: "#F59E0B",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `Every loan officer needs one view that tells them exactly what their business looks like right now. Not yesterday. Not last week. Right now. The CRMEX Command Center is that view. Forty-eight point seven million dollars in active pipeline. Thirty-four hot leads. Twelve appointments on the calendar. Eight projected closings this month. That's a three-point-two million dollar closing volume number — visible the moment you open your dashboard. Scroll down and you see your loan mix: thirty-eight percent purchase, twenty-nine percent refi, eighteen percent cash-out, fifteen percent VA and FHA. That mix matters because it tells you where your marketing dollars should be going next month. The rate watch panel below shows the week's movement — from six-point-seven-four on Monday down to six-point-five-eight today — and flags which contacts in your pipeline crossed the sensitivity threshold overnight. The activity feed on the right is live: Marcus Tran replied to a rate alert two minutes ago. Jennifer Kowalski booked an appointment for Friday at two PM. An AI scoring run just added three HOT leads and eight WARM leads to the pipeline. One screen. Every number that matters. This is the Command Center.`,
     callouts: [
       { at: 8,  label: "Pipeline Value",   value: "$48.7M Active",      x: 66, y: 22 },
@@ -260,6 +262,7 @@ const SCENES = [
     url: "crmex.huit.ai/leads",
     platform: "CRMEX",
     color: "#EF4444",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `Speed to lead is the single biggest variable in mortgage conversion. The data is clear: first contact wins. But when you're running twenty-plus leads simultaneously, you can't call everyone immediately. You need to know who to call first. Our AI scoring engine reads behavioral signals — form fills, SMS response speed, open rates, keyword patterns — and assigns a zero to one hundred score in real time. Marcus Tran hit ninety-four out of one hundred within forty-eight hours of his first touch. He's in Wasilla, Alaska, looking at a cash-out refinance on a four hundred eighty-five thousand dollar property with one hundred eighty-two thousand dollars in equity. Score ninety-four. HOT. Call him now. Jennifer Kowalski: ninety-one, Eagle River, VA loan, HOT. Below the hot leads panel: twenty-two additional leads auto-enrolled in nurture sequences. The AI is working the pipeline twenty-four hours a day while the loan officer is focused on the top three.`,
     callouts: [
       { at: 14, label: "Marcus Tran",    value: "Score 94 / HOT",    x: 60, y: 24 },
@@ -288,6 +291,7 @@ const SCENES = [
     url: "crmex.huit.ai/property-pulse",
     platform: "CRMEX",
     color: "#10B981",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `The highest-value leads in any loan officer's database are the people they've already closed. Property Pulse monitors your past borrower portfolio for three triggers: equity accumulation, rate drop opportunity, and life event signals. When a trigger fires, it auto-initiates a three-touch outreach sequence — text, email, then a call prompt. This is a real borrower scenario. Home value: four hundred forty-seven thousand dollars. Current rate: seven point two-five percent. Today's market rate: six point five-eight percent. That's a sixty-seven basis point delta. Estimated equity: two hundred twenty-five thousand dollars. Two alert triggers just fired: refinance savings opportunity and cash-out eligibility. The system automatically drafts the first SMS — sent within minutes of the trigger. The loan officer gets a notification: call this borrower today. No manual tracking. No leads falling through. The AI is monitoring every property in the portfolio, every morning, while the loan officer is already on calls.`,
     callouts: [
       { at: 10, label: "Trigger Types",  value: "Equity · Rate · Life", x: 60, y: 20 },
@@ -323,6 +327,7 @@ const SCENES = [
     url: "crmex-huit-agent-ai.vercel.app",
     platform: "HUIT AGENT",
     color: "#8B5CF6",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `Every tool you're about to see is live. Not mocked. Not a chatbot with scripted replies. Huit Agent AI has nine connected CRM tools firing in real time. Watch how they work. Diana Lane submits a purchase inquiry at eleven PM. The agent immediately calls CRM Lead Lookup — no existing record, so it creates one and flags her as a new inbound. It calls AI Lead Scoring — Diana hits a seventy-two, WARM, based on loan type, timeline, and credit range. It calls Calendar Book and schedules a morning callback automatically. That entire intake: twelve minutes. Now watch the loan officer session. The LO types: "Who should I call today?" — the agent calls AI Lead Scoring across the full pipeline, then cross-references Rate Feed to see who crossed the rate sensitivity threshold overnight. It surfaces Marcus Tran — score ninety-four, HOT. "Draft a rate alert email for Marcus" — the agent calls Property Pulse to pull his current equity, hits Rate Feed for today's number, then Email Drafter generates a fully personalized message with his loan balance, equity position, monthly savings, and a Calendly link — all in two seconds. Pipeline View, HMDA Lookup, SMS Trigger — every tool available on demand, in plain English. This isn't AI that helps you remember things. This is AI that works while you sleep.`,
     callouts: [
       { at: 8,  label: "CRM Lead Lookup",  value: "New Lead Created",       x: 56, y: 18 },
@@ -375,6 +380,7 @@ const SCENES = [
     url: "crmex.huit.ai/campaigns",
     platform: "CRMEX",
     color: "#EC4899",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `Most loan officers run one campaign at a time, cross their fingers, and hope the leads come in. CRMEX Campaign Manager runs seven simultaneously — across Facebook, Google, LinkedIn, and RCS — with live performance data on every single one. Let me walk you through what's live right now. The AK Rate Drop campaign on Facebook: two thousand eight hundred forty dollars spent, forty-seven leads captured, sixty dollars and forty-three cents per lead. That's a strong number for Alaska mortgage. The Cash-Out Equity campaign: fifty-five dollars and thirty-four cents per lead, fifty-eight leads, six conversions — best performer in the portfolio this month. Now watch what happens when you add RCS to the mix. The LO Recruiting APEX blast: two hundred forty messages sent, two hundred thirty-one delivered, one hundred seventy-eight read, forty-seven replied. A nineteen-point-six percent reply rate on a cold recruiting blast. That number doesn't exist in traditional outreach. Below the campaigns panel is the CRM lead feed — every lead that came in today, their source, their AI score, their loan type, and their current nurture day. The entire operation in one screen.`,
     callouts: [
       { at: 10, label: "Active Campaigns",  value: "7 Running Now",       x: 65, y: 22 },
@@ -409,6 +415,7 @@ const SCENES = [
     url: "huit.ai",
     platform: "HUIT.AI",
     color: "#00D4FF",
+    voiceId: "pqHfZKP75CvOlQylNhV4",
     script: `Here's what you just saw. Nine capabilities. One platform. And what it means for your day. Before Huit dot AI, your morning looked like this: open three different tools, manually pull your pipeline, sort leads in a spreadsheet, guess who to call, hope your rate watch email went out, check in with recruiters who have no data to work with. With Huit dot AI, your morning looks like this: you open Command Center and your entire business is in front of you — forty-eight million in pipeline, thirty-four hot leads, rate movement already flagged, and a live activity feed showing exactly what happened overnight. Your lead scoring engine already ranked and prioritized every contact. Your campaign manager already sent the rate alert to the right three hundred contacts. Your APEX dashboard already surfaced the fourteen loan officers most likely to move this month — before your competitors even know they're looking. That's not just efficiency. That's compounding advantage. Every day you use Huit dot AI, you get further ahead. The recruiter closes more hires. The manager grows a stronger book. The producing loan officer converts more of the right leads at the right time with the right message. This is the platform. This is what it does. We're still in Founding Member pricing — and when those spots are gone, they're gone. Go to huit dot AI slash join right now, pick your tier, and let's get you started.`,
     callouts: [
       { at: 14, label: "Before",         value: "3 Tools, No Data",        x: 65, y: 20 },
@@ -1559,7 +1566,7 @@ export default function DemoPlayer() {
 
   const fetchAudio = useCallback(async (sc) => {
     if (audioCache.current[sc.id]) return audioCache.current[sc.id]
-    const body = { text: sc.script, voice_id: VOICE_ID }
+    const body = { text: sc.script, voice_id: sc.voiceId || VOICE_ID }
     if (apiKey) body.api_key = apiKey
     const res = await fetch("/api/tts", {
       method: "POST",
@@ -1680,7 +1687,7 @@ export default function DemoPlayer() {
             </div>
           )}
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: playing ? scene.color : "#374151", letterSpacing: 2 }}>
-            {loading ? "GENERATING AUDIO" : playing ? "NARRATING" : "READY"}
+            {loading ? "GENERATING AUDIO" : playing ? (scene.voiceId ? "BILL · NARRATING" : "CASEY KIM · NARRATING") : (scene.voiceId ? "BILL · READY" : "CASEY KIM · READY")}
           </span>
         </div>
       </div>
@@ -1807,7 +1814,7 @@ export default function DemoPlayer() {
               <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
                 {[0, 1, 2, 3].map(i => <div key={i} style={{ width: 2, height: 10, background: scene.color, borderRadius: 1, animation: `waveBar 0.6s ease-in-out infinite`, animationDelay: `${i * 0.1}s` }} />)}
               </div>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 8, color: scene.color, letterSpacing: 2 }}>CASEY KIM · NARRATING</span>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 8, color: scene.color, letterSpacing: 2 }}>{scene.voiceId ? "BILL · NARRATING" : "CASEY KIM · NARRATING"}</span>
             </div>
           )}
         </div>
