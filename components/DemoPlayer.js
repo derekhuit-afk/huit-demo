@@ -346,7 +346,7 @@ const SCENES = [
     url: "huit.ai",
     platform: "HUIT.AI",
     color: "#00D4FF",
-    script: `Here's what you just saw. Nine capabilities. One platform. And what it means for your day. Before Huit dot AI, your morning looked like this: open three different tools, manually pull your pipeline, sort leads in a spreadsheet, guess who to call, hope your rate watch email went out, check in with recruiters who have no data to work with. With Huit dot AI, your morning looks like this: you open Command Center and your entire business is in front of you — forty-eight million in pipeline, thirty-four hot leads, rate movement already flagged, and a live activity feed showing exactly what happened overnight. Your lead scoring engine already ranked and prioritized every contact. Your campaign manager already sent the rate alert to the right three hundred contacts. Your APEX dashboard already surfaced the fourteen loan officers most likely to move this month — before your competitors even know they're looking. That's not just efficiency. That's compounding advantage. Every day you use Huit dot AI, you get further ahead. The recruiter closes more hires. The manager grows a stronger book. The producing loan officer converts more of the right leads at the right time with the right message. This is the platform. This is what it does. Let's talk about what it can do for you.`,
+    script: `Here's what you just saw. Nine capabilities. One platform. And what it means for your day. Before Huit dot AI, your morning looked like this: open three different tools, manually pull your pipeline, sort leads in a spreadsheet, guess who to call, hope your rate watch email went out, check in with recruiters who have no data to work with. With Huit dot AI, your morning looks like this: you open Command Center and your entire business is in front of you — forty-eight million in pipeline, thirty-four hot leads, rate movement already flagged, and a live activity feed showing exactly what happened overnight. Your lead scoring engine already ranked and prioritized every contact. Your campaign manager already sent the rate alert to the right three hundred contacts. Your APEX dashboard already surfaced the fourteen loan officers most likely to move this month — before your competitors even know they're looking. That's not just efficiency. That's compounding advantage. Every day you use Huit dot AI, you get further ahead. The recruiter closes more hires. The manager grows a stronger book. The producing loan officer converts more of the right leads at the right time with the right message. This is the platform. This is what it does. We're still in Founding Member pricing — and when those spots are gone, they're gone. Go to huit dot AI slash join right now, pick your tier, and let's get you started.`,
     callouts: [
       { at: 14, label: "Before",         value: "3 Tools, No Data",        x: 65, y: 20 },
       { at: 30, label: "Command Center", value: "$48.7M · Live",           x: 65, y: 32 },
@@ -1090,6 +1090,138 @@ function Screen_WrapUp({ data, color }) {
   )
 }
 
+function JoinScreen({ onBack }) {
+  const [tier, setTier] = useState(null)
+  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "" })
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+
+  const tiers = [
+    { id: "STARTER",  price: "$625",   period: "/mo", annual: "$531/mo billed annually", color: "#00D4FF", features: ["CRMEX Pipeline CRM", "AI Lead Scoring", "Property Pulse", "Up to 500 contacts", "Email campaigns"], tag: null },
+    { id: "SCOUT",    price: "$1,250", period: "/mo", annual: "$1,063/mo billed annually", color: "#7C3AED", features: ["Everything in STARTER", "APEX Recruiting Intel", "HMDA Market Data", "Up to 2,500 contacts", "RCS + SMS outreach"], tag: null },
+    { id: "COMMAND",  price: "$2,350", period: "/mo", annual: "$1,998/mo billed annually", color: "#F59E0B", features: ["Everything in SCOUT", "Retention Risk Monitor", "Huit Agent AI", "Unlimited contacts", "Multi-user (up to 5)", "Dedicated onboarding"], tag: "MOST POPULAR" },
+    { id: "DOMINATE", price: "$4,125", period: "/mo", annual: "$3,506/mo billed annually", color: "#EF4444", features: ["Everything in COMMAND", "National APEX Dashboard", "Campaign Manager", "Unlimited users", "API access", "Priority support + SLA"], tag: "FULL PLATFORM" },
+  ]
+
+  const handleSubmit = async () => {
+    if (!tier || !form.name || !form.email) return
+    setSubmitting(true)
+    await new Promise(r => setTimeout(r, 1800))
+    setSubmitting(false)
+    setSubmitted(true)
+  }
+
+  const selectedTier = tiers.find(t => t.id === tier)
+  const isValid = tier && form.name.trim() && form.email.trim()
+
+  if (submitted) {
+    return (
+      <div style={{ height:"100%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", padding:40 }}>
+        <div style={{ width:64, height:64, borderRadius:"50%", background:"rgba(16,185,129,0.12)", border:"2px solid #10B981", display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, marginBottom:24 }}>✓</div>
+        <div style={{ fontSize:22, color:"#E2E8F0", fontWeight:800, textAlign:"center", marginBottom:8 }}>You're in, {form.name.split(" ")[0]}.</div>
+        <div style={{ fontSize:12, color:"#6B7280", textAlign:"center", marginBottom:4 }}>Founding Member · {selectedTier?.id} tier</div>
+        <div style={{ fontSize:11, color:"#10B981", marginBottom:32 }}>Confirmation sent to {form.email}</div>
+        <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:12, padding:"20px 28px", maxWidth:380, textAlign:"center" }}>
+          <div style={{ fontSize:10, color:"#4B5563", letterSpacing:2, marginBottom:12 }}>YOUR NEXT STEPS</div>
+          {["Check your email for onboarding link","Complete your profile in CRMEX","Book your 1-on-1 setup call with the Huit.AI team","Your first AI scoring run happens within 24 hours"].map((s,i) => (
+            <div key={i} style={{ display:"flex", gap:10, alignItems:"flex-start", marginBottom:10, textAlign:"left" }}>
+              <div style={{ width:18, height:18, borderRadius:"50%", background:"rgba(0,212,255,0.12)", border:"1px solid rgba(0,212,255,0.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, color:"#00D4FF", flexShrink:0, marginTop:1 }}>{i+1}</div>
+              <span style={{ fontSize:9, color:"#9CA3AF", lineHeight:1.6 }}>{s}</span>
+            </div>
+          ))}
+        </div>
+        <button onClick={onBack} style={{ marginTop:28, background:"transparent", border:"1px solid rgba(255,255,255,0.1)", borderRadius:6, padding:"8px 20px", color:"#4B5563", fontSize:9, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>← BACK TO DEMO</button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
+      {/* Header */}
+      <div style={{ background:"#080E1A", borderBottom:"1px solid rgba(0,212,255,0.2)", padding:"0 20px", height:44, display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+          <div style={{ width:7, height:7, borderRadius:"50%", background:"#00D4FF", boxShadow:"0 0 8px #00D4FF" }} />
+          <span style={{ fontSize:9, color:"#00D4FF", letterSpacing:3, fontWeight:700 }}>HUIT.AI / JOIN — FOUNDING MEMBER</span>
+        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+          <span style={{ fontSize:8, color:"#10B981" }}>● SPOTS REMAINING: <span style={{ fontWeight:800 }}>17</span></span>
+          <button onClick={onBack} style={{ background:"transparent", border:"1px solid rgba(255,255,255,0.1)", borderRadius:4, padding:"4px 12px", color:"#4B5563", fontSize:8, cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", letterSpacing:1 }}>← BACK</button>
+        </div>
+      </div>
+
+      <div style={{ flex:1, overflow:"auto", padding:"20px 20px 0" }}>
+        {/* Hero */}
+        <div style={{ textAlign:"center", marginBottom:24 }}>
+          <div style={{ fontSize:9, color:"#4B5563", letterSpacing:3, marginBottom:8 }}>FOUNDING MEMBER PRICING — LIMITED AVAILABILITY</div>
+          <div style={{ fontSize:22, color:"#E2E8F0", fontWeight:800, marginBottom:6 }}>Pick Your Platform. Start Today.</div>
+          <div style={{ fontSize:11, color:"#6B7280" }}>No free trial. No setup fee. Cancel anytime. 15% off all tiers with annual billing.</div>
+        </div>
+
+        {/* Tier cards */}
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:10, marginBottom:24 }}>
+          {tiers.map(t => (
+            <div key={t.id} onClick={() => setTier(t.id)} style={{ position:"relative", background: tier===t.id ? `${t.color}0D` : "rgba(255,255,255,0.02)", border:`2px solid ${tier===t.id ? t.color : "rgba(255,255,255,0.07)"}`, borderRadius:10, padding:"14px 14px 16px", cursor:"pointer", transition:"all 0.2s", boxShadow: tier===t.id ? `0 0 20px ${t.color}20` : "none" }}>
+              {t.tag && <div style={{ position:"absolute", top:-10, left:"50%", transform:"translateX(-50%)", background:t.color, color:"#000", fontSize:7, fontWeight:800, padding:"2px 10px", borderRadius:10, letterSpacing:1, whiteSpace:"nowrap" }}>{t.tag}</div>}
+              {tier===t.id && <div style={{ position:"absolute", top:10, right:10, width:16, height:16, borderRadius:"50%", background:t.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:9 }}>✓</div>}
+              <div style={{ fontSize:9, color:t.color, letterSpacing:2, fontWeight:800, marginBottom:8 }}>{t.id}</div>
+              <div style={{ fontSize:24, color:"#E2E8F0", fontWeight:800, fontFamily:"Georgia,serif" }}>{t.price}<span style={{ fontSize:10, color:"#6B7280" }}>{t.period}</span></div>
+              <div style={{ fontSize:8, color:"#4B5563", marginBottom:12 }}>{t.annual}</div>
+              <div style={{ borderTop:`1px solid ${t.color}20`, paddingTop:10 }}>
+                {t.features.map((f,i) => (
+                  <div key={i} style={{ display:"flex", gap:6, marginBottom:5 }}>
+                    <span style={{ color:t.color, fontSize:8, flexShrink:0 }}>▸</span>
+                    <span style={{ fontSize:8, color: i===0 ? "#E2E8F0" : "#9CA3AF", lineHeight:1.4 }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Form */}
+        <div style={{ maxWidth:680, margin:"0 auto 24px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:12, padding:"20px 24px" }}>
+          <div style={{ fontSize:9, color:"#4B5563", letterSpacing:2, marginBottom:16 }}>YOUR INFORMATION</div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:12 }}>
+            {[
+              { key:"name",    label:"Full Name *",      placeholder:"Derek Huit" },
+              { key:"email",   label:"Work Email *",     placeholder:"derek@brokerage.com" },
+              { key:"phone",   label:"Phone",            placeholder:"(907) 555-0100" },
+              { key:"company", label:"Company / Branch", placeholder:"Anchorage Lending Group" },
+            ].map(f => (
+              <div key={f.key}>
+                <div style={{ fontSize:8, color:"#6B7280", letterSpacing:1, marginBottom:5 }}>{f.label}</div>
+                <input
+                  value={form[f.key]}
+                  onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
+                  placeholder={f.placeholder}
+                  style={{ width:"100%", background:"rgba(255,255,255,0.04)", border:`1px solid ${form[f.key] ? "rgba(0,212,255,0.3)" : "rgba(255,255,255,0.08)"}`, borderRadius:6, padding:"9px 12px", color:"#E2E8F0", fontSize:10, fontFamily:"'JetBrains Mono',monospace", outline:"none", boxSizing:"border-box" }}
+                />
+              </div>
+            ))}
+          </div>
+          {tier && (
+            <div style={{ padding:"10px 14px", background:`${selectedTier.color}08`, border:`1px solid ${selectedTier.color}25`, borderRadius:8, marginBottom:14, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+              <div>
+                <div style={{ fontSize:9, color:selectedTier.color, fontWeight:700 }}>{selectedTier.id} — Founding Member</div>
+                <div style={{ fontSize:8, color:"#6B7280", marginTop:2 }}>{selectedTier.annual}</div>
+              </div>
+              <div style={{ fontSize:20, fontWeight:800, color:"#E2E8F0", fontFamily:"Georgia,serif" }}>{selectedTier.price}<span style={{ fontSize:9, color:"#6B7280" }}>/mo</span></div>
+            </div>
+          )}
+          <button
+            onClick={handleSubmit}
+            disabled={!isValid || submitting}
+            style={{ width:"100%", background: isValid ? `linear-gradient(135deg, #00D4FF18, #7C3AED18)` : "rgba(255,255,255,0.03)", border:`1px solid ${isValid ? "#00D4FF" : "rgba(255,255,255,0.08)"}`, borderRadius:8, padding:"13px 0", color: isValid ? "#00D4FF" : "#374151", fontSize:11, fontWeight:800, cursor: isValid ? "pointer" : "default", fontFamily:"'JetBrains Mono',monospace", letterSpacing:2, transition:"all 0.2s", boxShadow: isValid ? "0 0 20px rgba(0,212,255,0.15)" : "none" }}
+          >
+            {submitting ? "⟳  PROCESSING..." : !tier ? "SELECT A TIER ABOVE" : !form.name || !form.email ? "FILL IN YOUR INFO" : `▶  CLAIM ${tier} FOUNDING MEMBER SPOT`}
+          </button>
+          <div style={{ fontSize:8, color:"#374151", textAlign:"center", marginTop:10 }}>No credit card required to reserve · You'll receive a payment link via email</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const SCREEN_COMPONENTS = [
   Screen_APEX_Candidates,
   Screen_APEX_Market,
@@ -1114,6 +1246,7 @@ export default function DemoPlayer() {
   const [apiKey, setApiKey] = useState("")
   const [keySubmitted, setKeySubmitted] = useState(false)
   const [showKey, setShowKey] = useState(false)
+  const [showJoin, setShowJoin] = useState(false)
 
   const audioRef = useRef(null)
   const audioCache = useRef({})
@@ -1179,6 +1312,8 @@ export default function DemoPlayer() {
         setPlaying(false)
         if (idx < SCENES.length - 1) {
           setTimeout(() => { setSceneIdx(idx + 1); playScene(idx + 1) }, 1500)
+        } else {
+          setTimeout(() => setShowJoin(true), 1200)
         }
       }
       await audio.play()
@@ -1243,6 +1378,15 @@ export default function DemoPlayer() {
     )
   }
 
+  // ── JOIN SCREEN ───────────────────────────────────────────
+  if (showJoin) {
+    return (
+      <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#060C14", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
+        <JoinScreen onBack={() => setShowJoin(false)} />
+      </div>
+    )
+  }
+
   // ── PLAYER ────────────────────────────────────────────────
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#060C14", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
@@ -1251,7 +1395,7 @@ export default function DemoPlayer() {
       <div style={{ background: "#080E1A", borderBottom: "1px solid rgba(255,255,255,0.06)", height: 46, display: "flex", alignItems: "center", padding: "0 20px", gap: 16, flexShrink: 0 }}>
         <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, fontWeight: 700, color: "#00D4FF", letterSpacing: 4 }}>HUIT.AI</span>
         <span style={{ color: "#1F2937" }}>|</span>
-        <span style={{ fontSize: 11, color: "#6B7280" }}>Live Platform Demo · 6 Use Cases</span>
+        <span style={{ fontSize: 11, color: "#6B7280" }}>Live Platform Demo · 10 Scenes</span>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
           {playing && (
             <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
@@ -1273,6 +1417,12 @@ export default function DemoPlayer() {
             {audioCache.current[s.id] && <span style={{ color: "#10B981", fontSize: 7 }}>✓</span>}
           </button>
         ))}
+        <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.08)", margin: "0 6px", flexShrink: 0 }} />
+        <button onClick={() => setShowJoin(true)} style={{ background: "linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.12))", border: "1px solid rgba(0,212,255,0.4)", borderRadius: 4, padding: "4px 14px", cursor: "pointer", whiteSpace: "nowrap", color: "#00D4FF", fontSize: 10, fontFamily: "'JetBrains Mono', monospace", letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, fontWeight: 700, flexShrink: 0 }}>
+          <span style={{ fontSize: 8 }}>★</span>
+          <span>JOIN</span>
+          <span style={{ fontSize: 8 }}>→</span>
+        </button>
       </div>
 
       {/* Main layout */}
