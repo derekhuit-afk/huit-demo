@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useCallback, useEffect } from "react"
+import React, { useState, useRef, useCallback, useEffect } from "react"
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const VOICE_ID = "EXAVITQu4vr4xnSDxMaL" // Casey Kim
@@ -8,6 +8,202 @@ const VOICE_ID = "EXAVITQu4vr4xnSDxMaL" // Casey Kim
 const SCENES = [
   {
     id: 1, num: "01",
+    title: "APEX Recruiting Command Center",
+    subtitle: "Total Market Intelligence — Live",
+    url: "mapex.huit.ai/command-center",
+    platform: "APEX",
+    color: "#00D4FF",
+    script: `This is what recruiting looks like when you have full market intelligence. The APEX Recruiting Command Center. Two hundred forty-seven loan officers tracked across forty-two markets. Right now, this morning, fourteen of them have a Transition Likelihood Score above seventy — meaning our algorithm gives each of them a greater than seventy percent probability of changing companies within sixty days. Forty-one more are in the MOBILE tier — open, watching, ready to hear the right pitch. That's fifty-five warm-to-hot recruiting conversations you could be having this week. The priority board in the center shows today's top five targets ranked by score, production volume, and engagement signal. Sarah Martinez: TLS eighty-four, eighty-four million in production, flagged IMMINENT this morning after a comp plan change at her current company. Your job is to call her before your competitor does. The market signals panel on the right tells you why scores are moving — a restructuring announcement, a branch closure, a territory change. APEX catches it. The activity feed below shows what your team did yesterday, what it's doing right now, and what needs to happen next. Every morning you open this dashboard, you are further ahead than every recruiter in your market who doesn't have it. This is the Command Center.`,
+    callouts: [
+      { at: 8,  label: "Tracked Nationwide", value: "247 Loan Officers",     x: 64, y: 18 },
+      { at: 20, label: "IMMINENT Today",     value: "14 — Act This Week",    x: 64, y: 30 },
+      { at: 34, label: "Top Target",         value: "Sarah Martinez — 84",   x: 64, y: 44 },
+      { at: 50, label: "Market Signal",      value: "Comp Change at Caliber", x: 64, y: 58 },
+      { at: 64, label: "Team Activity",      value: "Live Recruiter Feed",    x: 64, y: 72 },
+    ],
+    screenData: {
+      kpis: [
+        { label: "Tracked LOs",    value: "247",  sub: "42 markets",           color: "#00D4FF" },
+        { label: "IMMINENT",       value: "14",   sub: ">70% move prob.",       color: "#FF3B5C" },
+        { label: "MOBILE",         value: "41",   sub: "Warm — engage now",     color: "#F59E0B" },
+        { label: "Hired MTD",      value: "3",    sub: "$112M added",           color: "#10B981" },
+        { label: "In Pipeline",    value: "22",   sub: "Active conversations",  color: "#8B5CF6" },
+      ],
+      priorities: [
+        { rank: 1, name: "Sarah Martinez",   co: "Caliber Home Loans",    vol: "$84M", tls: 84, tier: "IMMINENT", signal: "Comp plan cut",       color: "#FF3B5C", hot: true },
+        { rank: 2, name: "James Okafor",     co: "loanDepot",             vol: "$55M", tls: 79, tier: "IMMINENT", signal: "Manager departed",    color: "#FF3B5C", hot: true },
+        { rank: 3, name: "David Chen",       co: "Guaranteed Rate",       vol: "$61M", tls: 76, tier: "MOBILE",   signal: "Comp inquiry sent",   color: "#F59E0B", hot: false },
+        { rank: 4, name: "Rachel Kim",       co: "CrossCountry Mortgage", vol: "$42M", tls: 67, tier: "MOBILE",   signal: "LinkedIn activity ↑", color: "#F59E0B", hot: false },
+        { rank: 5, name: "Amanda Torres",    co: "UWM",                   vol: "$49M", tls: 71, tier: "MOBILE",   signal: "Territory change",    color: "#F59E0B", hot: false },
+      ],
+      signals: [
+        { co: "Caliber Home Loans",       event: "Q1 comp plan reduction announced",   impact: "HIGH",   los: 18, delta: "+12 TLS avg" },
+        { co: "Rocket Mortgage",          event: "Branch closure — Chandler, AZ",      impact: "HIGH",   los: 4,  delta: "+18 TLS avg" },
+        { co: "Guaranteed Rate",          event: "Territory realignment memo leaked",  impact: "MEDIUM", los: 11, delta: "+8 TLS avg" },
+        { co: "UWM",                      event: "Regional VP departure",              impact: "MEDIUM", los: 7,  delta: "+6 TLS avg" },
+      ],
+      activity: [
+        { time: "9:04 AM",  who: "Derek H.",  action: "Called Sarah Martinez — left voicemail",     type: "call" },
+        { time: "8:58 AM",  who: "APEX AI",   action: "TLS rescore complete — 3 new IMMINENT",      type: "system" },
+        { time: "8:44 AM",  who: "Derek H.",  action: "RCS sent to James Okafor — read 8:47 AM",    type: "rcs" },
+        { time: "Yesterday",who: "APEX AI",   action: "Caliber signal detected — 18 LOs flagged",   type: "system" },
+        { time: "Yesterday",who: "Derek H.",  action: "David Chen — 30-min call · moved to pipeline",type:"call" },
+      ],
+      quota: { hired: 3, goal: 5, vol_added: 112, vol_goal: 200, label: "March Goal" },
+    },
+  },
+  {
+    id: 2, num: "02",
+    title: "Predictive Transition Scoring",
+    subtitle: "APEX Recruiting Intelligence",
+    url: "mapex.huit.ai/dashboard",
+    platform: "APEX",
+    color: "#00D4FF",
+    script: `Before I show you the technology, let me give you the problem it solves. Every mortgage recruiter in the country is guessing. They're cold calling anyone with an NMLS number, hoping something lands. APEX doesn't guess. It reads fourteen public data sources, scores sixteen weighted factors, and tells you exactly who is about to move — and why — with a sixty-day precision window. Let me show you a live example. This is Sarah Martinez. She's producing eighty-four million a year at Caliber in Phoenix. Her Transition Likelihood Score is eighty-four out of one hundred — flagged IMMINENT. That score didn't come from a hunch. It came from a restructuring announcement at her parent company, a forty-two percent production drop in Q4, and a compensation alignment gap of thirty-eight thousand dollars versus market. Click into her card and you get a sixteen-factor breakdown — and a six-week outreach execution plan, auto-generated, with pitch scripts, objection handlers, and a ranked list of ten company fits. All from a single NMLS number.`,
+    callouts: [
+      { at: 6,  label: "Data Sources",    value: "14 Public Feeds",     x: 68, y: 22 },
+      { at: 16, label: "Factors Scored",  value: "16 Weighted",         x: 68, y: 36 },
+      { at: 28, label: "Sarah Martinez",  value: "TLS 84 — IMMINENT",   x: 56, y: 52 },
+      { at: 44, label: "Comp Gap",        value: "−$38K vs Market",     x: 56, y: 66 },
+      { at: 60, label: "Auto-Generated",  value: "6-Week Playbook",     x: 56, y: 80 },
+    ],
+    screenData: {
+      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Candidates" },
+      stats: [
+        { label: "Candidates Tracked", value: "247", delta: "+12 today", color: "#00D4FF" },
+        { label: "IMMINENT Tier", value: "14", delta: "Act now", color: "#FF3B5C" },
+        { label: "Avg TLS Score", value: "61", delta: "↑ 4 pts", color: "#F59E0B" },
+        { label: "Market Coverage", value: "42 MSAs", delta: "Live", color: "#10B981" },
+      ],
+      rows: [
+        { name: "Sarah Martinez",  co: "Caliber Home Loans",   mkt: "Phoenix, AZ",   vol: "$84M", score: 84, tier: "IMMINENT",  tls_c: "#FF3B5C", active: true },
+        { name: "David Chen",      co: "Guaranteed Rate",      mkt: "Scottsdale, AZ",vol: "$61M", score: 76, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+        { name: "Amanda Torres",   co: "UWM",                  mkt: "Tempe, AZ",     vol: "$49M", score: 71, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+        { name: "Brian Walsh",     co: "Movement Mortgage",    mkt: "Mesa, AZ",      vol: "$38M", score: 58, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
+        { name: "Linda Park",      co: "Rocket Mortgage",      mkt: "Chandler, AZ",  vol: "$29M", score: 44, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
+      ],
+      aiPanel: {
+        title: "AI MATCH — SARAH MARTINEZ",
+        bars: [
+          { label: "Production Fit",    pct: 92, color: "#00D4FF" },
+          { label: "Culture Alignment", pct: 87, color: "#00D4FF" },
+          { label: "Comp Delta",        pct: 84, color: "#F59E0B" },
+          { label: "Non-Compete Risk",  pct: 91, color: "#10B981" },
+        ],
+        note: "6-Week Outreach Plan Generated · 10 Company Fits Ranked · Pitch Scripts Ready",
+      },
+    },
+  },
+  {
+    id: 3, num: "03",
+    title: "APEX Recruiting Dashboard",
+    subtitle: "National TLS Leaderboard",
+    url: "mapex.huit.ai/dashboard",
+    platform: "APEX",
+    color: "#7C3AED",
+    script: `This is the full APEX recruiting intelligence dashboard — the national view. Two hundred forty-seven loan officers tracked across forty-two markets. Fourteen in the IMMINENT tier right now, meaning our algorithm gives them a greater than seventy percent probability of changing companies within sixty days. Forty-one in the MOBILE tier — watching and open. Let me show you the leaderboard. Sarah Martinez in Phoenix: eighty-four million in production, TLS eighty-four, IMMINENT. David Chen in Scottsdale: sixty-one million, TLS seventy-six, MOBILE. Amanda Torres in Tempe: forty-nine million, TLS seventy-one, MOBILE. These aren't cold leads. These are warm-to-hot recruiting targets backed by sixteen factors of behavioral and market data. The market intelligence panel on the right shows what's driving movement right now: a corporate restructuring announcement at Caliber is elevating scores across their entire Arizona book. That's an opportunity a traditional recruiter would never see. But APEX sees it in real time. The Source Confidence Factor Registry on the bottom validates every data point — so when you bring a TLS score to a manager, you can defend every number in it. This is recruiting intelligence that changes outcomes.`,
+    callouts: [
+      { at: 8,  label: "Tracked Nationwide", value: "247 Loan Officers",    x: 65, y: 20 },
+      { at: 20, label: "IMMINENT Tier",      value: "14 — Act This Week",   x: 65, y: 34 },
+      { at: 34, label: "Top Target",         value: "Sarah Martinez $84M",  x: 65, y: 48 },
+      { at: 48, label: "Market Signal",      value: "Caliber Restructuring", x: 65, y: 62 },
+      { at: 60, label: "Data Confidence",    value: "SCF Registry Validated",x: 65, y: 76 },
+    ],
+    screenData: {
+      stats: [
+        { label: "Tracked LOs",    value: "247",   sub: "42 markets",        color: "#7C3AED" },
+        { label: "IMMINENT",       value: "14",    sub: ">70% move prob.",    color: "#FF3B5C" },
+        { label: "MOBILE",         value: "41",    sub: "Warm targets",       color: "#F59E0B" },
+        { label: "Avg TLS",        value: "61",    sub: "↑ 4 pts this week",  color: "#7C3AED" },
+      ],
+      rows: [
+        { name: "Sarah Martinez",   co: "Caliber Home Loans",    mkt: "Phoenix, AZ",    vol: "$84M", score: 84, tier: "IMMINENT",  tls_c: "#FF3B5C", active: true },
+        { name: "David Chen",       co: "Guaranteed Rate",       mkt: "Scottsdale, AZ", vol: "$61M", score: 76, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+        { name: "Amanda Torres",    co: "UWM",                   mkt: "Tempe, AZ",      vol: "$49M", score: 71, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+        { name: "Brian Walsh",      co: "Movement Mortgage",     mkt: "Mesa, AZ",       vol: "$38M", score: 58, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
+        { name: "Linda Park",       co: "Rocket Mortgage",       mkt: "Chandler, AZ",   vol: "$29M", score: 44, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
+        { name: "James Okafor",     co: "loanDepot",             mkt: "Glendale, AZ",   vol: "$55M", score: 79, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+        { name: "Rachel Kim",       co: "CrossCountry Mortgage", mkt: "Tucson, AZ",     vol: "$42M", score: 67, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
+      ],
+      marketSignals: [
+        { signal: "Caliber Home Loans — Restructuring Announcement",    impact: "HIGH",   affected: 18 },
+        { signal: "Guaranteed Rate — Q1 Comp Plan Reduction",           impact: "MEDIUM", affected: 11 },
+        { signal: "UWM — Territory Realignment Notice",                  impact: "MEDIUM", affected: 7  },
+        { signal: "Rocket Mortgage — Branch Closure — Chandler",        impact: "HIGH",   affected: 4  },
+      ],
+    },
+  },
+  {
+    id: 4, num: "04",
+    title: "Retention Risk Monitor",
+    subtitle: "TLS Flight Risk Alerts",
+    url: "mapex.huit.ai/pulse",
+    platform: "APEX PULSE",
+    color: "#F59E0B",
+    script: `Recruiting is half the equation. The other half is retention. The average mortgage company loses thirty to forty percent of its loan officer base annually. Most of those departures are completely predictable — if you're watching the right signals. APEX monitors fourteen data signals in real time. When someone's flight risk score crosses a threshold, you get an alert — before they've taken a call from a competitor. This is James Rodriguez. He's been with your company for three years in Houston. His Transition Likelihood Score is sixty-seven out of one hundred — and it climbed thirty-six points in sixty days. That thirty-six point swing is the exact pattern our backtesting showed predicted departure with eighty-six percent accuracy across a one hundred thirty loan officer cohort. His intent signal shows frustrated. He hasn't posted publicly. He hasn't moved yet. But the data says: this manager needs to have a conversation with James this week — not next quarter.`,
+    callouts: [
+      { at: 12, label: "LO Attrition",   value: "30–40% Annual",   x: 62, y: 22 },
+      { at: 24, label: "James Rodriguez",value: "Risk Score 67/100",x: 62, y: 38 },
+      { at: 38, label: "TLS Delta",      value: "+36 pts / 60 Days",x: 62, y: 54 },
+      { at: 50, label: "Predictive Acc.",value: "86%",              x: 62, y: 70 },
+    ],
+    screenData: {
+      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Pulse" },
+      alertCounts: [
+        { tier: "IMMINENT", count: 3, color: "#FF3B5C" },
+        { tier: "MOBILE",   count: 8, color: "#F59E0B" },
+        { tier: "RECEPTIVE",count: 21,color: "#00D4FF" },
+      ],
+      featured: {
+        name: "James Rodriguez",
+        role: "Senior Loan Officer · Houston, TX",
+        tenure: "3 years tenure",
+        score: 67,
+        delta: "+36 pts in 60 days",
+        intent: "FRUSTRATED",
+        accuracy: "86%",
+        cohort: "130 LOs backtested",
+        signals: ["Production drop Q4 −18%", "Comp gap $24K vs market", "Platform login −62%", "Team engagement low"],
+        action: "Schedule 1:1 with branch manager this week — do not wait.",
+      },
+    },
+  },
+  {
+    id: 5, num: "05",
+    title: "HMDA Market Intelligence",
+    subtitle: "7-Year Data — 42 MSAs",
+    url: "mapex.huit.ai/market-intel",
+    platform: "APEX",
+    color: "#7C3AED",
+    script: `The HMDA database is the single most underutilized competitive intelligence asset in the mortgage industry. It contains every originated loan in America, by lender, by geography, by product type — seven years of it. We've loaded all seven years — 2017 through 2024 — into a live query engine. I can tell you, right now, who the top eighteen producers in the Nashville market are, which company they're at, and what their production trend looks like. This is the Market Intel tab. Nashville, Tennessee. Two hundred fourteen active loan officers ranked by origination volume. The top tier — the eighteen we call Market Movers — are the producers most likely to be recruitable based on their TLS profile crossing into receptive territory. You can filter by state, by metro, by production tier, by loan type. You can pull any market in the country in under sixty seconds. Seven years of HMDA data, fully indexed. Something no competing platform offers at this price point.`,
+    callouts: [
+      { at: 10, label: "HMDA Data",      value: "7 Years Loaded",     x: 64, y: 20 },
+      { at: 22, label: "Nashville, TN",  value: "214 Active LOs",     x: 64, y: 36 },
+      { at: 34, label: "Market Movers",  value: "18 Recruitable",     x: 64, y: 52 },
+      { at: 48, label: "Query Speed",    value: "< 60 Seconds",       x: 64, y: 68 },
+    ],
+    screenData: {
+      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Market Intel" },
+      market: "Nashville, TN",
+      stats: [
+        { label: "Active LOs",    value: "214",  delta: "Ranked", color: "#7C3AED" },
+        { label: "Market Movers", value: "18",   delta: "Recruitable", color: "#FF3B5C" },
+        { label: "Total Volume",  value: "$2.1B", delta: "2024",  color: "#10B981" },
+        { label: "HMDA Coverage", value: "7 Yrs", delta: "2017–2024", color: "#F59E0B" },
+      ],
+      rows: [
+        { name: "Jordan Ellis",  co: "Benchmark Mortgage",   vol: "$142M", units: 312, tier: "MOVER",  tls: 82, active: true },
+        { name: "Priya Nair",    co: "CrossCountry Mortgage",vol: "$118M", units: 267, tier: "MOVER",  tls: 78, active: false },
+        { name: "Carlos Vega",   co: "Movement Mortgage",    vol: "$97M",  units: 228, tier: "MOVER",  tls: 74, active: false },
+        { name: "Ashley Monroe", co: "Fairway Independent",  vol: "$83M",  units: 194, tier: "MOVER",  tls: 71, active: false },
+        { name: "Kevin Park",    co: "Caliber Home Loans",   vol: "$71M",  units: 162, tier: "MOVER",  tls: 68, active: false },
+        { name: "Denise Carter", co: "Guaranteed Rate",      vol: "$64M",  units: 149, tier: "TARGET", tls: 55, active: false },
+        { name: "Marcus Webb",   co: "United Wholesale",     vol: "$58M",  units: 134, tier: "TARGET", tls: 48, active: false },
+      ],
+    },
+  },
+  {
+    id: 6, num: "06",
     title: "Command Center",
     subtitle: "CRMEX Pipeline Intelligence",
     url: "crmex.huit.ai/command-center",
@@ -58,7 +254,7 @@ const SCENES = [
     },
   },
   {
-    id: 2, num: "02",
+    id: 7, num: "07",
     title: "AI Lead Scoring Engine",
     subtitle: "Score 94 — 48 Hours",
     url: "crmex.huit.ai/leads",
@@ -86,7 +282,7 @@ const SCENES = [
     },
   },
   {
-    id: 3, num: "03",
+    id: 8, num: "08",
     title: "Property Pulse Equity Engine",
     subtitle: "Past Borrower Re-Engagement",
     url: "crmex.huit.ai/property-pulse",
@@ -121,7 +317,7 @@ const SCENES = [
     },
   },
   {
-    id: 4, num: "04",
+    id: 9, num: "09",
     title: "Huit Agent AI",
     subtitle: "9 Live CRM Tools · Natural Language",
     url: "crmex-huit-agent-ai.vercel.app",
@@ -173,7 +369,7 @@ const SCENES = [
     },
   },
   {
-    id: 5, num: "05",
+    id: 10, num: "10",
     title: "Campaign Manager",
     subtitle: "CRMEX Multi-Channel Outreach",
     url: "crmex.huit.ai/campaigns",
@@ -207,157 +403,7 @@ const SCENES = [
     },
   },
   {
-    id: 6, num: "06",
-    title: "HMDA Market Intelligence",
-    subtitle: "7-Year Data — 42 MSAs",
-    url: "mapex.huit.ai/market-intel",
-    platform: "APEX",
-    color: "#7C3AED",
-    script: `The HMDA database is the single most underutilized competitive intelligence asset in the mortgage industry. It contains every originated loan in America, by lender, by geography, by product type — seven years of it. We've loaded all seven years — 2017 through 2024 — into a live query engine. I can tell you, right now, who the top eighteen producers in the Nashville market are, which company they're at, and what their production trend looks like. This is the Market Intel tab. Nashville, Tennessee. Two hundred fourteen active loan officers ranked by origination volume. The top tier — the eighteen we call Market Movers — are the producers most likely to be recruitable based on their TLS profile crossing into receptive territory. You can filter by state, by metro, by production tier, by loan type. You can pull any market in the country in under sixty seconds. Seven years of HMDA data, fully indexed. Something no competing platform offers at this price point.`,
-    callouts: [
-      { at: 10, label: "HMDA Data",      value: "7 Years Loaded",     x: 64, y: 20 },
-      { at: 22, label: "Nashville, TN",  value: "214 Active LOs",     x: 64, y: 36 },
-      { at: 34, label: "Market Movers",  value: "18 Recruitable",     x: 64, y: 52 },
-      { at: 48, label: "Query Speed",    value: "< 60 Seconds",       x: 64, y: 68 },
-    ],
-    screenData: {
-      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Market Intel" },
-      market: "Nashville, TN",
-      stats: [
-        { label: "Active LOs",    value: "214",  delta: "Ranked", color: "#7C3AED" },
-        { label: "Market Movers", value: "18",   delta: "Recruitable", color: "#FF3B5C" },
-        { label: "Total Volume",  value: "$2.1B", delta: "2024",  color: "#10B981" },
-        { label: "HMDA Coverage", value: "7 Yrs", delta: "2017–2024", color: "#F59E0B" },
-      ],
-      rows: [
-        { name: "Jordan Ellis",  co: "Benchmark Mortgage",   vol: "$142M", units: 312, tier: "MOVER",  tls: 82, active: true },
-        { name: "Priya Nair",    co: "CrossCountry Mortgage",vol: "$118M", units: 267, tier: "MOVER",  tls: 78, active: false },
-        { name: "Carlos Vega",   co: "Movement Mortgage",    vol: "$97M",  units: 228, tier: "MOVER",  tls: 74, active: false },
-        { name: "Ashley Monroe", co: "Fairway Independent",  vol: "$83M",  units: 194, tier: "MOVER",  tls: 71, active: false },
-        { name: "Kevin Park",    co: "Caliber Home Loans",   vol: "$71M",  units: 162, tier: "MOVER",  tls: 68, active: false },
-        { name: "Denise Carter", co: "Guaranteed Rate",      vol: "$64M",  units: 149, tier: "TARGET", tls: 55, active: false },
-        { name: "Marcus Webb",   co: "United Wholesale",     vol: "$58M",  units: 134, tier: "TARGET", tls: 48, active: false },
-      ],
-    },
-  },
-  {
-    id: 7, num: "07",
-    title: "Predictive Transition Scoring",
-    subtitle: "APEX Recruiting Intelligence",
-    url: "mapex.huit.ai/dashboard",
-    platform: "APEX",
-    color: "#00D4FF",
-    script: `Before I show you the technology, let me give you the problem it solves. Every mortgage recruiter in the country is guessing. They're cold calling anyone with an NMLS number, hoping something lands. APEX doesn't guess. It reads fourteen public data sources, scores sixteen weighted factors, and tells you exactly who is about to move — and why — with a sixty-day precision window. Let me show you a live example. This is Sarah Martinez. She's producing eighty-four million a year at Caliber in Phoenix. Her Transition Likelihood Score is eighty-four out of one hundred — flagged IMMINENT. That score didn't come from a hunch. It came from a restructuring announcement at her parent company, a forty-two percent production drop in Q4, and a compensation alignment gap of thirty-eight thousand dollars versus market. Click into her card and you get a sixteen-factor breakdown — and a six-week outreach execution plan, auto-generated, with pitch scripts, objection handlers, and a ranked list of ten company fits. All from a single NMLS number.`,
-    callouts: [
-      { at: 6,  label: "Data Sources",    value: "14 Public Feeds",     x: 68, y: 22 },
-      { at: 16, label: "Factors Scored",  value: "16 Weighted",         x: 68, y: 36 },
-      { at: 28, label: "Sarah Martinez",  value: "TLS 84 — IMMINENT",   x: 56, y: 52 },
-      { at: 44, label: "Comp Gap",        value: "−$38K vs Market",     x: 56, y: 66 },
-      { at: 60, label: "Auto-Generated",  value: "6-Week Playbook",     x: 56, y: 80 },
-    ],
-    screenData: {
-      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Candidates" },
-      stats: [
-        { label: "Candidates Tracked", value: "247", delta: "+12 today", color: "#00D4FF" },
-        { label: "IMMINENT Tier", value: "14", delta: "Act now", color: "#FF3B5C" },
-        { label: "Avg TLS Score", value: "61", delta: "↑ 4 pts", color: "#F59E0B" },
-        { label: "Market Coverage", value: "42 MSAs", delta: "Live", color: "#10B981" },
-      ],
-      rows: [
-        { name: "Sarah Martinez",  co: "Caliber Home Loans",   mkt: "Phoenix, AZ",   vol: "$84M", score: 84, tier: "IMMINENT",  tls_c: "#FF3B5C", active: true },
-        { name: "David Chen",      co: "Guaranteed Rate",      mkt: "Scottsdale, AZ",vol: "$61M", score: 76, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-        { name: "Amanda Torres",   co: "UWM",                  mkt: "Tempe, AZ",     vol: "$49M", score: 71, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-        { name: "Brian Walsh",     co: "Movement Mortgage",    mkt: "Mesa, AZ",      vol: "$38M", score: 58, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
-        { name: "Linda Park",      co: "Rocket Mortgage",      mkt: "Chandler, AZ",  vol: "$29M", score: 44, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
-      ],
-      aiPanel: {
-        title: "AI MATCH — SARAH MARTINEZ",
-        bars: [
-          { label: "Production Fit",    pct: 92, color: "#00D4FF" },
-          { label: "Culture Alignment", pct: 87, color: "#00D4FF" },
-          { label: "Comp Delta",        pct: 84, color: "#F59E0B" },
-          { label: "Non-Compete Risk",  pct: 91, color: "#10B981" },
-        ],
-        note: "6-Week Outreach Plan Generated · 10 Company Fits Ranked · Pitch Scripts Ready",
-      },
-    },
-  },
-  {
-    id: 8, num: "08",
-    title: "Retention Risk Monitor",
-    subtitle: "TLS Flight Risk Alerts",
-    url: "mapex.huit.ai/pulse",
-    platform: "APEX PULSE",
-    color: "#F59E0B",
-    script: `Recruiting is half the equation. The other half is retention. The average mortgage company loses thirty to forty percent of its loan officer base annually. Most of those departures are completely predictable — if you're watching the right signals. APEX monitors fourteen data signals in real time. When someone's flight risk score crosses a threshold, you get an alert — before they've taken a call from a competitor. This is James Rodriguez. He's been with your company for three years in Houston. His Transition Likelihood Score is sixty-seven out of one hundred — and it climbed thirty-six points in sixty days. That thirty-six point swing is the exact pattern our backtesting showed predicted departure with eighty-six percent accuracy across a one hundred thirty loan officer cohort. His intent signal shows frustrated. He hasn't posted publicly. He hasn't moved yet. But the data says: this manager needs to have a conversation with James this week — not next quarter.`,
-    callouts: [
-      { at: 12, label: "LO Attrition",   value: "30–40% Annual",   x: 62, y: 22 },
-      { at: 24, label: "James Rodriguez",value: "Risk Score 67/100",x: 62, y: 38 },
-      { at: 38, label: "TLS Delta",      value: "+36 pts / 60 Days",x: 62, y: 54 },
-      { at: 50, label: "Predictive Acc.",value: "86%",              x: 62, y: 70 },
-    ],
-    screenData: {
-      header: { tabs: ["Dashboard", "Candidates", "Market Intel", "Pulse", "Reports"], active: "Pulse" },
-      alertCounts: [
-        { tier: "IMMINENT", count: 3, color: "#FF3B5C" },
-        { tier: "MOBILE",   count: 8, color: "#F59E0B" },
-        { tier: "RECEPTIVE",count: 21,color: "#00D4FF" },
-      ],
-      featured: {
-        name: "James Rodriguez",
-        role: "Senior Loan Officer · Houston, TX",
-        tenure: "3 years tenure",
-        score: 67,
-        delta: "+36 pts in 60 days",
-        intent: "FRUSTRATED",
-        accuracy: "86%",
-        cohort: "130 LOs backtested",
-        signals: ["Production drop Q4 −18%", "Comp gap $24K vs market", "Platform login −62%", "Team engagement low"],
-        action: "Schedule 1:1 with branch manager this week — do not wait.",
-      },
-    },
-  },
-  {
-    id: 9, num: "09",
-    title: "APEX Recruiting Dashboard",
-    subtitle: "National TLS Leaderboard",
-    url: "mapex.huit.ai/dashboard",
-    platform: "APEX",
-    color: "#7C3AED",
-    script: `This is the full APEX recruiting intelligence dashboard — the national view. Two hundred forty-seven loan officers tracked across forty-two markets. Fourteen in the IMMINENT tier right now, meaning our algorithm gives them a greater than seventy percent probability of changing companies within sixty days. Forty-one in the MOBILE tier — watching and open. Let me show you the leaderboard. Sarah Martinez in Phoenix: eighty-four million in production, TLS eighty-four, IMMINENT. David Chen in Scottsdale: sixty-one million, TLS seventy-six, MOBILE. Amanda Torres in Tempe: forty-nine million, TLS seventy-one, MOBILE. These aren't cold leads. These are warm-to-hot recruiting targets backed by sixteen factors of behavioral and market data. The market intelligence panel on the right shows what's driving movement right now: a corporate restructuring announcement at Caliber is elevating scores across their entire Arizona book. That's an opportunity a traditional recruiter would never see. But APEX sees it in real time. The Source Confidence Factor Registry on the bottom validates every data point — so when you bring a TLS score to a manager, you can defend every number in it. This is recruiting intelligence that changes outcomes.`,
-    callouts: [
-      { at: 8,  label: "Tracked Nationwide", value: "247 Loan Officers",    x: 65, y: 20 },
-      { at: 20, label: "IMMINENT Tier",      value: "14 — Act This Week",   x: 65, y: 34 },
-      { at: 34, label: "Top Target",         value: "Sarah Martinez $84M",  x: 65, y: 48 },
-      { at: 48, label: "Market Signal",      value: "Caliber Restructuring", x: 65, y: 62 },
-      { at: 60, label: "Data Confidence",    value: "SCF Registry Validated",x: 65, y: 76 },
-    ],
-    screenData: {
-      stats: [
-        { label: "Tracked LOs",    value: "247",   sub: "42 markets",        color: "#7C3AED" },
-        { label: "IMMINENT",       value: "14",    sub: ">70% move prob.",    color: "#FF3B5C" },
-        { label: "MOBILE",         value: "41",    sub: "Warm targets",       color: "#F59E0B" },
-        { label: "Avg TLS",        value: "61",    sub: "↑ 4 pts this week",  color: "#7C3AED" },
-      ],
-      rows: [
-        { name: "Sarah Martinez",   co: "Caliber Home Loans",    mkt: "Phoenix, AZ",    vol: "$84M", score: 84, tier: "IMMINENT",  tls_c: "#FF3B5C", active: true },
-        { name: "David Chen",       co: "Guaranteed Rate",       mkt: "Scottsdale, AZ", vol: "$61M", score: 76, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-        { name: "Amanda Torres",    co: "UWM",                   mkt: "Tempe, AZ",      vol: "$49M", score: 71, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-        { name: "Brian Walsh",      co: "Movement Mortgage",     mkt: "Mesa, AZ",       vol: "$38M", score: 58, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
-        { name: "Linda Park",       co: "Rocket Mortgage",       mkt: "Chandler, AZ",   vol: "$29M", score: 44, tier: "RECEPTIVE", tls_c: "#00D4FF", active: false },
-        { name: "James Okafor",     co: "loanDepot",             mkt: "Glendale, AZ",   vol: "$55M", score: 79, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-        { name: "Rachel Kim",       co: "CrossCountry Mortgage", mkt: "Tucson, AZ",     vol: "$42M", score: 67, tier: "MOBILE",    tls_c: "#F59E0B", active: false },
-      ],
-      marketSignals: [
-        { signal: "Caliber Home Loans — Restructuring Announcement",    impact: "HIGH",   affected: 18 },
-        { signal: "Guaranteed Rate — Q1 Comp Plan Reduction",           impact: "MEDIUM", affected: 11 },
-        { signal: "UWM — Territory Realignment Notice",                  impact: "MEDIUM", affected: 7  },
-        { signal: "Rocket Mortgage — Branch Closure — Chandler",        impact: "HIGH",   affected: 4  },
-      ],
-    },
-  },
-  {
-    id: 10, num: "10",
+    id: 11, num: "11",
     title: "The Huit.AI Difference",
     subtitle: "Your Day. Transformed.",
     url: "huit.ai",
@@ -427,6 +473,143 @@ function BrowserChrome({ url, color, children }) {
 }
 
 // ─── SCREEN RENDERERS ─────────────────────────────────────────────────────────
+function Screen_APEX_RecruitingCmd({ data, color }) {
+  const { kpis, priorities, signals, activity, quota } = data
+  const tierC = { IMMINENT:"#FF3B5C", MOBILE:"#F59E0B", RECEPTIVE:"#00D4FF" }
+  const actIcon = { call:"📞", system:"⚡", rcs:"💬" }
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
+      {/* Header */}
+      <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, padding:"0 14px", height:36, display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+          <div style={{ width:7, height:7, borderRadius:"50%", background:color, boxShadow:`0 0 8px ${color}` }} />
+          <span style={{ fontSize:9, color, letterSpacing:3, fontWeight:700 }}>APEX — RECRUITING COMMAND CENTER</span>
+        </div>
+        <span style={{ fontSize:8, padding:"1px 8px", background:`${color}12`, border:`1px solid ${color}33`, borderRadius:10, color }}>PATENT PENDING · TLS ENGINE</span>
+        <div style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>● LIVE RESCORE · {new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+
+      {/* KPIs */}
+      <div style={{ display:"flex", gap:8, padding:"8px 12px 6px", flexShrink:0 }}>
+        {kpis.map((k,i) => (
+          <div key={i} style={{ flex:1, background:"rgba(255,255,255,0.025)", border:`1px solid ${k.color}20`, borderRadius:8, padding:"9px 12px", position:"relative", overflow:"hidden" }}>
+            <div style={{ position:"absolute", top:0, left:0, right:0, height:2, background:`linear-gradient(90deg,transparent,${k.color},transparent)` }} />
+            <div style={{ fontSize:7, color:"#6B7280", letterSpacing:2, marginBottom:3 }}>{k.label.toUpperCase()}</div>
+            <div style={{ fontSize:22, fontWeight:800, color:"#E2E8F0", fontFamily:"Georgia,serif", lineHeight:1 }}>{k.value}</div>
+            <div style={{ fontSize:7, color:k.color, marginTop:3 }}>{k.sub}</div>
+          </div>
+        ))}
+        {/* Quota ring */}
+        <div style={{ width:90, background:"rgba(255,255,255,0.025)", border:`1px solid ${color}20`, borderRadius:8, padding:"9px 10px", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+          <div style={{ fontSize:7, color:"#6B7280", letterSpacing:1, marginBottom:6 }}>{quota.label.toUpperCase()}</div>
+          <div style={{ position:"relative", width:44, height:44 }}>
+            <svg width="44" height="44" style={{ transform:"rotate(-90deg)" }}>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4" />
+              <circle cx="22" cy="22" r="18" fill="none" stroke={color} strokeWidth="4"
+                strokeDasharray={`${(quota.hired/quota.goal)*113} 113`} strokeLinecap="round" />
+            </svg>
+            <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center" }}>
+              <span style={{ fontSize:12, fontWeight:800, color:"#E2E8F0" }}>{quota.hired}</span>
+              <span style={{ fontSize:7, color:"#4B5563" }}>/{quota.goal}</span>
+            </div>
+          </div>
+          <div style={{ fontSize:7, color:color, marginTop:4 }}>HIRED</div>
+        </div>
+      </div>
+
+      {/* Main grid */}
+      <div style={{ flex:1, display:"grid", gridTemplateColumns:"1fr 200px 200px", gap:8, padding:"0 12px 10px", overflow:"hidden", minHeight:0 }}>
+
+        {/* Priority board */}
+        <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:8, display:"flex", flexDirection:"column", overflow:"hidden" }}>
+          <div style={{ padding:"7px 12px", borderBottom:"1px solid rgba(255,255,255,0.06)", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
+            <span style={{ fontSize:8, color:"#6B7280", letterSpacing:2 }}>TODAY'S PRIORITY RECRUITS</span>
+            <span style={{ fontSize:7, color:color }}>Ranked by TLS + Signal</span>
+          </div>
+          <div style={{ flex:1, overflow:"auto" }}>
+            {priorities.map((p,i) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", borderBottom:"1px solid rgba(255,255,255,0.04)", background: p.hot?`${p.color}06`:"transparent" }}>
+                <div style={{ fontSize:11, fontWeight:800, color:"#374151", width:16, flexShrink:0 }}>{p.rank}</div>
+                {/* TLS ring */}
+                <div style={{ width:36, height:36, borderRadius:"50%", background:`${p.color}15`, border:`2px solid ${p.color}`, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                  <span style={{ fontSize:11, fontWeight:800, color:p.color, lineHeight:1 }}>{p.tls}</span>
+                  <span style={{ fontSize:6, color:p.color, lineHeight:1 }}>TLS</span>
+                </div>
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:2 }}>
+                    <span style={{ fontSize:10, color:"#E2E8F0", fontWeight:700 }}>{p.name}</span>
+                    {p.hot && <span style={{ fontSize:7, color:"#FF3B5C" }}>🔥</span>}
+                  </div>
+                  <div style={{ fontSize:8, color:"#6B7280", marginBottom:2 }}>{p.co}</div>
+                  <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                    <span style={{ fontSize:7, padding:"1px 6px", background:`${p.color}15`, border:`1px solid ${p.color}33`, borderRadius:8, color:p.color, fontWeight:700 }}>{p.tier}</span>
+                    <span style={{ fontSize:7, color:"#4B5563" }}>⚡ {p.signal}</span>
+                  </div>
+                </div>
+                <div style={{ textAlign:"right", flexShrink:0 }}>
+                  <div style={{ fontSize:10, fontWeight:700, color:"#E2E8F0" }}>{p.vol}</div>
+                  <div style={{ fontSize:7, color:"#4B5563" }}>production</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Market signals */}
+        <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:8, display:"flex", flexDirection:"column", overflow:"hidden" }}>
+          <div style={{ padding:"7px 10px", borderBottom:"1px solid rgba(255,255,255,0.06)", fontSize:8, color:"#6B7280", letterSpacing:2, flexShrink:0 }}>MARKET SIGNALS</div>
+          <div style={{ flex:1, overflow:"auto", padding:"6px 0" }}>
+            {signals.map((s,i) => (
+              <div key={i} style={{ padding:"8px 10px", borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:4 }}>
+                  <span style={{ fontSize:7, padding:"1px 6px", background: s.impact==="HIGH"?"rgba(255,59,92,0.15)":"rgba(245,158,11,0.15)", color: s.impact==="HIGH"?"#FF3B5C":"#F59E0B", borderRadius:3, fontWeight:700 }}>{s.impact}</span>
+                  <span style={{ fontSize:7, color:color, fontWeight:700 }}>{s.delta}</span>
+                </div>
+                <div style={{ fontSize:8, color:"#E2E8F0", fontWeight:600, marginBottom:2 }}>{s.co}</div>
+                <div style={{ fontSize:7, color:"#6B7280", lineHeight:1.4, marginBottom:4 }}>{s.event}</div>
+                <div style={{ fontSize:7, color:"#4B5563" }}>{s.los} LOs affected</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Activity + quota */}
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:8, flex:1, display:"flex", flexDirection:"column", overflow:"hidden" }}>
+            <div style={{ padding:"7px 10px", borderBottom:"1px solid rgba(255,255,255,0.06)", fontSize:8, color:"#6B7280", letterSpacing:2, flexShrink:0 }}>RECRUITER ACTIVITY</div>
+            <div style={{ flex:1, overflow:"auto", padding:"4px 0" }}>
+              {activity.map((a,i) => (
+                <div key={i} style={{ padding:"6px 10px", borderBottom:"1px solid rgba(255,255,255,0.03)" }}>
+                  <div style={{ display:"flex", gap:6, alignItems:"flex-start" }}>
+                    <span style={{ fontSize:9, flexShrink:0 }}>{actIcon[a.type]||"•"}</span>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontSize:7, color:"#6B7280", marginBottom:1 }}>{a.time} · <span style={{ color:color }}>{a.who}</span></div>
+                      <div style={{ fontSize:8, color:"#9CA3AF", lineHeight:1.4 }}>{a.action}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Volume goal */}
+          <div style={{ background:`${color}08`, border:`1px solid ${color}22`, borderRadius:8, padding:"10px 12px", flexShrink:0 }}>
+            <div style={{ fontSize:7, color:"#4B5563", letterSpacing:2, marginBottom:6 }}>PRODUCTION ADDED MTD</div>
+            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:5 }}>
+              <span style={{ fontSize:14, fontWeight:800, color:"#E2E8F0", fontFamily:"Georgia,serif" }}>${quota.vol_added}M</span>
+              <span style={{ fontSize:9, color:"#4B5563" }}>/ ${quota.vol_goal}M goal</span>
+            </div>
+            <div style={{ height:5, background:"rgba(255,255,255,0.05)", borderRadius:3, overflow:"hidden" }}>
+              <div style={{ width:`${(quota.vol_added/quota.vol_goal)*100}%`, height:"100%", background:`linear-gradient(90deg,${color},#7C3AED)`, borderRadius:3 }} />
+            </div>
+            <div style={{ fontSize:7, color:color, marginTop:4, textAlign:"right" }}>{Math.round((quota.vol_added/quota.vol_goal)*100)}% of goal</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
 function Screen_APEX_Candidates({ data, color }) {
   const { stats, rows, aiPanel, header } = data
   return (
@@ -1316,15 +1499,16 @@ function JoinScreen({ onBack }) {
 }
 
 const SCREEN_COMPONENTS = [
+  Screen_APEX_RecruitingCmd,
+  Screen_APEX_Candidates,
+  Screen_APEX_Dashboard,
+  Screen_Retention,
+  Screen_APEX_Market,
   Screen_CommandCenter,
   Screen_LeadScoring,
   Screen_PropertyPulse,
   Screen_AgentAI,
   Screen_CampaignManager,
-  Screen_APEX_Market,
-  Screen_APEX_Candidates,
-  Screen_Retention,
-  Screen_APEX_Dashboard,
   Screen_WrapUp,
 ]
 
@@ -1488,7 +1672,7 @@ export default function DemoPlayer() {
       <div style={{ background: "#080E1A", borderBottom: "1px solid rgba(255,255,255,0.06)", height: 46, display: "flex", alignItems: "center", padding: "0 20px", gap: 16, flexShrink: 0 }}>
         <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, fontWeight: 700, color: "#00D4FF", letterSpacing: 4 }}>HUIT.AI</span>
         <span style={{ color: "#1F2937" }}>|</span>
-        <span style={{ fontSize: 11, color: "#6B7280" }}>Live Platform Demo · 10 Scenes</span>
+        <span style={{ fontSize: 11, color: "#6B7280" }}>Live Platform Demo · 11 Scenes · 2 Tracks</span>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
           {playing && (
             <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
@@ -1503,13 +1687,28 @@ export default function DemoPlayer() {
 
       {/* Scene tabs */}
       <div style={{ background: "#070D18", borderBottom: "1px solid rgba(255,255,255,0.04)", height: 42, display: "flex", alignItems: "center", padding: "0 20px", gap: 4, overflowX: "auto", flexShrink: 0 }}>
-        {SCENES.map((s, i) => (
-          <button key={s.id} onClick={() => goScene(i)} style={{ background: i === sceneIdx ? `${s.color}14` : "transparent", border: `1px solid ${i === sceneIdx ? s.color : "rgba(255,255,255,0.06)"}`, borderRadius: 4, padding: "4px 12px", cursor: "pointer", whiteSpace: "nowrap", color: i === sceneIdx ? s.color : "#4B5563", fontSize: 10, fontFamily: "'JetBrains Mono', monospace", letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 7, transition: "all 0.2s" }}>
-            <span style={{ fontSize: 8, opacity: 0.5 }}>{s.num}</span>
-            <span>{s.title}</span>
-            {audioCache.current[s.id] && <span style={{ color: "#10B981", fontSize: 7 }}>✓</span>}
-          </button>
-        ))}
+        {/* Track 1 label */}
+        <span style={{ fontSize: 7, color: "#00D4FF", letterSpacing: 2, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, flexShrink: 0, opacity: 0.7 }}>RECRUITING</span>
+        <div style={{ width: 1, height: 16, background: "rgba(0,212,255,0.2)", margin: "0 2px", flexShrink: 0 }} />
+        {SCENES.map((s, i) => {
+          const isTrackBreak = i === 5 // before scene 06 — LO track starts
+          return (
+            <React.Fragment key={s.id}>
+              {isTrackBreak && (
+                <>
+                  <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.1)", margin: "0 6px", flexShrink: 0 }} />
+                  <span style={{ fontSize: 7, color: "#F59E0B", letterSpacing: 2, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, flexShrink: 0, opacity: 0.7 }}>LOAN OFFICER</span>
+                  <div style={{ width: 1, height: 16, background: "rgba(245,158,11,0.2)", margin: "0 2px", flexShrink: 0 }} />
+                </>
+              )}
+              <button onClick={() => goScene(i)} style={{ background: i === sceneIdx ? `${s.color}14` : "transparent", border: `1px solid ${i === sceneIdx ? s.color : "rgba(255,255,255,0.06)"}`, borderRadius: 4, padding: "4px 12px", cursor: "pointer", whiteSpace: "nowrap", color: i === sceneIdx ? s.color : "#4B5563", fontSize: 10, fontFamily: "'JetBrains Mono', monospace", letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 7, transition: "all 0.2s", flexShrink: 0 }}>
+                <span style={{ fontSize: 8, opacity: 0.5 }}>{s.num}</span>
+                <span>{s.title}</span>
+                {audioCache.current[s.id] && <span style={{ color: "#10B981", fontSize: 7 }}>✓</span>}
+              </button>
+            </React.Fragment>
+          )
+        })}
         <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.08)", margin: "0 6px", flexShrink: 0 }} />
         <button onClick={() => setShowJoin(true)} style={{ background: "linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.12))", border: "1px solid rgba(0,212,255,0.4)", borderRadius: 4, padding: "4px 14px", cursor: "pointer", whiteSpace: "nowrap", color: "#00D4FF", fontSize: 10, fontFamily: "'JetBrains Mono', monospace", letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, fontWeight: 700, flexShrink: 0 }}>
           <span style={{ fontSize: 8 }}>★</span>
