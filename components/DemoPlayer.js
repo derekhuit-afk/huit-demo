@@ -1566,9 +1566,10 @@ export default function DemoPlayer() {
 
   const fetchAudio = useCallback(async (sc) => {
     if (audioCache.current[sc.id]) return audioCache.current[sc.id]
-    const body = { text: sc.script, voice_id: sc.voiceId || VOICE_ID }
+    const endpoint = sc.voiceId ? "/api/tts-male" : "/api/tts"
+    const body = { text: sc.script }
     if (apiKey) body.api_key = apiKey
-    const res = await fetch("/api/tts", {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
