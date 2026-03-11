@@ -183,35 +183,52 @@ const SCENES = [
   {
     id: 6, num: "06",
     title: "Huit Agent AI",
-    subtitle: "90-Second Qualification",
+    subtitle: "9 Live CRM Tools · Natural Language",
     url: "crmex-huit-agent-ai.vercel.app",
     platform: "HUIT AGENT",
     color: "#8B5CF6",
-    script: `The mortgage industry loses deals at eleven PM every single night. A qualified buyer submits a form. Nobody responds. They move on to the next lender. Huit Agent AI responds in ninety seconds, any time of day or night. It has access to nine live CRM tools: lead lookup, rate data, property values, pipeline status, email drafting — all live. It doesn't just respond — it qualifies. Diana Lane submitted a purchase inquiry at eleven-oh-four PM. By eleven-sixteen PM, Huit Agent AI had gathered her loan type, estimated property value, timeline, and credit range — and scheduled a callback with a licensed loan officer for the following morning. Watch what happens when I type into the chat: "Who should I call today?" — it immediately surfaces Marcus Tran from the hot leads queue. "Draft a rate alert email for Marcus" — it composes a personalized outreach in seconds using his live loan data. Nine live CRM tools. Natural language. Ninety seconds. This is what an AI co-pilot actually looks like when it has real data access.`,
+    script: `Every tool you're about to see is live. Not mocked. Not a chatbot with scripted replies. Huit Agent AI has nine connected CRM tools firing in real time. Watch how they work. Diana Lane submits a purchase inquiry at eleven PM. The agent immediately calls CRM Lead Lookup — no existing record, so it creates one and flags her as a new inbound. It calls AI Lead Scoring — Diana hits a seventy-two, WARM, based on loan type, timeline, and credit range. It calls Calendar Book and schedules a morning callback automatically. That entire intake: twelve minutes. Now watch the loan officer session. The LO types: "Who should I call today?" — the agent calls AI Lead Scoring across the full pipeline, then cross-references Rate Feed to see who crossed the rate sensitivity threshold overnight. It surfaces Marcus Tran — score ninety-four, HOT. "Draft a rate alert email for Marcus" — the agent calls Property Pulse to pull his current equity, hits Rate Feed for today's number, then Email Drafter generates a fully personalized message with his loan balance, equity position, monthly savings, and a Calendly link — all in two seconds. Pipeline View, HMDA Lookup, SMS Trigger — every tool available on demand, in plain English. This isn't AI that helps you remember things. This is AI that works while you sleep.`,
     callouts: [
-      { at: 10, label: "Response Time",  value: "< 90 Seconds",       x: 56, y: 20 },
-      { at: 22, label: "CRM Tools",      value: "9 Live Integrations", x: 56, y: 34 },
-      { at: 32, label: "Diana Lane",     value: "Qualified in 12 Min", x: 56, y: 50 },
-      { at: 46, label: "Who To Call",    value: "Marcus Tran — Score 94", x: 56, y: 64 },
-      { at: 58, label: "Email Draft",    value: "Personalized in 2s",  x: 56, y: 78 },
+      { at: 8,  label: "CRM Lead Lookup",  value: "New Lead Created",       x: 56, y: 18 },
+      { at: 18, label: "AI Lead Scoring",  value: "Diana → Score 72 WARM",  x: 56, y: 30 },
+      { at: 28, label: "Calendar Book",    value: "Callback Scheduled",      x: 56, y: 44 },
+      { at: 42, label: "Rate Feed + Scoring", value: "Marcus Tran — 94 HOT",x: 56, y: 58 },
+      { at: 56, label: "Property Pulse + Email", value: "Draft in 2s",      x: 56, y: 72 },
     ],
     screenData: {
-      header: { tabs: ["Chat", "Tools", "History", "Settings"], active: "Chat" },
-      tools: ["CRM Lead Lookup", "AI Lead Scoring", "Rate Feed", "Property Pulse", "Email Drafter", "Pipeline View", "HMDA Lookup", "Calendar Book", "SMS Trigger"],
+      tools: [
+        { name: "CRM Lead Lookup",  icon: "🔍", color: "#00D4FF", status: "ACTIVE", lastCall: "11:04 PM", desc: "Search & create contacts by name, phone, or email", lastResult: "New record: Diana Lane · HOT flagged" },
+        { name: "AI Lead Scoring",  icon: "⚡", color: "#8B5CF6", status: "ACTIVE", lastCall: "9:02 AM",  desc: "Behavioral + equity model · Score 0–100", lastResult: "Marcus Tran → 94 / HOT" },
+        { name: "Rate Feed",        icon: "📈", color: "#10B981", status: "ACTIVE", lastCall: "9:02 AM",  desc: "Live 30yr Conv, FHA, VA rate pull", lastResult: "30yr Conv: 6.58% (↓0.16%)" },
+        { name: "Property Pulse",   icon: "🏠", color: "#F59E0B", status: "ACTIVE", lastCall: "9:03 AM",  desc: "AVM + equity calc on subject property", lastResult: "Marcus: $182K equity · $485K bal" },
+        { name: "Email Drafter",    icon: "✉",  color: "#EC4899", status: "ACTIVE", lastCall: "9:03 AM",  desc: "Generates personalized outreach from loan data", lastResult: "Rate alert email · 4 fields merged" },
+        { name: "Pipeline View",    icon: "📊", color: "#F59E0B", status: "IDLE",   lastCall: "8:44 AM",  desc: "Current pipeline stats and open loan count", lastResult: "$48.7M active · 34 HOT leads" },
+        { name: "HMDA Lookup",      icon: "🗂",  color: "#7C3AED", status: "IDLE",   lastCall: "8:31 AM",  desc: "Query 7yr HMDA dataset for market intel", lastResult: "AK refi volume ↑14% YoY" },
+        { name: "Calendar Book",    icon: "📅", color: "#00D4FF", status: "ACTIVE", lastCall: "11:14 PM", desc: "Schedule callbacks and appointments", lastResult: "Diana Lane · 9:00 AM callback" },
+        { name: "SMS Trigger",      icon: "💬", color: "#10B981", status: "IDLE",   lastCall: "11:15 PM", desc: "Send confirmation or alert texts via RCS/SMS", lastResult: "Confirmation sent to Diana +1 (907)…" },
+      ],
       messages: [
-        { role: "user", text: "Hi — I saw an ad for homes in Wasilla and think I might be ready to buy. My name is Diana Lane.", time: "11:04 PM" },
-        { role: "ai",   text: "Hi Diana! Huit Agent AI here — I can help get you started and connect you with a licensed loan officer right away. Are you looking to purchase a primary residence in Wasilla?", time: "11:04 PM" },
-        { role: "user", text: "Yes, primary residence. Looking at homes around $450,000.", time: "11:06 PM" },
-        { role: "ai",   text: "Perfect. Roughly what's your credit score range? (Excellent 740+, Good 680–739, Fair 620–679)", time: "11:07 PM" },
-        { role: "user", text: "Around 720, maybe a little higher.", time: "11:09 PM" },
-        { role: "ai",   text: "Strong profile for conventional financing. What's your timeline — purchasing in the next 30–90 days?", time: "11:10 PM" },
-        { role: "user", text: "Yes, about 60 days. Found a neighborhood we love.", time: "11:12 PM" },
-        { role: "ai",   text: "I have everything I need. Flagging your file HOT and scheduling a callback for tomorrow morning. You'll get a confirmation text shortly. Welcome to Alaska homeownership, Diana. NMLS #203980", time: "11:14 PM" },
-        { role: "divider", text: "— LO Command Session · 9:02 AM —", time: "" },
-        { role: "lo",   text: "Who should I call today?", time: "9:02 AM" },
-        { role: "ai",   text: "🔥 Top Priority: Marcus Tran — Score 94 / HOT. Cash-out refi, $485K loan, $182K equity in Wasilla. Engaged 48 hrs ago via Facebook ad. No outreach yet. Call him first.", time: "9:02 AM", highlight: true },
-        { role: "lo",   text: "Draft a rate alert email for Marcus.", time: "9:03 AM" },
-        { role: "ai",   text: "Subject: Marcus — rates just moved, your equity window is open\n\nHi Marcus — Derek Huit here. Rates dropped to 6.58% this week. On your $485K loan at 7.25%, that's roughly a $247/month opportunity — and with $182K in equity built up, you may also qualify for a cash-out. I'd love to walk you through the numbers. 15 minutes: calendly.com/derekhuit\n\nDerek Huit | Huit.AI | NMLS #203980", time: "9:03 AM", isEmail: true },
+        { role: "user",     text: "Hi — I saw an ad for homes in Wasilla and think I might be ready to buy. My name is Diana Lane.", time: "11:04 PM" },
+        { role: "toolcall", tool: "CRM Lead Lookup", input: "name: Diana Lane", result: "No existing record — creating new contact", time: "11:04 PM", color: "#00D4FF" },
+        { role: "ai",       text: "Hi Diana! Huit Agent AI here — I can help get you started and connect you with a licensed loan officer. Are you looking to purchase a primary residence in Wasilla?", time: "11:04 PM" },
+        { role: "user",     text: "Yes, primary residence. Looking at homes around $450,000.", time: "11:06 PM" },
+        { role: "ai",       text: "Got it. Roughly what's your credit score range? (Excellent 740+, Good 680–739, Fair 620–679)", time: "11:07 PM" },
+        { role: "user",     text: "Around 720, maybe a little higher.", time: "11:09 PM" },
+        { role: "ai",       text: "Strong profile for conventional financing. What's your timeline — purchasing in the next 30–90 days?", time: "11:10 PM" },
+        { role: "user",     text: "Yes, about 60 days. Found a neighborhood we love.", time: "11:12 PM" },
+        { role: "toolcall", tool: "AI Lead Scoring",  input: "Diana Lane · $450K purchase · 720 credit · 60-day timeline", result: "Score: 72 / WARM — flagging for morning callback", time: "11:13 PM", color: "#8B5CF6" },
+        { role: "toolcall", tool: "Calendar Book",    input: "New lead: Diana Lane · callback request", result: "Scheduled: Tomorrow 9:00 AM with Derek Huit", time: "11:13 PM", color: "#00D4FF" },
+        { role: "toolcall", tool: "SMS Trigger",      input: "Diana Lane · confirmation message", result: "SMS sent: 'Hi Diana, callback confirmed for 9 AM tomorrow — Derek Huit, NMLS #203980'", time: "11:14 PM", color: "#10B981" },
+        { role: "ai",       text: "I have everything I need, Diana. I've flagged your file and scheduled a callback with Derek Huit for tomorrow at 9:00 AM. You'll receive a confirmation text in the next minute. Welcome to Alaska homeownership. NMLS #203980", time: "11:14 PM" },
+        { role: "divider",  text: "— LO Command Session · 9:02 AM —", time: "" },
+        { role: "lo",       text: "Who should I call today?", time: "9:02 AM" },
+        { role: "toolcall", tool: "AI Lead Scoring",  input: "Full pipeline rescore · rate sensitivity filter", result: "Top result: Marcus Tran — Score 94 / HOT · crossed threshold overnight", time: "9:02 AM", color: "#8B5CF6" },
+        { role: "toolcall", tool: "Rate Feed",        input: "30yr Conventional · today", result: "6.58% — down 0.16% from Monday · 12 contacts crossed sensitivity threshold", time: "9:02 AM", color: "#10B981" },
+        { role: "ai",       text: "🔥 Top Priority: Marcus Tran — Score 94 / HOT. Cash-out refi, $485K loan, $182K equity in Wasilla. Engaged 48 hrs ago via Facebook ad. No outreach yet. Call him first.", time: "9:02 AM", highlight: true },
+        { role: "lo",       text: "Draft a rate alert email for Marcus.", time: "9:03 AM" },
+        { role: "toolcall", tool: "Property Pulse",   input: "Marcus Tran · subject property Wasilla AK", result: "$485K loan balance · $182K equity · AVM $667K", time: "9:03 AM", color: "#F59E0B" },
+        { role: "toolcall", tool: "Email Drafter",    input: "Marcus Tran · rate drop alert · equity refi opportunity", result: "4-field personalized email generated — loan bal, equity, savings, Calendly", time: "9:03 AM", color: "#EC4899" },
+        { role: "ai",       text: "Subject: Marcus — rates just moved, your equity window is open\n\nHi Marcus — Derek Huit here. Rates dropped to 6.58% this week. On your $485K loan at 7.25%, that's roughly a $247/month opportunity — and with $182K in equity built up, you may also qualify for a cash-out. I'd love to walk you through the numbers. 15 minutes: calendly.com/derekhuit\n\nDerek Huit | Huit.AI | NMLS #203980", time: "9:03 AM", isEmail: true },
       ],
     },
   },
@@ -693,67 +710,143 @@ function Screen_LeadScoring({ data, color }) {
 }
 
 function Screen_AgentAI({ data, color }) {
-  const { header, tools, messages } = data
+  const { tools, messages } = data
+  const activeTools = tools.filter(t => t.status === "ACTIVE")
+  const idleTools   = tools.filter(t => t.status === "IDLE")
   return (
-    <div style={{ height: "100%", display: "flex", fontFamily: "'JetBrains Mono', monospace", background: "#060C14" }}>
-      {/* Tools sidebar */}
-      <div style={{ width: 160, borderRight: "1px solid rgba(139,92,246,0.15)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-        <div style={{ background: "#0A1628", borderBottom: `1px solid ${color}22`, height: 38, display: "flex", alignItems: "center", padding: "0 12px" }}>
-          <span style={{ color, fontWeight: 700, fontSize: 10, letterSpacing: 2 }}>AGENT AI</span>
+    <div style={{ height:"100%", display:"flex", fontFamily:"'JetBrains Mono',monospace", background:"#060C14", overflow:"hidden" }}>
+
+      {/* ── Tools sidebar ─────────────────────────────────── */}
+      <div style={{ width:220, borderRight:`1px solid ${color}18`, display:"flex", flexDirection:"column", flexShrink:0, overflow:"hidden" }}>
+        {/* Header */}
+        <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, height:38, display:"flex", alignItems:"center", padding:"0 12px", gap:8, flexShrink:0 }}>
+          <div style={{ width:6, height:6, borderRadius:"50%", background:"#10B981", boxShadow:"0 0 6px #10B981" }} />
+          <span style={{ color, fontWeight:700, fontSize:10, letterSpacing:2 }}>AGENT AI</span>
+          <span style={{ marginLeft:"auto", fontSize:8, color:"#10B981" }}>9 TOOLS</span>
         </div>
-        <div style={{ padding: "10px 12px" }}>
-          <div style={{ fontSize: 8, color: "#6B7280", letterSpacing: 2, marginBottom: 8 }}>ACTIVE TOOLS</div>
-          {tools.map(t => (
-            <div key={t} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
-              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#10B981" }} />
-              <span style={{ fontSize: 8, color: "#6B7280" }}>{t}</span>
+
+        <div style={{ flex:1, overflowY:"auto", padding:"8px 0" }}>
+          {/* Active tools */}
+          <div style={{ padding:"0 10px 4px", fontSize:7, color:color, letterSpacing:2, fontWeight:700 }}>ACTIVE · {activeTools.length}</div>
+          {activeTools.map((t,i) => (
+            <div key={i} style={{ margin:"0 8px 4px", padding:"7px 9px", background:`${t.color}08`, border:`1px solid ${t.color}25`, borderRadius:6, position:"relative", overflow:"hidden" }}>
+              <div style={{ position:"absolute", left:0, top:0, bottom:0, width:2, background:t.color, borderRadius:"2px 0 0 2px" }} />
+              <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:4 }}>
+                <span style={{ fontSize:10 }}>{t.icon}</span>
+                <span style={{ fontSize:8, color:t.color, fontWeight:700, flex:1 }}>{t.name}</span>
+                <span style={{ fontSize:7, color:"#10B981", padding:"1px 5px", background:"rgba(16,185,129,0.12)", borderRadius:8 }}>LIVE</span>
+              </div>
+              <div style={{ fontSize:7, color:"#6B7280", lineHeight:1.4, marginBottom:4 }}>{t.desc}</div>
+              <div style={{ padding:"4px 6px", background:"rgba(255,255,255,0.03)", borderRadius:4 }}>
+                <div style={{ fontSize:6, color:"#374151", letterSpacing:1, marginBottom:1 }}>LAST RESULT</div>
+                <div style={{ fontSize:7, color:"#9CA3AF", lineHeight:1.4 }}>{t.lastResult}</div>
+              </div>
+              <div style={{ fontSize:6, color:"#374151", marginTop:3 }}>Called {t.lastCall}</div>
             </div>
           ))}
-          <div style={{ marginTop: 10, padding: "6px 8px", background: `${color}10`, border: `1px solid ${color}25`, borderRadius: 4 }}>
-            <div style={{ fontSize: 8, color, letterSpacing: 1 }}>STATUS</div>
-            <div style={{ fontSize: 12, fontWeight: 800, color, marginTop: 2 }}>ACTIVE</div>
+
+          {/* Idle tools */}
+          <div style={{ padding:"6px 10px 4px", fontSize:7, color:"#4B5563", letterSpacing:2, fontWeight:700, marginTop:2 }}>STANDBY · {idleTools.length}</div>
+          {idleTools.map((t,i) => (
+            <div key={i} style={{ margin:"0 8px 3px", padding:"6px 9px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.05)", borderRadius:6 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:3 }}>
+                <span style={{ fontSize:10, opacity:0.5 }}>{t.icon}</span>
+                <span style={{ fontSize:8, color:"#4B5563", fontWeight:600, flex:1 }}>{t.name}</span>
+                <span style={{ fontSize:7, color:"#374151", padding:"1px 5px", background:"rgba(255,255,255,0.04)", borderRadius:8 }}>IDLE</span>
+              </div>
+              <div style={{ fontSize:7, color:"#374151", lineHeight:1.4 }}>{t.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Status footer */}
+        <div style={{ padding:"8px 10px", borderTop:`1px solid ${color}15`, background:"#080E1A", flexShrink:0 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+            <span style={{ fontSize:7, color:"#6B7280" }}>Model</span>
+            <span style={{ fontSize:7, color:color }}>Huit Agent v2</span>
+          </div>
+          <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+            <span style={{ fontSize:7, color:"#6B7280" }}>Compliance</span>
+            <span style={{ fontSize:7, color:"#10B981" }}>SAFE Act · Reg Z</span>
+          </div>
+          <div style={{ display:"flex", justifyContent:"space-between" }}>
+            <span style={{ fontSize:7, color:"#6B7280" }}>Identity</span>
+            <span style={{ fontSize:7, color:"#4B5563" }}>NMLS #203980</span>
           </div>
         </div>
       </div>
-      {/* Chat */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <div style={{ background: "#0A1628", borderBottom: `1px solid ${color}22`, padding: "0 14px", height: 38, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981" }} />
-            <span style={{ fontSize: 11, color, fontWeight: 700 }}>Huit Agent AI</span>
+
+      {/* ── Chat ──────────────────────────────────────────── */}
+      <div style={{ flex:1, display:"flex", flexDirection:"column", overflow:"hidden" }}>
+        {/* Chat header */}
+        <div style={{ background:"#080E1A", borderBottom:`1px solid ${color}22`, padding:"0 14px", height:38, display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <div style={{ width:7, height:7, borderRadius:"50%", background:"#10B981", boxShadow:"0 0 5px #10B981" }} />
+            <span style={{ fontSize:11, color, fontWeight:700 }}>Huit Agent AI</span>
+            <span style={{ fontSize:8, color:"#374151" }}>· 9 tools connected</span>
           </div>
-          <span style={{ fontSize: 8, color: "#6B7280" }}>Diana Lane → Marcus Tran · Live Session</span>
+          <div style={{ display:"flex", gap:12 }}>
+            {["Chat","Tools","History","Settings"].map((t,i) => (
+              <span key={t} style={{ fontSize:8, color: i===0?color:"#4B5563", borderBottom: i===0?`1px solid ${color}`:"none", paddingBottom:2 }}>{t}</span>
+            ))}
+          </div>
         </div>
-        <div style={{ flex: 1, overflowY: "auto", padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8 }}>
-          {messages.map((m, i) => {
+
+        {/* Messages */}
+        <div style={{ flex:1, overflowY:"auto", padding:"10px 14px", display:"flex", flexDirection:"column", gap:6 }}>
+          {messages.map((m,i) => {
+            // Divider
             if (m.role === "divider") return (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, margin: "6px 0" }}>
-                <div style={{ flex: 1, height: 1, background: `${color}30` }} />
-                <span style={{ fontSize: 8, color: color, letterSpacing: 1.5, fontWeight: 700 }}>{m.text}</span>
-                <div style={{ flex: 1, height: 1, background: `${color}30` }} />
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:8, margin:"8px 0" }}>
+                <div style={{ flex:1, height:1, background:`${color}25` }} />
+                <span style={{ fontSize:8, color, letterSpacing:1.5, fontWeight:700 }}>{m.text}</span>
+                <div style={{ flex:1, height:1, background:`${color}25` }} />
               </div>
             )
-            const isRight = m.role === "user" || m.role === "lo"
-            const bgColor = isRight ? "rgba(255,255,255,0.05)" : m.highlight ? `${color}22` : m.isEmail ? "rgba(16,185,129,0.08)" : `${color}14`
-            const borderColor = isRight ? "rgba(255,255,255,0.08)" : m.highlight ? color : m.isEmail ? "rgba(16,185,129,0.35)" : `${color}33`
+            // Tool call bubble
+            if (m.role === "toolcall") return (
+              <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"6px 10px", background:`${m.color}08`, border:`1px dashed ${m.color}30`, borderRadius:6, margin:"0 0 0 0" }}>
+                <div style={{ width:16, height:16, borderRadius:3, background:`${m.color}18`, border:`1px solid ${m.color}40`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, flexShrink:0, marginTop:1 }}>⚙</div>
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ display:"flex", gap:8, alignItems:"center", marginBottom:3 }}>
+                    <span style={{ fontSize:8, color:m.color, fontWeight:700 }}>{m.tool}</span>
+                    <span style={{ fontSize:7, color:"#374151" }}>function call</span>
+                    <span style={{ fontSize:7, color:"#374151", marginLeft:"auto" }}>{m.time}</span>
+                  </div>
+                  <div style={{ fontSize:7, color:"#4B5563", marginBottom:3 }}>
+                    <span style={{ color:"#374151" }}>input: </span>{m.input}
+                  </div>
+                  <div style={{ fontSize:7, color:"#6B7280", padding:"3px 6px", background:"rgba(255,255,255,0.03)", borderRadius:3, borderLeft:`2px solid ${m.color}` }}>
+                    <span style={{ color:`${m.color}CC` }}>→ </span>{m.result}
+                  </div>
+                </div>
+              </div>
+            )
+            // Regular user / lo / ai messages
+            const isRight  = m.role === "user" || m.role === "lo"
+            const bgColor  = isRight ? "rgba(255,255,255,0.05)" : m.highlight ? `${color}22` : m.isEmail ? "rgba(16,185,129,0.08)" : `${color}10`
+            const bdrColor = isRight ? "rgba(255,255,255,0.08)" : m.highlight ? color : m.isEmail ? "rgba(16,185,129,0.35)" : `${color}28`
+            const label    = m.role === "lo" ? "Loan Officer" : m.role === "user" ? "Diana Lane" : "Huit Agent AI"
             return (
-              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: isRight ? "flex-end" : "flex-start" }}>
-                {m.isEmail && (
-                  <div style={{ fontSize: 8, color: "#10B981", letterSpacing: 1.5, marginBottom: 3, fontWeight: 700 }}>✉ EMAIL DRAFT — READY TO SEND</div>
-                )}
-                {m.highlight && (
-                  <div style={{ fontSize: 8, color, letterSpacing: 1.5, marginBottom: 3, fontWeight: 700 }}>🔥 TOP PRIORITY CALL</div>
-                )}
-                <div style={{ maxWidth: "85%", background: bgColor, border: `1px solid ${borderColor}`, borderRadius: 6, padding: "7px 10px", fontSize: 10, color: "#E2E8F0", lineHeight: 1.6, whiteSpace: "pre-wrap", boxShadow: m.highlight ? `0 0 12px ${color}33` : m.isEmail ? "0 0 12px rgba(16,185,129,0.2)" : "none" }}>{m.text}</div>
-                <div style={{ fontSize: 8, color: "#374151", marginTop: 2 }}>{m.time}</div>
+              <div key={i} style={{ display:"flex", flexDirection:"column", alignItems: isRight ? "flex-end" : "flex-start" }}>
+                {m.isEmail && <div style={{ fontSize:7, color:"#10B981", letterSpacing:1.5, marginBottom:2, fontWeight:700 }}>✉ EMAIL DRAFT — READY TO SEND</div>}
+                {m.highlight && <div style={{ fontSize:7, color, letterSpacing:1.5, marginBottom:2, fontWeight:700 }}>🔥 TOP PRIORITY CALL</div>}
+                <div style={{ fontSize:7, color:"#374151", marginBottom:2 }}>{label}</div>
+                <div style={{ maxWidth:"82%", background:bgColor, border:`1px solid ${bdrColor}`, borderRadius:6, padding:"7px 10px", fontSize:9, color:"#E2E8F0", lineHeight:1.6, whiteSpace:"pre-wrap", boxShadow: m.highlight?`0 0 12px ${color}33`:m.isEmail?"0 0 10px rgba(16,185,129,0.15)":"none" }}>{m.text}</div>
+                <div style={{ fontSize:7, color:"#374151", marginTop:2 }}>{m.time}</div>
               </div>
             )
           })}
         </div>
-        <div style={{ borderTop: `1px solid ${color}22`, padding: "8px 14px" }}>
-          <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${color}25`, borderRadius: 5, padding: "7px 10px", fontSize: 9, color: "#374151", display: "flex", justifyContent: "space-between" }}>
-            <span>Ask Huit Agent AI anything...</span>
-            <span style={{ color, fontSize: 8 }}>NMLS #203980</span>
+
+        {/* Input bar */}
+        <div style={{ borderTop:`1px solid ${color}18`, padding:"8px 14px", flexShrink:0 }}>
+          <div style={{ background:"rgba(255,255,255,0.03)", border:`1px solid ${color}20`, borderRadius:6, padding:"7px 12px", fontSize:9, color:"#374151", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <span>Ask Huit Agent AI — "pull my pipeline", "who's hot today", "draft an email for..."</span>
+            <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+              <span style={{ fontSize:7, color:"#374151" }}>9 tools ready</span>
+              <div style={{ width:20, height:20, borderRadius:4, background:`${color}18`, border:`1px solid ${color}33`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:9, color }}>↑</div>
+            </div>
           </div>
         </div>
       </div>
